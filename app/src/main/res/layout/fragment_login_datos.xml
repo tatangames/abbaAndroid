@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootRelative"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- Texto -->
+                <ImageView
+                    android:id="@+id/imgFlechaAtras"
+                    android:layout_width="35dp"
+                    android:layout_height="30dp"
+                    android:contentDescription="@string/flecha_atras"
+                    android:src="@drawable/ic_arrow_left" />
+
+                <!-- Botón a la derecha del texto -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_toEndOf="@id/imgFlechaAtras"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="@string/ingresar"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+            </RelativeLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:id="@+id/inputCorreo"
+                style="@style/Style_TextInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                app:boxStrokeColor="@color/selector_line_color"
+                app:boxStrokeWidth="1dp"
+                app:errorIconDrawable="@null"
+                app:errorTextAppearance="@style/Style_ErrorInput"
+                app:hintTextColor="@color/colorTextoGris"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtCorreo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="@string/correo_electronico"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="200"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="normal"
+                    app:hintTextAppearance="@style/Style_HintInput" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:id="@+id/inputContrasena"
+                style="@style/Style_TextInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="16dp"
+                app:boxStrokeColor="@color/selector_line_color"
+                app:boxStrokeWidth="1dp"
+                app:errorIconDrawable="@null"
+                app:errorTextAppearance="@style/Style_ErrorInput"
+                app:hintTextColor="@color/colorTextoGris"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputCorreo"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtContrasena"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="@string/contrasena"
+                    android:inputType="textPassword"
+                    android:maxLength="100"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="normal"
+                    app:hintTextAppearance="@style/Style_HintInput" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="100dp"
+                android:background="@drawable/boton_redondeado_gris"
+                android:fontFamily="@font/elvetica_medium"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textAllCaps="false"
+                android:text="@string/continuar"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputContrasena"
+                app:layout_constraintVertical_bias="0.0" />
+
+
+            <TextView
+                android:id="@+id/btnOlvide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="60dp"
+                android:fontFamily="@font/aktivgroteskcorp_bold"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="5dp"
+                android:text="@string/olvido_su_contrasena"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</RelativeLayout>
+
+

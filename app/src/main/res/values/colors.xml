@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#448AFF</color>
+    <color name="colorSecondaryText">#757575</color>
+    <color name="colorDivider">#BDBDBD</color>
+
+    <color name="colorProgress">#ff3d4d</color>
+
+
+
+    <color name="colorRed">#f44336</color>
+
+    <color name="colorShimmer">#BFBEBE</color>
+    <color name="colorBtnContornoGris">#818181</color>
+    <color name="colorTextoGris">#707070</color>
+    <color name="colorRojo">#FF0000</color>
+
+    <color name="colorErrorText">#FF0000</color>
+
+
+
+
+    <color name="colorGrisBotonRegistro">#e2e2e2</color>
+    <color name="colorGrisBotonRegistroTexto">#939393</color>
+
+
+    <color name="colorFocused">#0569FF</color> <!-- Color cuando el TextInputEditText está enfocado -->
+    <color name="colorUnfocused">#000000</color> <!-- Color cuando el TextInputEditText no está enfocado -->
+    <color name="colorHint">#808080</color> <!-- Color del texto Hint -->
+    <color name="colorUnderline">#FF0000</color>
+
+</resources>
+
+
