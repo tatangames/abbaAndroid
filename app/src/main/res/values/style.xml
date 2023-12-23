@@ -22,6 +22,7 @@
         <item name="android:background">@drawable/btn_style_registro_gris</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Style_TextInput" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="boxStrokeColor">@color/black</item>

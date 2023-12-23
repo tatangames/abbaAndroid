@@ -37,6 +37,9 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
+    implementation("androidx.navigation:navigation-fragment:2.7.6")
+    implementation("androidx.navigation:navigation-ui:2.7.6")
+
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.5.0") //rxjava
     implementation("com.squareup.retrofit2:converter-gson:2.5.0") //rxjava
     implementation("io.reactivex.rxjava2:rxandroid:2.1.0") //rxjava

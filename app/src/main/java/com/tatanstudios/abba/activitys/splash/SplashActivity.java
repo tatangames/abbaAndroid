@@ -46,17 +46,13 @@ public class SplashActivity extends AppCompatActivity {
             // inicio automatico con token que iria en el SPLASH
             if(tokenManager.getIdUsuario().getId() != null){
 
-                Intent intentLogin = new Intent(this, LoginActivity.class);
-                startActivity(intentLogin);
-                finish();
-
                 // Siguiente Actvity
-                //Intent intent = new Intent(this, PrincipalActivity.class);
-                //startActivity(intent);
+                Intent intent = new Intent(this, PrincipalActivity.class);
+                startActivity(intent);
 
                 // Animación personalizada de entrada
-                //overridePendingTransition(R.anim.slide_in_right_activity, R.anim.slide_out_left_activity);
-                //finish();
+                overridePendingTransition(R.anim.slide_in_right_activity, R.anim.slide_out_left_activity);
+                finish();
 
             }else {
 
