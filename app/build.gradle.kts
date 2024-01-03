@@ -25,9 +25,17 @@ android {
             )
         }
     }
+
+
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    buildFeatures {
+        dataBinding; true
+        viewBinding; true
     }
 }
 
@@ -50,6 +58,10 @@ dependencies {
 
     implementation("com.github.GrenderG:Toasty:1.5.2")
     implementation("com.github.TutorialsAndroid:KAlertDialog:v7.0.19")
+
+    // manejador de imagenes
+    implementation("com.github.bumptech.glide:glide:4.13.2") // glide imagenes
+    annotationProcessor("com.github.bumptech.glide:compiler:4.13.2") // glide soporte
 
 
     testImplementation("junit:junit:4.13.2")

@@ -19,8 +19,8 @@
 
             <ImageView
                 android:id="@+id/logoapp"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_marginTop="60dp"
                 android:contentDescription="@string/logo"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -34,75 +34,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/logoapp">
 
 
-                <!-- BLOQUE SHIMMER -->
-
-
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    android:id="@+id/shimmer"
+                <TextView
+                    android:id="@+id/txtTitulo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/grey_sans_black"
+                    android:gravity="center"
+                    android:text="@string/bienvenidos_a_abba_app"
+                    android:lineSpacingExtra="12dp"
+                    android:textColor="@color/black"
+                    android:textSize="26sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/logoapp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <include layout="@layout/shimmer_login"></include>
-                    </LinearLayout>
-                </com.facebook.shimmer.ShimmerFrameLayout>
-
-
-                <!-- BLOQUE DE TEXTO PARA REFRAN - API -->
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayoutRefran"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/logoapp">
-
-                    <TextView
-                        android:id="@+id/txtRefran"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="64dp"
-                        android:layout_marginEnd="64dp"
-                        android:fontFamily="@font/janson_bold"
-                        android:gravity="left"
-                        android:lineSpacingExtra="12dp"
-                        android:textColor="@color/black"
-                        android:textSize="32sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/txtSalmo"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:fontFamily="@font/aktivgroteskcorp_medium"
-                        android:textColor="@color/black"
-                        android:textSize="13sp"
-                        app:layout_constraintEnd_toEndOf="@+id/txtRefran"
-                        app:layout_constraintStart_toStartOf="@+id/txtRefran"
-                        app:layout_constraintTop_toBottomOf="@+id/txtRefran" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
             </LinearLayout>
@@ -114,14 +66,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="55dp"
+                android:layout_marginTop="65dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/elvetica_medium"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:textSize="18sp"
-                android:textAllCaps="false"
                 android:text="@string/registrarse"
+                android:textAllCaps="false"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bloqueLinear" />
@@ -145,23 +97,40 @@
 
 
             <TextView
+                android:id="@+id/txtFinal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="75dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="75dp"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:text="@string/levantado_el_ejercito"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnIngresar" />
+
+            <TextView
                 android:id="@+id/btnIngresar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="75dp"
                 android:fontFamily="@font/aktivgroteskcorp_bold"
                 android:gravity="center"
-                android:paddingLeft="5dp"
+                android:paddingLeft="15dp"
                 android:paddingTop="5dp"
-                android:paddingRight="5dp"
+                android:paddingRight="15dp"
                 android:paddingBottom="5dp"
                 android:text="@string/ingresar"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtTienesCuenta" />

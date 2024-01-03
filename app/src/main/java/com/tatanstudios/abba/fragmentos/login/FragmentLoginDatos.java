@@ -191,7 +191,6 @@ public class FragmentLoginDatos extends Fragment {
                 service.inicioSesion(txtCorreo, txtContrasena, idfirebase)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .retry()
                         .subscribe(apiRespuesta -> {
 
                                     progressBar.setVisibility(View.GONE);

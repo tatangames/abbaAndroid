@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Abba Internacional</string>
+    <string name="version_app">V. 1.0.0</string>
+
+    <string name="abba_internacional">Abba International</string>
+    <string name="logo">Logo</string>
+    <string name="continuar_con_correo">Continuar con correo</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="ya_tines_una_cuenta">¿Ya tienes una cuenta?</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="primer_nombre">Primer Nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="correo_electronico">Correo electrónico</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="crear_cuenta">Crear cuenta</string>
+    <string name="direccion_correo_invalida">Lo sentimos, no es una dirección de correo válida</string>
+    <string name="contrasena_minimo_6">Lo sentimos, contraseñas requieren mínimo 6 caracteres</string>
+    <string name="error_intentar_de_nuevo">Error, intentar de nuevo</string>
+    <string name="es_correcta_esta_direccion">¿Es correcta esta dirección de correo?</string>
+    <string name="editar">Editar</string>
+    <string name="se_ve_genial">Se ve genial</string>
+    <string name="flecha_atras">Flecha Atras</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="correo_ya_registrado">El correo ya se encuentra registrado</string>
+    <string name="registrado_correctamente">Registrado correctamente</string>
+    <string name="continuar">Continuar</string>
+    <string name="correo_o_contrasena_incorrectos">Correo o contraseña incorrectos</string>
+    <string name="lo_siento_algo_salio_mal">Lo siento, algo salio mal :(</string>
+    <string name="olvido_su_contrasena">¿Olvido su contraseña?</string>
+    <string name="escribe_tu_correo_electronico">Escribe tu correo electrónico o usuario, y te enviaremos un enlace para restablecer tu contraseña</string>
+    <string name="correo">Correo</string>
+    <string name="enviar">Enviar</string>
+    <string name="inicio">Inicio</string>
+    <string name="biblia">Biblia</string>
+    <string name="planes">Planes</string>
+    <string name="mas">Más</string>
+    <string name="notificaciones">Notificaciones</string>
+    <string name="versiculo_del_dia">Versículo del Día</string>
+    <string name="sin_conexion_a_internet">Sin conexión a Internet</string>
+    <string name="por_favor_asegurate_tener">Por favor asegúrate tener servicio de internet para usar esta función.</string>
+    <string name="videos">Videos</string>
+    <string name="temas">Temas</string>
+    <string name="oscuro">Oscuro</string>
+    <string name="claro">Claro</string>
+    <string name="eventos">Eventos</string>
+    <string name="insignias">Insignias</string>
+    <string name="acerca_de">Acerca de</string>
+    <string name="idioma">Idioma</string>
+    <string name="configuracion">Configuración</string>
+    <string name="ayuda">Ayuda</string>
+    <string name="marcadores">Marcadores</string>
+    <string name="notas">Notas</string>
+    <string name="amigos">Amigos</string>
+    <string name="ora">Ora</string>
+    <string name="imagenes">Imágenes</string>
+    <string name="resaltados">Resaltados</string>
+    <string name="historial">Historial</string>
+    <string name="oracion">Oración</string>
+    <string name="cerrar_sesion">Cerrar Sesión</string>
+    <string name="si">Si</string>
+    <string name="no">No</string>
+    <string name="cancelar">Cancelar</string>
+
+
+
+
+
+    <string name="bienvenidos_a_abba_app">Welcome to Abba App</string>
+    <string name="levantado_el_ejercito">Raising up the mighty army of God</string>
+
+
+</resources>
