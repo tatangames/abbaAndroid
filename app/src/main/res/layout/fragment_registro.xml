@@ -196,7 +196,7 @@
 
 
                     <Spinner
-                        android:id="@+id/zonaSpinner"
+                        android:id="@+id/estadoSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -206,7 +206,7 @@
 
 
                     <Spinner
-                        android:id="@+id/iglesiaSpinner"
+                        android:id="@+id/ciudadSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"

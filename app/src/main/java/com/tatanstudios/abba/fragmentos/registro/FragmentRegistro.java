@@ -68,7 +68,7 @@ public class FragmentRegistro extends Fragment {
     private boolean boolCorreo, boolContrasena = false;
     private TokenManager tokenManager;
 
-    private Spinner spinGenero, spinPais, spinZona, iglesiaSpinner;
+    private Spinner spinGenero, spinPais, spinEstado, spinCiudad;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -90,8 +90,8 @@ public class FragmentRegistro extends Fragment {
 
         spinGenero = vista.findViewById(R.id.generoSpinner);
         spinPais = vista.findViewById(R.id.paisSpinner);
-        spinZona = vista.findViewById(R.id.zonaSpinner);
-        iglesiaSpinner = vista.findViewById(R.id.iglesiaSpinner);
+        spinEstado = vista.findViewById(R.id.estadoSpinner);
+        spinCiudad = vista.findViewById(R.id.ciudadSpinner);
 
 
         btnRegistro = vista.findViewById(R.id.btnRegistro);
@@ -235,6 +235,8 @@ public class FragmentRegistro extends Fragment {
 
     private void llenarSpinner(){
 
+        // GENEROS
+
         String[] listaGeneros = getResources().getStringArray(R.array.generos_array);
 
         AdaptadorSpinnerGenero generoAdapter = new AdaptadorSpinnerGenero(getContext(), android.R.layout.simple_spinner_item, listaGeneros);
@@ -243,38 +245,77 @@ public class FragmentRegistro extends Fragment {
         spinGenero.setAdapter(generoAdapter);
 
 
-        // ***************************
+        // *********** PAISES ****************
 
-        String[] listaPais = getResources().getStringArray(R.array.pais_array);
+        String[] listaPais = getResources().getStringArray(R.array.paises_array);
+
+        /*AdaptadorSpinnerPais paisAdapter = new AdaptadorSpinnerPais(getContext(), android.R.layout.simple_spinner_item, listaPais);
+        paisAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinPais.setAdapter(paisAdapter);*/
+
+
+        // *********** ESTADOS *****************
+
+
+
+
+
+
+        // Define los conjuntos de datos para ambos Spinners
+        /*final String[] pais = getResources().getStringArray(R.array.paises_array);
+        final Map<String, String[]> subZonasMap = new HashMap<>();
+        subZonasMap.put(pais[0], getResources().getStringArray(R.array.vacio_array));
+        subZonasMap.put(pais[1], getResources().getStringArray(R.array.estados_elsalvador_array));
+        subZonasMap.put(pais[2], getResources().getStringArray(R.array.estados_guatemala_array));*/
+
+        /*ArrayAdapter<String> subZonaAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, new String[]{});
+        subZonaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinZona.setAdapter(subZonaAdapter);*/
+
+
+
 
         AdaptadorSpinnerPais paisAdapter = new AdaptadorSpinnerPais(getContext(), android.R.layout.simple_spinner_item, listaPais);
         paisAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         spinPais.setAdapter(paisAdapter);
 
 
-        // ***************************
+        // Configura el adaptador para el primer Spinner (Paises)
+        /*ArrayAdapter<CharSequence> adapterPaises = ArrayAdapter.createFromResource(
+                getContext(),
+                R.array.paises_array,
+                android.R.layout.simple_spinner_item
+        );
+        adapterPaises.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinPais.setAdapter(adapterPaises);*/
 
-        // Define los conjuntos de datos para ambos Spinners
-        final String[] pais = getResources().getStringArray(R.array.pais_array);
-        final Map<String, String[]> subZonasMap = new HashMap<>();
-        subZonasMap.put(pais[0], getResources().getStringArray(R.array.vacio_array));
-        subZonasMap.put(pais[1], getResources().getStringArray(R.array.areas_elsalvador_array));
-        subZonasMap.put(pais[2], getResources().getStringArray(R.array.areas_guatemala_array));
+        // Configura el adaptador para los segundos Spinners (Estados y Ciudades)
+        final ArrayAdapter<CharSequence> adapterEstados = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item);
+        adapterEstados.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinEstado.setAdapter(adapterEstados);
 
 
-        ArrayAdapter<String> subZonaAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, new String[]{});
-        subZonaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinZona.setAdapter(subZonaAdapter);
 
+
+        final ArrayAdapter<CharSequence> adapterCiudades = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item);
+        adapterCiudades.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinCiudad.setAdapter(adapterCiudades);
+
+        // Configura el listener para el primer Spinner (Paises)
 
         spinPais.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // Actualiza el conjunto de datos del segundo Spinner según la posición seleccionada
-                String selectedGenero = pais[position];
-                String[] subGeneros = subZonasMap.get(selectedGenero);
-                updateSubGeneroSpinner(spinZona, subGeneros);
+                //String selectedGenero = pais[position];
+                //String[] subGeneros = subZonasMap.get(selectedGenero);
+                // updateGruposSpinner(spinZona, subGeneros);
+
+                updateAdapter(adapterEstados, position);
+
+                // Restablece el tercer Spinner (Ciudades)
+                adapterCiudades.clear();
+                spinCiudad.setSelection(0);
             }
 
             @Override
@@ -285,7 +326,29 @@ public class FragmentRegistro extends Fragment {
 
 
 
-        //**************************
+        // Configura el listener para el segundo Spinner (Estados)
+        spinEstado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Actualiza el adaptador del tercer Spinner (Ciudades) según el estado seleccionado
+                updateCiudadesAdapter(adapterCiudades, position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Implementa según sea necesario
+            }
+        });
+
+
+
+
+
+
+
+
+
+        //*********** CIUDADES ***************
 
        /* final String[] zonas = getResources().getStringArray(R.array.pais_array);
         final Map<String, String[]> subZonasMap = new HashMap<>();
@@ -294,15 +357,44 @@ public class FragmentRegistro extends Fragment {
         subZonasMap.put(zonas[2], getResources().getStringArray(R.array.areas_guatemala_array));
         */
 
-
-
     }
 
-    private void updateSubGeneroSpinner(Spinner subZonasSpinner, String[] subZonas) {
-        // Actualiza el adaptador del segundo Spinner con el nuevo conjunto de datos
-        /*ArrayAdapter<String> subGeneroAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, subGeneros);
-        subGeneroAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        subGeneroSpinner.setAdapter(subGeneroAdapter);*/
+
+    private void updateAdapter(ArrayAdapter<CharSequence> adapter, int position) {
+        adapter.clear();
+
+        switch (position) {
+            case 1:
+                String[] estadosElSalvador = getResources().getStringArray(R.array.estados_elsalvador_array);
+                adapter.addAll(estadosElSalvador);
+                break;
+            case 2:
+                String[] estadosGuatemala = getResources().getStringArray(R.array.estados_guatemala_array);
+                adapter.addAll(estadosGuatemala);
+                break;
+            // Agrega más casos según la jerarquía deseada
+        }
+    }
+
+    private void updateCiudadesAdapter(ArrayAdapter<CharSequence> adapter, int position) {
+        adapter.clear();
+
+        switch (position) {
+            case 1:
+                // Llenar el array de ciudades para California
+                String[] ciudadesCalifornia = getResources().getStringArray(R.array.ciudades_elsalvador_array);
+                adapter.addAll(ciudadesCalifornia);
+                break;
+            case 2:
+                // Llenar el array de ciudades para Ontario
+                String[] ciudadesOntario = getResources().getStringArray(R.array.ciudades_guatemala_array);
+                adapter.addAll(ciudadesOntario);
+                break;
+            // Agrega más casos según la jerarquía deseada
+        }
+    }
+
+    private void updateGruposSpinner(Spinner subZonasSpinner, String[] subZonas) {
 
         AdaptadorSpinnerZona zonaAdapter = new AdaptadorSpinnerZona(getContext(), R.layout.spinner_item_layout, subZonas);
         zonaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

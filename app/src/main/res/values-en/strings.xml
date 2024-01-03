@@ -81,45 +81,44 @@
         <item>Female</item>
     </string-array>
 
-    <string-array name="pais_array">
+    <string-array name="paises_array">
         <item>Select country</item>
         <item>El Salvador</item>
         <item>Guatemala</item>
     </string-array>
 
-    <string-array name="areas_elsalvador_array">
+    <string-array name="estados_elsalvador_array">
+        <item>Seleccionar Área e</item>
         <item>Arena 1</item>
         <item>Arena 2</item>
         <item>Arena 3</item>
         <item>Arena 4</item>
     </string-array>
 
-    <string-array name="areas_guatemala_array">
-        <item>Selected Area</item>
+    <string-array name="estados_guatemala_array">
+        <item>Seleccionar Área g</item>
         <item>Arena 1</item>
         <item>Arena 2</item>
     </string-array>
 
-
-    <string-array name="iglesias_elsalvador_array">
-        <item>Selected Church</item>
-        <item>Church 1</item>
-        <item>Church 2</item>
-        <item>Church 3</item>
-        <item>Church sv 4</item>
-        <item>Church sv 5</item>
+    <string-array name="ciudades_elsalvador_array">
+        <item>Seleccionar Iglesia e</item>
+        <item>Igesia 1</item>
+        <item>Igesia 2</item>
+        <item>Igesia 3</item>
+        <item>Igesia sv 4</item>
+        <item>Igesia sv 5</item>
     </string-array>
 
-    <string-array name="iglesias_guatemala_array">
-        <item>Selected Church</item>
-        <item>Church gg 1</item>
-        <item>Church gg 2</item>
+    <string-array name="ciudades_guatemala_array">
+        <item>Seleccionar Iglesia g </item>
+        <item>Igesia gg 1</item>
+        <item>Igesia gg 2</item>
     </string-array>
-
 
     <string-array name="vacio_array">
+        <item></item>
     </string-array>
-
 
 
 
