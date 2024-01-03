@@ -1,8 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Abba</string>
+
+
+    <string name="app_name">Abba Internacional</string>
     <string name="version_app">V. 1.0.0</string>
 
-    <string name="abba_america">Abba América-Satipo </string>
+    <string name="abba_internacional">Abba Internacional</string>
     <string name="logo">Logo</string>
     <string name="continuar_con_correo">Continuar con correo</string>
     <string name="registrarse">Registrarse</string>
@@ -34,6 +37,40 @@
     <string name="biblia">Biblia</string>
     <string name="planes">Planes</string>
     <string name="mas">Más</string>
+    <string name="notificaciones">Notificaciones</string>
+    <string name="versiculo_del_dia">Versículo del Día</string>
+    <string name="sin_conexion_a_internet">Sin conexión a Internet</string>
+    <string name="por_favor_asegurate_tener">Por favor asegúrate tener servicio de internet para usar esta función.</string>
+    <string name="videos">Videos</string>
+    <string name="temas">Temas</string>
+    <string name="oscuro">Oscuro</string>
+    <string name="claro">Claro</string>
+    <string name="eventos">Eventos</string>
+    <string name="insignias">Insignias</string>
+    <string name="acerca_de">Acerca de</string>
+    <string name="idioma">Idioma</string>
+    <string name="configuracion">Configuración</string>
+    <string name="ayuda">Ayuda</string>
+    <string name="marcadores">Marcadores</string>
+    <string name="notas">Notas</string>
+    <string name="amigos">Amigos</string>
+    <string name="ora">Ora</string>
+    <string name="imagenes">Imágenes</string>
+    <string name="resaltados">Resaltados</string>
+    <string name="historial">Historial</string>
+    <string name="oracion">Oración</string>
+    <string name="cerrar_sesion">Cerrar Sesión</string>
+    <string name="si">Si</string>
+    <string name="no">No</string>
+    <string name="cancelar">Cancelar</string>
+
+
+
+
+    <string name="bienvenidos_a_abba_app">Bienvenidos a Abba App</string>
+    <string name="levantado_el_ejercito">Levantando el ejército poderoso de Dios</string>
+
+
 
 
 
