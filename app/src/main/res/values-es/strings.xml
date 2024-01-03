@@ -68,13 +68,56 @@
 
 
     <string name="bienvenidos_a_abba_app">Bienvenidos a Abba App</string>
-    <string name="levantado_el_ejercito">Levantando el ejército poderoso de Dios</string>
+    <string name="levantado_el_ejercito">\"Levantando el ejército poderoso de Dios\"</string>
+    <string name="edad">Edad</string>
+    <string name="telefono">Teléfono</string>
+    <string name="pais">País</string>
+    <string name="area">Área</string>
+    <string name="iglesia">Iglesia</string>
 
+    <string-array name="generos_array">
+        <item>Seleccionar Género</item>
+        <item>Masculino</item>
+        <item>Femenino</item>
+    </string-array>
 
+    <string-array name="pais_array">
+        <item>Seleccionar País</item>
+        <item>El Salvador</item>
+        <item>Guatemala</item>
+    </string-array>
 
+    <string-array name="areas_elsalvador_array">
+        <item>Seleccionar Área</item>
+        <item>Arena 1</item>
+        <item>Arena 2</item>
+        <item>Arena 3</item>
+        <item>Arena 4</item>
+    </string-array>
 
+    <string-array name="areas_guatemala_array">
+        <item>Seleccionar Área</item>
+        <item>Arena 1</item>
+        <item>Arena 2</item>
+    </string-array>
 
+    <string-array name="iglesias_elsalvador_array">
+        <item>Seleccionar Iglesia</item>
+        <item>Igesia 1</item>
+        <item>Igesia 2</item>
+        <item>Igesia 3</item>
+        <item>Igesia sv 4</item>
+        <item>Igesia sv 5</item>
+    </string-array>
 
+    <string-array name="iglesias_guatemala_array">
+        <item>Seleccionar Iglesia</item>
+        <item>Igesia gg 1</item>
+        <item>Igesia gg 2</item>
+    </string-array>
 
+    <string-array name="vacio_array">
+        <item></item>
+    </string-array>
 
 </resources>

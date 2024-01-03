@@ -116,13 +116,11 @@
                     app:hintTextAppearance="@style/Style_HintInput" />
 
 
-
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
-
-                android:id="@+id/inputCorreo"
+                android:id="@+id/inputEdad"
                 style="@style/Style_TextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -137,6 +135,108 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inputApellido">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtEdad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="@string/edad"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="normal"
+                    app:hintTextAppearance="@style/Style_HintInput" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <Spinner
+                android:id="@+id/generoSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/spinner_border"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputEdad"/>
+
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/micardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:cardCornerRadius="16dp"
+                android:layout_marginTop="35dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/generoSpinner">
+
+                <!-- Contenido de la tarjeta -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <Spinner
+                        android:id="@+id/paisSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/spinner_border" />
+
+
+                    <Spinner
+                        android:id="@+id/zonaSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="45dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/spinner_border" />
+
+
+                    <Spinner
+                        android:id="@+id/iglesiaSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="45dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="35dp"
+                        android:background="@drawable/spinner_border" />
+
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:id="@+id/inputCorreo"
+                style="@style/Style_TextInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="45dp"
+                android:layout_marginEnd="16dp"
+                app:boxStrokeColor="@color/selector_line_color"
+                app:boxStrokeWidth="1dp"
+                app:errorIconDrawable="@null"
+                app:errorTextAppearance="@style/Style_ErrorInput"
+                app:hintTextColor="@color/colorTextoGris"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/micardview">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtCorreo"
@@ -204,9 +304,9 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:text="@string/crear_cuenta"
+                android:textAllCaps="false"
                 android:textColor="@color/colorGrisBotonRegistroTexto"
                 android:textSize="18sp"
-                android:textAllCaps="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

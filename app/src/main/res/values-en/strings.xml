@@ -68,7 +68,59 @@
 
 
     <string name="bienvenidos_a_abba_app">Welcome to Abba App</string>
-    <string name="levantado_el_ejercito">Raising up the mighty army of God</string>
+    <string name="levantado_el_ejercito">\"Raising up the mighty army of God\"</string>
+    <string name="edad">Age</string>
+    <string name="telefono">Phone</string>
+    <string name="pais">Country</string>
+    <string name="area">Area</string>
+    <string name="iglesia">Church</string>
+
+    <string-array name="generos_array">
+        <item>select gender</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string-array name="pais_array">
+        <item>Select country</item>
+        <item>El Salvador</item>
+        <item>Guatemala</item>
+    </string-array>
+
+    <string-array name="areas_elsalvador_array">
+        <item>Arena 1</item>
+        <item>Arena 2</item>
+        <item>Arena 3</item>
+        <item>Arena 4</item>
+    </string-array>
+
+    <string-array name="areas_guatemala_array">
+        <item>Selected Area</item>
+        <item>Arena 1</item>
+        <item>Arena 2</item>
+    </string-array>
+
+
+    <string-array name="iglesias_elsalvador_array">
+        <item>Selected Church</item>
+        <item>Church 1</item>
+        <item>Church 2</item>
+        <item>Church 3</item>
+        <item>Church sv 4</item>
+        <item>Church sv 5</item>
+    </string-array>
+
+    <string-array name="iglesias_guatemala_array">
+        <item>Selected Church</item>
+        <item>Church gg 1</item>
+        <item>Church gg 2</item>
+    </string-array>
+
+
+    <string-array name="vacio_array">
+    </string-array>
+
+
 
 
 </resources>

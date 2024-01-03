@@ -17,10 +17,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
@@ -31,11 +34,16 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tatanstudios.abba.R;
 import com.tatanstudios.abba.activitys.principal.PrincipalActivity;
+import com.tatanstudios.abba.adaptadores.spinner.AdaptadorSpinnerGenero;
+import com.tatanstudios.abba.adaptadores.spinner.AdaptadorSpinnerPais;
+import com.tatanstudios.abba.adaptadores.spinner.AdaptadorSpinnerZona;
 import com.tatanstudios.abba.network.ApiService;
 import com.tatanstudios.abba.network.RetrofitBuilder;
 import com.tatanstudios.abba.network.TokenManager;
 
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
@@ -60,6 +68,7 @@ public class FragmentRegistro extends Fragment {
     private boolean boolCorreo, boolContrasena = false;
     private TokenManager tokenManager;
 
+    private Spinner spinGenero, spinPais, spinZona, iglesiaSpinner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -79,10 +88,15 @@ public class FragmentRegistro extends Fragment {
         edtContrasena = vista.findViewById(R.id.edtContrasena);
         rootRelative = vista.findViewById(R.id.rootRelative);
 
+        spinGenero = vista.findViewById(R.id.generoSpinner);
+        spinPais = vista.findViewById(R.id.paisSpinner);
+        spinZona = vista.findViewById(R.id.zonaSpinner);
+        iglesiaSpinner = vista.findViewById(R.id.iglesiaSpinner);
+
+
         btnRegistro = vista.findViewById(R.id.btnRegistro);
         btnRegistro.setEnabled(false);
         tokenManager = TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE));
-
 
         int colorProgress = ContextCompat.getColor(requireContext(), R.color.colorProgress);
 
@@ -107,6 +121,8 @@ public class FragmentRegistro extends Fragment {
             confirmarRegistro();
         });
 
+        // llenar los spinner
+        llenarSpinner();
 
         edtNombre.addTextChangedListener(new TextWatcher() {
             @Override
@@ -215,6 +231,82 @@ public class FragmentRegistro extends Fragment {
 
 
         return vista;
+    }
+
+    private void llenarSpinner(){
+
+        String[] listaGeneros = getResources().getStringArray(R.array.generos_array);
+
+        AdaptadorSpinnerGenero generoAdapter = new AdaptadorSpinnerGenero(getContext(), android.R.layout.simple_spinner_item, listaGeneros);
+        generoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinGenero.setAdapter(generoAdapter);
+
+
+        // ***************************
+
+        String[] listaPais = getResources().getStringArray(R.array.pais_array);
+
+        AdaptadorSpinnerPais paisAdapter = new AdaptadorSpinnerPais(getContext(), android.R.layout.simple_spinner_item, listaPais);
+        paisAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinPais.setAdapter(paisAdapter);
+
+
+        // ***************************
+
+        // Define los conjuntos de datos para ambos Spinners
+        final String[] pais = getResources().getStringArray(R.array.pais_array);
+        final Map<String, String[]> subZonasMap = new HashMap<>();
+        subZonasMap.put(pais[0], getResources().getStringArray(R.array.vacio_array));
+        subZonasMap.put(pais[1], getResources().getStringArray(R.array.areas_elsalvador_array));
+        subZonasMap.put(pais[2], getResources().getStringArray(R.array.areas_guatemala_array));
+
+
+        ArrayAdapter<String> subZonaAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, new String[]{});
+        subZonaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinZona.setAdapter(subZonaAdapter);
+
+
+        spinPais.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Actualiza el conjunto de datos del segundo Spinner según la posición seleccionada
+                String selectedGenero = pais[position];
+                String[] subGeneros = subZonasMap.get(selectedGenero);
+                updateSubGeneroSpinner(spinZona, subGeneros);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Implementa según sea necesario
+            }
+        });
+
+
+
+        //**************************
+
+       /* final String[] zonas = getResources().getStringArray(R.array.pais_array);
+        final Map<String, String[]> subZonasMap = new HashMap<>();
+        subZonasMap.put(zonas[0], getResources().getStringArray(R.array.vacio_array));
+        subZonasMap.put(zonas[1], getResources().getStringArray(R.array.areas_elsalvador_array));
+        subZonasMap.put(zonas[2], getResources().getStringArray(R.array.areas_guatemala_array));
+        */
+
+
+
+    }
+
+    private void updateSubGeneroSpinner(Spinner subZonasSpinner, String[] subZonas) {
+        // Actualiza el adaptador del segundo Spinner con el nuevo conjunto de datos
+        /*ArrayAdapter<String> subGeneroAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, subGeneros);
+        subGeneroAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        subGeneroSpinner.setAdapter(subGeneroAdapter);*/
+
+        AdaptadorSpinnerZona zonaAdapter = new AdaptadorSpinnerZona(getContext(), R.layout.spinner_item_layout, subZonas);
+        zonaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        subZonasSpinner.setAdapter(zonaAdapter);
     }
 
     private void verificarEntradas(){
