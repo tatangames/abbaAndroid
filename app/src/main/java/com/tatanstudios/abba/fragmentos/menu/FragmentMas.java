@@ -113,6 +113,9 @@ public class FragmentMas extends Fragment {
         recyclerMas.setAdapter(adapter);
     }
 
+    public void editarPerfil(){
+
+    }
 
     public void verPosicion(int tipo){
 
@@ -157,7 +160,6 @@ public class FragmentMas extends Fragment {
                     });
             pDialog.show();
         }
-
     }
 
 

@@ -62,8 +62,7 @@
     <string name="si">Si</string>
     <string name="no">No</string>
     <string name="cancelar">Cancelar</string>
-
-
+    <string name="ajustes">Ajustes</string>
 
 
     <string name="bienvenidos_a_abba_app">Bienvenidos a Abba App</string>
@@ -100,9 +99,6 @@
     </string-array>
 
 
-
-
-
     <string name="elsalvador_santaana_id_1">Iglesia santa ana 1</string>
     <string name="elsalvador_santaana_id_2">Iglesia santa ana 2</string>
 
@@ -116,7 +112,6 @@
     <string name="guatemala_jalapa_id_8">Iglesia jalapa 8</string>
     <string name="guatemala_jalapa_id_9">Iglesia jalapa 9</string>
     <string name="guatemala_jalapa_id_10">Iglesia jalapa 10</string>
-
 
 
     <string name="genero_es_requerido">Género es requerido</string>

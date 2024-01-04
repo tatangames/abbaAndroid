@@ -66,15 +66,6 @@ public class AdaptadorFragmentMas extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        /*holder.txtPerfil.setText(modeloFragmentMas.get(position).getNombre());
-
-        if(modeloFragmentMas.get(position).getIdentificador() == 1) {
-            holder.imgPerfil.setImageResource(R.drawable.icono_campana);
-        }else{
-            holder.imgPerfil.setImageResource(R.drawable.camaradefecto);
-        }*/
-
-
         ModeloFragmentMas modelo = modeloFragmentMas.get(position);
 
         if (holder instanceof PerfilViewHolder) {
@@ -83,6 +74,11 @@ public class AdaptadorFragmentMas extends RecyclerView.Adapter<RecyclerView.View
 
             ((PerfilViewHolder) holder).txtLetra.setText(m.getLetra());
             ((PerfilViewHolder) holder).txtNombre.setText(m.getNombrePerfil());
+
+            holder.itemView.setOnClickListener(view -> {
+                // Acciones cuando se toca la vista de un ítem
+                fragmentMas.editarPerfil();
+            });
 
         }
         else if (holder instanceof ItemNormalViewHolder) {
