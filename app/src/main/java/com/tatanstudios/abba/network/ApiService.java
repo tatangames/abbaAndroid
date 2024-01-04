@@ -28,9 +28,12 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<ModeloUsuario> registroUsuario(@Field("nombre") String nombre,
                                                 @Field("apellido") String apellido,
+                                                @Field("edad") String edad,
+                                                @Field("genero") int idGenero,
+                                                @Field("iglesia") int idIglesia,
                                                 @Field("correo") String correo,
                                                 @Field("password") String password,
-                                                @Field("idfirebase") String idfirebase,
+                                                @Field("onesignal") String idOneSignal,
                                                 @Field("version") String version);
 
 }

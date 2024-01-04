@@ -520,12 +520,15 @@ public class FragmentRegistro extends Fragment {
         String version = getString(R.string.version_app);
         String txtNombre = Objects.requireNonNull(edtNombre.getText()).toString();
         String txtApellido = Objects.requireNonNull(edtApellido.getText()).toString();
+        String txtEdad = Objects.requireNonNull(edtEdad.getText()).toString();
+        int idGenero = spinGenero.getSelectedItemPosition(); // 1: masculino, 2: femenino
         String txtCorreo = Objects.requireNonNull(edtCorreo.getText()).toString();
         String txtContrasena = Objects.requireNonNull(edtContrasena.getText()).toString();
-        String idfirebase = "1234";
+        String idOneSignal = "1234";
 
         compositeDisposable.add(
-                service.registroUsuario(txtNombre, txtApellido, txtCorreo, txtContrasena, idfirebase, version)
+                service.registroUsuario(txtNombre, txtApellido, txtEdad, idGenero,
+                                idSpinnerIglesia, txtCorreo, txtContrasena, idOneSignal, version)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .retry()
