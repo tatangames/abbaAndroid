@@ -19,23 +19,23 @@ public class AdaptadorSpinnerZona extends ArrayAdapter<String> {
 
     private Context context;
 
-    public AdaptadorSpinnerZona(@NonNull Context context, int resource, @NonNull String[] objects) {
-        super(context, resource, objects);
+    public AdaptadorSpinnerZona(@NonNull Context context, int resource) {
+        super(context, resource);
         this.context = context;
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        return createView(position, convertView, parent, position == 0);
+        return createView(position, convertView, parent);
     }
 
     @Override
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        return createView(position, convertView, parent, false);
+        return createView(position, convertView, parent);
     }
 
-    private View createView(int position, @Nullable View convertView, @NonNull ViewGroup parent, boolean isFirstItem) {
+    private View createView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(R.layout.spinner_item_layout, parent, false);

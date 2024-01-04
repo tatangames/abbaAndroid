@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,14 +36,18 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.tatanstudios.abba.R;
 import com.tatanstudios.abba.activitys.principal.PrincipalActivity;
 import com.tatanstudios.abba.adaptadores.spinner.AdaptadorSpinnerGenero;
+import com.tatanstudios.abba.adaptadores.spinner.AdaptadorSpinnerIglesia;
 import com.tatanstudios.abba.adaptadores.spinner.AdaptadorSpinnerPais;
 import com.tatanstudios.abba.adaptadores.spinner.AdaptadorSpinnerZona;
+import com.tatanstudios.abba.modelos.registro.ModeloIglesias;
 import com.tatanstudios.abba.network.ApiService;
 import com.tatanstudios.abba.network.RetrofitBuilder;
 import com.tatanstudios.abba.network.TokenManager;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -57,8 +62,8 @@ public class FragmentRegistro extends Fragment {
 
     private ImageView imgFlechaAtras;
 
-    private TextInputLayout inputNombre, inputApellido, inputCorreo, inputContrasena;
-    private TextInputEditText edtNombre, edtApellido, edtCorreo, edtContrasena;
+    private TextInputLayout inputNombre, inputApellido, inputEdad, inputCorreo, inputContrasena;
+    private TextInputEditText edtNombre, edtApellido, edtEdad, edtCorreo, edtContrasena;
 
     private ApiService service;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -70,6 +75,15 @@ public class FragmentRegistro extends Fragment {
 
     private Spinner spinGenero, spinPais, spinEstado, spinCiudad;
 
+    private List<ModeloIglesias> iglesiasList;
+
+    private int idSpinnerIglesia = 0;
+
+
+    private static final int ELSalvador_SantaAna_Iglesia1 = 1;
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_registro, container, false);
@@ -79,11 +93,13 @@ public class FragmentRegistro extends Fragment {
 
         inputNombre = vista.findViewById(R.id.inputNombre);
         inputApellido = vista.findViewById(R.id.inputApellido);
+        inputEdad = vista.findViewById(R.id.inputEdad);
         inputCorreo = vista.findViewById(R.id.inputCorreo);
         inputContrasena = vista.findViewById(R.id.inputContrasena);
 
         edtNombre = vista.findViewById(R.id.edtNombre);
         edtApellido = vista.findViewById(R.id.edtApellido);
+        edtEdad = vista.findViewById(R.id.edtEdad);
         edtCorreo = vista.findViewById(R.id.edtCorreo);
         edtContrasena = vista.findViewById(R.id.edtContrasena);
         rootRelative = vista.findViewById(R.id.rootRelative);
@@ -93,6 +109,7 @@ public class FragmentRegistro extends Fragment {
         spinEstado = vista.findViewById(R.id.estadoSpinner);
         spinCiudad = vista.findViewById(R.id.ciudadSpinner);
 
+        iglesiasList = new ArrayList<>();
 
         btnRegistro = vista.findViewById(R.id.btnRegistro);
         btnRegistro.setEnabled(false);
@@ -157,6 +174,23 @@ public class FragmentRegistro extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
 
+                verificarEntradas();
+            }
+        });
+
+        edtEdad.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {
+                // Este método se llama para notificar que el texto está a punto de cambiar
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                // Este método se llama para notificar que el texto ha cambiado
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
                 verificarEntradas();
             }
         });
@@ -249,57 +283,25 @@ public class FragmentRegistro extends Fragment {
 
         String[] listaPais = getResources().getStringArray(R.array.paises_array);
 
-        /*AdaptadorSpinnerPais paisAdapter = new AdaptadorSpinnerPais(getContext(), android.R.layout.simple_spinner_item, listaPais);
-        paisAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinPais.setAdapter(paisAdapter);*/
-
-
-        // *********** ESTADOS *****************
-
-
-
-
-
-
-        // Define los conjuntos de datos para ambos Spinners
-        /*final String[] pais = getResources().getStringArray(R.array.paises_array);
-        final Map<String, String[]> subZonasMap = new HashMap<>();
-        subZonasMap.put(pais[0], getResources().getStringArray(R.array.vacio_array));
-        subZonasMap.put(pais[1], getResources().getStringArray(R.array.estados_elsalvador_array));
-        subZonasMap.put(pais[2], getResources().getStringArray(R.array.estados_guatemala_array));*/
-
-        /*ArrayAdapter<String> subZonaAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, new String[]{});
-        subZonaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinZona.setAdapter(subZonaAdapter);*/
-
-
-
-
         AdaptadorSpinnerPais paisAdapter = new AdaptadorSpinnerPais(getContext(), android.R.layout.simple_spinner_item, listaPais);
         paisAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinPais.setAdapter(paisAdapter);
 
+        // *********** ESTADOS *****************
 
-        // Configura el adaptador para el primer Spinner (Paises)
-        /*ArrayAdapter<CharSequence> adapterPaises = ArrayAdapter.createFromResource(
-                getContext(),
-                R.array.paises_array,
-                android.R.layout.simple_spinner_item
-        );
-        adapterPaises.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinPais.setAdapter(adapterPaises);*/
-
-        // Configura el adaptador para los segundos Spinners (Estados y Ciudades)
-        final ArrayAdapter<CharSequence> adapterEstados = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item);
-        adapterEstados.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        AdaptadorSpinnerZona adapterEstados = new AdaptadorSpinnerZona(getContext(), android.R.layout.simple_spinner_item);
         spinEstado.setAdapter(adapterEstados);
 
 
+        // *********** IGLESIAS *****************
 
 
-        final ArrayAdapter<CharSequence> adapterCiudades = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item);
-        adapterCiudades.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinCiudad.setAdapter(adapterCiudades);
+        AdaptadorSpinnerIglesia adapterIglesia = new AdaptadorSpinnerIglesia(getContext(), android.R.layout.simple_spinner_item);
+        spinCiudad.setAdapter(adapterIglesia);
+
+
+        //****************************************
+
 
         // Configura el listener para el primer Spinner (Paises)
 
@@ -307,15 +309,16 @@ public class FragmentRegistro extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // Actualiza el conjunto de datos del segundo Spinner según la posición seleccionada
-                //String selectedGenero = pais[position];
-                //String[] subGeneros = subZonasMap.get(selectedGenero);
-                // updateGruposSpinner(spinZona, subGeneros);
 
-                updateAdapter(adapterEstados, position);
+                updateAdapterEstado(adapterEstados, position);
 
-                // Restablece el tercer Spinner (Ciudades)
-                adapterCiudades.clear();
+                adapterIglesia.clear();
+                spinEstado.setSelection(0);
                 spinCiudad.setSelection(0);
+
+                if(position == 0){
+                    idSpinnerIglesia = 0;
+                }
             }
 
             @Override
@@ -331,7 +334,11 @@ public class FragmentRegistro extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // Actualiza el adaptador del tercer Spinner (Ciudades) según el estado seleccionado
-                updateCiudadesAdapter(adapterCiudades, position);
+                updateCiudadesAdapter(adapterIglesia, spinPais.getSelectedItemPosition(), position);
+
+                if(position == 0){
+                    idSpinnerIglesia = 0;
+                }
             }
 
             @Override
@@ -341,80 +348,116 @@ public class FragmentRegistro extends Fragment {
         });
 
 
+        spinCiudad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
+                // Hay una ciudad seleccionada en el Spinner
+                ModeloIglesias iglesiaSeleccionada = iglesiasList.get(position);
+                idSpinnerIglesia = iglesiaSeleccionada.getId();
+            }
 
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
 
-
-
-
-
-        //*********** CIUDADES ***************
-
-       /* final String[] zonas = getResources().getStringArray(R.array.pais_array);
-        final Map<String, String[]> subZonasMap = new HashMap<>();
-        subZonasMap.put(zonas[0], getResources().getStringArray(R.array.vacio_array));
-        subZonasMap.put(zonas[1], getResources().getStringArray(R.array.areas_elsalvador_array));
-        subZonasMap.put(zonas[2], getResources().getStringArray(R.array.areas_guatemala_array));
-        */
-
+            }
+        });
     }
 
 
-    private void updateAdapter(ArrayAdapter<CharSequence> adapter, int position) {
+    private void updateAdapterEstado(AdaptadorSpinnerZona adapter, int position) {
         adapter.clear();
 
         switch (position) {
-            case 1:
+            case 1: // pais el salvador -> estados
                 String[] estadosElSalvador = getResources().getStringArray(R.array.estados_elsalvador_array);
                 adapter.addAll(estadosElSalvador);
+
                 break;
-            case 2:
-                String[] estadosGuatemala = getResources().getStringArray(R.array.estados_guatemala_array);
-                adapter.addAll(estadosGuatemala);
+            case 2: // pais guatemala -> estados
+                String[] estadosElSalvador2 = getResources().getStringArray(R.array.estados_guatemala_array);
+                adapter.addAll(estadosElSalvador2);
+
                 break;
             // Agrega más casos según la jerarquía deseada
         }
     }
 
-    private void updateCiudadesAdapter(ArrayAdapter<CharSequence> adapter, int position) {
+    private void updateCiudadesAdapter(AdaptadorSpinnerIglesia adapter, int paisPosition, int estadoPosition) {
         adapter.clear();
-
-        switch (position) {
-            case 1:
-                // Llenar el array de ciudades para California
-                String[] ciudadesCalifornia = getResources().getStringArray(R.array.ciudades_elsalvador_array);
-                adapter.addAll(ciudadesCalifornia);
-                break;
-            case 2:
-                // Llenar el array de ciudades para Ontario
-                String[] ciudadesOntario = getResources().getStringArray(R.array.ciudades_guatemala_array);
-                adapter.addAll(ciudadesOntario);
-                break;
-            // Agrega más casos según la jerarquía deseada
+        iglesiasList.clear();
+        if (paisPosition == 0 || estadoPosition == 0) {
+            // No hay país o estado seleccionado, no se cargan ciudades
+            return;
         }
+
+        switch (paisPosition) {
+            case 1: // PAIS EL SALVADOR
+
+                switch (estadoPosition) { // POSICION DE ESTADOS
+                    case 1: // santa ana
+
+                        iglesiasList.add(new ModeloIglesias(ELSalvador_SantaAna_Iglesia1, getString(R.string.elsalvador_santaana_id_1)));
+                        iglesiasList.add(new ModeloIglesias(2, getString(R.string.elsalvador_santaana_id_2)));
+
+                        break;
+                    case 2: // metapan
+                        iglesiasList.add(new ModeloIglesias(3, getString(R.string.elsalvador_metapan_id_3)));
+                        iglesiasList.add(new ModeloIglesias(4, getString(R.string.elsalvador_metapan_id_4)));
+                        iglesiasList.add(new ModeloIglesias(5, getString(R.string.elsalvador_metapan_id_5)));
+                        break;
+                    // Agrega más casos según la jerarquía deseada
+                    default:
+                       break;
+                }
+                break;
+
+            case 2: // PAIS GUATEMALA
+
+                switch (estadoPosition) { // POSICION DE ESTADOS
+                    case 1: // chiquimula
+                        iglesiasList.add(new ModeloIglesias(6, getString(R.string.guatemala_chiquimula_id_6)));
+                        iglesiasList.add(new ModeloIglesias(7, getString(R.string.guatemala_chiquimula_id_7)));
+                        break;
+                    case 2: // jalapa
+                        iglesiasList.add(new ModeloIglesias(8, getString(R.string.guatemala_jalapa_id_8)));
+                        iglesiasList.add(new ModeloIglesias(9, getString(R.string.guatemala_jalapa_id_9)));
+                        iglesiasList.add(new ModeloIglesias(10, getString(R.string.guatemala_jalapa_id_10)));
+                        break;
+                    // Agrega más casos según la jerarquía deseada
+                    default:
+                        break;
+                }
+                break;
+        }
+
+        for (ModeloIglesias iglelista : iglesiasList) {
+            adapter.add(iglelista.getNombre());
+        }
+
+        ModeloIglesias iglesiaSeleccionada = iglesiasList.get(0);
+        idSpinnerIglesia = iglesiaSeleccionada.getId();
     }
 
-    private void updateGruposSpinner(Spinner subZonasSpinner, String[] subZonas) {
 
-        AdaptadorSpinnerZona zonaAdapter = new AdaptadorSpinnerZona(getContext(), R.layout.spinner_item_layout, subZonas);
-        zonaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        subZonasSpinner.setAdapter(zonaAdapter);
-    }
 
     private void verificarEntradas(){
 
         String txtNombre = Objects.requireNonNull(edtNombre.getText()).toString();
         String txtApellido = Objects.requireNonNull(edtApellido.getText()).toString();
+        String txtEdad = Objects.requireNonNull(edtEdad.getText()).toString();
         String txtCorreo = Objects.requireNonNull(edtCorreo.getText()).toString();
         String txtContrasena = Objects.requireNonNull(edtContrasena.getText()).toString();
 
-        if(TextUtils.isEmpty(txtNombre) || TextUtils.isEmpty(txtApellido)
+        if(TextUtils.isEmpty(txtNombre) || TextUtils.isEmpty(txtApellido) || TextUtils.isEmpty(txtEdad)
                 || TextUtils.isEmpty(txtCorreo) || TextUtils.isEmpty(txtContrasena)){
 
             desactivarBtnRegistro();
         }else{
 
             if(boolCorreo && boolContrasena){
+
                 activarBtnRegistro();
             }
         }
@@ -437,25 +480,37 @@ public class FragmentRegistro extends Fragment {
 
     private void confirmarRegistro(){
 
-        String txtCorreo = Objects.requireNonNull(edtCorreo.getText()).toString();
+        if(spinGenero.getSelectedItemPosition() == 0){
+            Toasty.error(getContext(), getString(R.string.genero_es_requerido)).show();
+            return;
+        }
 
-        KAlertDialog pDialog = new KAlertDialog(getActivity(), KAlertDialog.NORMAL_TYPE);
-        pDialog.setTitleText(getString(R.string.es_correcta_esta_direccion));
-        pDialog.setContentText(txtCorreo);
-        pDialog.setConfirmText(getString(R.string.se_ve_genial));
-        pDialog.setContentTextSize(16);
-        pDialog.setCancelable(false);
-        pDialog.setCanceledOnTouchOutside(false);
-        pDialog.confirmButtonColor(R.drawable.dialogo_theme_success)
-                .setConfirmClickListener(sDialog -> {
-                    sDialog.dismissWithAnimation();
-                    registrarUsuario();
-                });
-        pDialog.cancelButtonColor(R.drawable.dialogo_theme_cancel)
-                .setContentTextSize(16)
-                .setCancelText(getString(R.string.editar))
-                .setCancelClickListener(kAlertDialog -> kAlertDialog.dismissWithAnimation());
-        pDialog.show();
+
+        if(idSpinnerIglesia == 0){
+            Toasty.error(getContext(), getString(R.string.iglesia_es_requerido)).show();
+            return;
+        }
+
+            //String txtCorreo = Objects.requireNonNull(edtCorreo.getText()).toString();
+
+            KAlertDialog pDialog = new KAlertDialog(getActivity(), KAlertDialog.SUCCESS_TYPE);
+            pDialog.setTitleText(getString(R.string.completar_registro));
+            pDialog.setContentText("");
+            pDialog.setConfirmText(getString(R.string.si));
+            pDialog.setContentTextSize(16);
+            pDialog.setCancelable(false);
+            pDialog.setCanceledOnTouchOutside(false);
+            pDialog.confirmButtonColor(R.drawable.dialogo_theme_success)
+                    .setConfirmClickListener(sDialog -> {
+                        sDialog.dismissWithAnimation();
+                        registrarUsuario();
+                    });
+            pDialog.cancelButtonColor(R.drawable.dialogo_theme_cancel)
+                    .setContentTextSize(16)
+                    .setCancelText(getString(R.string.editar))
+                    .setCancelClickListener(kAlertDialog -> kAlertDialog.dismissWithAnimation());
+            pDialog.show();
+
     }
 
     private void registrarUsuario(){

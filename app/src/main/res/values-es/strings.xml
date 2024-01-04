@@ -18,7 +18,6 @@
     <string name="direccion_correo_invalida">Lo sentimos, no es una dirección de correo válida</string>
     <string name="contrasena_minimo_6">Lo sentimos, contraseñas requieren mínimo 6 caracteres</string>
     <string name="error_intentar_de_nuevo">Error, intentar de nuevo</string>
-    <string name="es_correcta_esta_direccion">¿Es correcta esta dirección de correo?</string>
     <string name="editar">Editar</string>
     <string name="se_ve_genial">Se ve genial</string>
     <string name="flecha_atras">Flecha Atras</string>
@@ -67,6 +66,7 @@
 
 
 
+
     <string name="bienvenidos_a_abba_app">Bienvenidos a Abba App</string>
     <string name="levantado_el_ejercito">\"Levantando el ejército poderoso de Dios\"</string>
     <string name="edad">Edad</string>
@@ -88,36 +88,37 @@
     </string-array>
 
     <string-array name="estados_elsalvador_array">
-        <item>Seleccionar Área e</item>
-        <item>Arena 1</item>
-        <item>Arena 2</item>
-        <item>Arena 3</item>
-        <item>Arena 4</item>
+        <item>Seleccionar Área</item>
+        <item>Santa Ana</item>
+        <item>Metapan</item>
     </string-array>
 
     <string-array name="estados_guatemala_array">
-        <item>Seleccionar Área g</item>
-        <item>Arena 1</item>
-        <item>Arena 2</item>
+        <item>Seleccionar Área</item>
+        <item>Chiquimula</item>
+        <item>Jalapa</item>
     </string-array>
 
-    <string-array name="ciudades_elsalvador_array">
-        <item>Seleccionar Iglesia e</item>
-        <item>Igesia 1</item>
-        <item>Igesia 2</item>
-        <item>Igesia 3</item>
-        <item>Igesia sv 4</item>
-        <item>Igesia sv 5</item>
-    </string-array>
+    <string name="elsalvador_santaana_id_1">Iglesia santa ana 1</string>
+    <string name="elsalvador_santaana_id_2">Iglesia santa ana 2</string>
 
-    <string-array name="ciudades_guatemala_array">
-        <item>Seleccionar Iglesia g </item>
-        <item>Igesia gg 1</item>
-        <item>Igesia gg 2</item>
-    </string-array>
+    <string name="elsalvador_metapan_id_3">Iglesia metapan 3</string>
+    <string name="elsalvador_metapan_id_4">Iglesia metapan 4</string>
+    <string name="elsalvador_metapan_id_5">Iglesia metapan 5</string>
 
-    <string-array name="vacio_array">
-        <item></item>
-    </string-array>
+    <string name="guatemala_chiquimula_id_6">Iglesia chiquimula 6</string>
+    <string name="guatemala_chiquimula_id_7">Iglesia chiquimula 7</string>
+
+    <string name="guatemala_jalapa_id_8">Iglesia jalapa 8</string>
+    <string name="guatemala_jalapa_id_9">Iglesia jalapa 9</string>
+    <string name="guatemala_jalapa_id_10">Iglesia jalapa 10</string>
+
+
+    <string name="genero_es_requerido">Género es requerido</string>
+    <string name="iglesia_es_requerido">Iglesia es requerido</string>
+    <string name="completar_registro">Completar Registro</string>
+
+
+
 
 </resources>
