@@ -62,7 +62,11 @@
     <string name="no">No</string>
     <string name="cancelar">Cancelar</string>
     <string name="ajustes">Ajustes</string>
-
+    <string name="seleccionar_edad">Seleccionar Edad</string>
+    <string name="fecha_nacimiento_es_requerido">Fecha Nacimiento es requerido</string>
+    <string name="editar_perfil">Editar Perfil</string>
+    <string name="actualizar">Actualizar</string>
+    <string name="fecha_de_nacimiento">Fecha de Nacimiento</string>
 
 
 

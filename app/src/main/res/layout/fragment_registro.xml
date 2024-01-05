@@ -119,39 +119,21 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/inputEdad"
-                style="@style/Style_TextInput"
+            <TextView
+                android:id="@+id/txtCalendario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginEnd="16dp"
-                app:boxStrokeColor="@color/selector_line_color"
-                app:boxStrokeWidth="1dp"
-                app:errorIconDrawable="@null"
-                app:errorTextAppearance="@style/Style_ErrorInput"
-                app:hintTextColor="@color/colorTextoGris"
+                android:drawableStart="@drawable/ic_calendario"
+                android:drawablePadding="5dp"
+                android:text="@string/seleccionar_edad"
+                android:textColor="@color/colorTextoGris"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/inputApellido">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtEdad"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:fontFamily="@font/roboto_regular"
-                    android:hint="@string/edad"
-                    android:inputType="number"
-                    android:maxLength="3"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="normal"
-                    app:hintTextAppearance="@style/Style_HintInput" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
+                app:layout_constraintTop_toBottomOf="@+id/inputApellido" />
 
             <Spinner
                 android:id="@+id/generoSpinner"
@@ -163,7 +145,7 @@
                 android:background="@drawable/spinner_border"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/inputEdad" />
+                app:layout_constraintTop_toBottomOf="@+id/txtCalendario" />
 
 
             <androidx.cardview.widget.CardView

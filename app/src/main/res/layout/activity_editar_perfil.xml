@@ -1,9 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootRelative"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activitys.perfil.EditarPerfilActivity">
+    android:focusableInTouchMode="true"
+    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar_flecha_txt" />
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/linearContenedor"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:visibility="invisible"
+                android:layout_height="wrap_content">
+
+
+                <com.google.android.material.textfield.TextInputLayout
+
+                    android:id="@+id/inputNombre"
+                    style="@style/Style_TextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="45dp"
+                    android:layout_marginEnd="16dp"
+                    app:boxStrokeColor="@color/selector_line_color"
+                    app:boxStrokeWidth="1dp"
+                    app:errorIconDrawable="@null"
+                    app:errorTextAppearance="@style/Style_ErrorInput"
+                    app:hintTextColor="@color/colorTextoGris">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtNombre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/roboto_regular"
+                        android:hint="@string/primer_nombre"
+                        android:inputType="textPersonName"
+                        android:maxLength="50"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="normal"
+                        app:hintTextAppearance="@style/Style_HintInput" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/inputApellido"
+                    style="@style/Style_TextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="16dp"
+                    app:boxStrokeColor="@color/selector_line_color"
+                    app:boxStrokeWidth="1dp"
+                    app:errorIconDrawable="@null"
+                    app:errorTextAppearance="@style/Style_ErrorInput"
+                    app:hintTextColor="@color/colorTextoGris">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtApellido"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/roboto_regular"
+                        android:hint="@string/apellido"
+                        android:inputType="textPersonName"
+                        android:maxLength="50"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="normal"
+                        app:hintTextAppearance="@style/Style_HintInput" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    android:id="@+id/txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/fecha_de_nacimiento"
+                    android:textColor="@color/colorTextoGris"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/txtCalendario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="16dp"
+                    android:drawableStart="@drawable/ic_calendario"
+                    android:drawablePadding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"/>
+
+
+
+                <com.google.android.material.textfield.TextInputLayout
+
+                    android:id="@+id/inputCorreo"
+                    style="@style/Style_TextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="45dp"
+                    android:layout_marginEnd="16dp"
+                    app:boxStrokeColor="@color/selector_line_color"
+                    app:boxStrokeWidth="1dp"
+                    app:errorIconDrawable="@null"
+                    app:errorTextAppearance="@style/Style_ErrorInput"
+                    app:hintTextColor="@color/colorTextoGris">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtCorreo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/roboto_regular"
+                        android:hint="@string/correo_electronico"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="100"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="normal"
+                        app:hintTextAppearance="@style/Style_HintInput" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <Button
+                    android:id="@+id/btnActualizar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="100dp"
+                    android:background="@drawable/boton_redondeado_negro"
+                    android:fontFamily="@font/elvetica_medium"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="@string/actualizar"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/inputContrasena" />
+
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+
+
+    </LinearLayout>
+</RelativeLayout>

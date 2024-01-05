@@ -11,8 +11,6 @@ import retrofit2.http.POST;
 public interface ApiService {
 
 
-    @GET("app/refran/login")
-    Observable<ModeloUsuario> getRefranLogin();
 
 
     @POST("app/login")
@@ -35,5 +33,25 @@ public interface ApiService {
                                                 @Field("password") String password,
                                                 @Field("onesignal") String idOneSignal,
                                                 @Field("version") String version);
+
+    @POST("app/solicitar/informacion/perfil")
+    @FormUrlEncoded
+    Observable<ModeloUsuario> informacionPerfil(@Field("iduser") String idUsuario);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

@@ -38,7 +38,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(() -> {
 
             // inicio automatico con token que iria en el SPLASH
-            if(tokenManager.getIdUsuario().getId() != null){
+            if(tokenManager.getToken().getId() != null){
 
                 // Siguiente Actvity
                 Intent intent = new Intent(this, PrincipalActivity.class);

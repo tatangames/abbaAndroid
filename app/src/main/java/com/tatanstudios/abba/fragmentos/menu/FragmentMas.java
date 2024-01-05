@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.developer.kalert.KAlertDialog;
 import com.tatanstudios.abba.R;
 import com.tatanstudios.abba.activitys.login.LoginActivity;
+import com.tatanstudios.abba.activitys.perfil.EditarPerfilActivity;
 import com.tatanstudios.abba.adaptadores.mas.AdaptadorFragmentMas;
 import com.tatanstudios.abba.modelos.mas.ModeloFraMasConfig;
 import com.tatanstudios.abba.modelos.mas.ModeloFraMasPerfil;
@@ -114,7 +115,8 @@ public class FragmentMas extends Fragment {
     }
 
     public void editarPerfil(){
-
+        Intent intentLogin = new Intent(getContext(), EditarPerfilActivity.class);
+        startActivity(intentLogin);
     }
 
     public void verPosicion(int tipo){

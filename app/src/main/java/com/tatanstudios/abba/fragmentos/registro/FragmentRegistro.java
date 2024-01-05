@@ -3,11 +3,10 @@ package com.tatanstudios.abba.fragmentos.registro;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.content.res.Resources;
+
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -25,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
@@ -46,24 +46,22 @@ import com.tatanstudios.abba.network.TokenManager;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.http.Field;
 
 public class FragmentRegistro extends Fragment {
 
 
     private ImageView imgFlechaAtras;
 
-    private TextInputLayout inputNombre, inputApellido, inputEdad, inputCorreo, inputContrasena;
-    private TextInputEditText edtNombre, edtApellido, edtEdad, edtCorreo, edtContrasena;
+    private TextInputLayout inputNombre, inputApellido, inputCorreo, inputContrasena;
+    private TextInputEditText edtNombre, edtApellido, edtCorreo, edtContrasena;
 
     private ApiService service;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -82,7 +80,22 @@ public class FragmentRegistro extends Fragment {
 
     private static final int ELSalvador_SantaAna_Iglesia1 = 1;
 
+    private TextView txtFecha;
 
+    private static final String CERO = "0";
+    private static final String BARRA = "-";
+
+    //Calendario para obtener fecha & hora
+    public final Calendar c = Calendar.getInstance();
+
+    //Variables para obtener la fecha
+    private final int mes = c.get(Calendar.MONTH);
+    private final int dia = c.get(Calendar.DAY_OF_MONTH);
+    private final int anio = c.get(Calendar.YEAR);
+
+
+    private String fechaNacimiento = "";
+    private boolean hayFecha = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -93,13 +106,11 @@ public class FragmentRegistro extends Fragment {
 
         inputNombre = vista.findViewById(R.id.inputNombre);
         inputApellido = vista.findViewById(R.id.inputApellido);
-        inputEdad = vista.findViewById(R.id.inputEdad);
         inputCorreo = vista.findViewById(R.id.inputCorreo);
         inputContrasena = vista.findViewById(R.id.inputContrasena);
 
         edtNombre = vista.findViewById(R.id.edtNombre);
         edtApellido = vista.findViewById(R.id.edtApellido);
-        edtEdad = vista.findViewById(R.id.edtEdad);
         edtCorreo = vista.findViewById(R.id.edtCorreo);
         edtContrasena = vista.findViewById(R.id.edtContrasena);
         rootRelative = vista.findViewById(R.id.rootRelative);
@@ -108,6 +119,7 @@ public class FragmentRegistro extends Fragment {
         spinPais = vista.findViewById(R.id.paisSpinner);
         spinEstado = vista.findViewById(R.id.estadoSpinner);
         spinCiudad = vista.findViewById(R.id.ciudadSpinner);
+        txtFecha = vista.findViewById(R.id.txtCalendario);
 
         iglesiasList = new ArrayList<>();
 
@@ -125,6 +137,11 @@ public class FragmentRegistro extends Fragment {
         // Aplicar el ColorFilter al Drawable del ProgressBar
         progressBar.getIndeterminateDrawable().setColorFilter(colorProgress, PorterDuff.Mode.SRC_IN);
         progressBar.setVisibility(View.GONE);
+
+
+        txtFecha.setOnClickListener(v -> {
+            elegirFecha();
+        });
 
 
         // volver atras
@@ -178,23 +195,6 @@ public class FragmentRegistro extends Fragment {
             }
         });
 
-        edtEdad.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {
-                // Este método se llama para notificar que el texto está a punto de cambiar
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-                // Este método se llama para notificar que el texto ha cambiado
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                verificarEntradas();
-            }
-        });
-
         edtCorreo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {
@@ -204,6 +204,7 @@ public class FragmentRegistro extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
                 // Este método se llama para notificar que el texto ha cambiado
+
             }
 
             @Override
@@ -267,6 +268,29 @@ public class FragmentRegistro extends Fragment {
         return vista;
     }
 
+    private void elegirFecha(){
+
+        closeKeyboard();
+
+        //Estos valores deben ir en ese orden, de lo contrario no mostrara la fecha actual
+        DatePickerDialog recogerFecha = new DatePickerDialog(getActivity(),  (view, year, month, dayOfMonth) -> {
+
+            //Esta variable lo que realiza es aumentar en uno el mes ya que comienza desde 0 = enero
+            final int mesActual = month + 1;
+            //Formateo el día obtenido: antepone el 0 si son menores de 10
+            String diaFormateado = (dayOfMonth < 10)? CERO + String.valueOf(dayOfMonth):String.valueOf(dayOfMonth);
+            //Formateo el mes obtenido: antepone el 0 si son menores de 10
+            String mesFormateado = (mesActual < 10)? CERO + String.valueOf(mesActual):String.valueOf(mesActual);
+            //Muestro la fecha con el formato deseado
+            txtFecha.setText(diaFormateado + BARRA + mesFormateado + BARRA + year);
+
+            fechaNacimiento = year + BARRA + mesFormateado + BARRA + diaFormateado;
+            hayFecha = true;
+        },anio, mes, dia);
+        //Muestro el widget
+        recogerFecha.show();
+    }
+
     private void llenarSpinner(){
 
         // GENEROS
@@ -302,6 +326,20 @@ public class FragmentRegistro extends Fragment {
 
         //****************************************
 
+        spinGenero.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
+                closeKeyboard();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Implementa según sea necesario
+            }
+        });
+
+
 
         // Configura el listener para el primer Spinner (Paises)
 
@@ -315,6 +353,8 @@ public class FragmentRegistro extends Fragment {
                 adapterIglesia.clear();
                 spinEstado.setSelection(0);
                 spinCiudad.setSelection(0);
+
+                closeKeyboard();
 
                 if(position == 0){
                     idSpinnerIglesia = 0;
@@ -446,11 +486,10 @@ public class FragmentRegistro extends Fragment {
 
         String txtNombre = Objects.requireNonNull(edtNombre.getText()).toString();
         String txtApellido = Objects.requireNonNull(edtApellido.getText()).toString();
-        String txtEdad = Objects.requireNonNull(edtEdad.getText()).toString();
         String txtCorreo = Objects.requireNonNull(edtCorreo.getText()).toString();
         String txtContrasena = Objects.requireNonNull(edtContrasena.getText()).toString();
 
-        if(TextUtils.isEmpty(txtNombre) || TextUtils.isEmpty(txtApellido) || TextUtils.isEmpty(txtEdad)
+        if(TextUtils.isEmpty(txtNombre) || TextUtils.isEmpty(txtApellido)
                 || TextUtils.isEmpty(txtCorreo) || TextUtils.isEmpty(txtContrasena)){
 
             desactivarBtnRegistro();
@@ -459,6 +498,8 @@ public class FragmentRegistro extends Fragment {
             if(boolCorreo && boolContrasena){
 
                 activarBtnRegistro();
+            }else{
+                desactivarBtnRegistro();
             }
         }
     }
@@ -479,6 +520,11 @@ public class FragmentRegistro extends Fragment {
     }
 
     private void confirmarRegistro(){
+
+        if(!hayFecha){
+            Toasty.error(getContext(), getString(R.string.fecha_nacimiento_es_requerido)).show();
+            return;
+        }
 
         if(spinGenero.getSelectedItemPosition() == 0){
             Toasty.error(getContext(), getString(R.string.genero_es_requerido)).show();
@@ -520,14 +566,13 @@ public class FragmentRegistro extends Fragment {
         String version = getString(R.string.version_app);
         String txtNombre = Objects.requireNonNull(edtNombre.getText()).toString();
         String txtApellido = Objects.requireNonNull(edtApellido.getText()).toString();
-        String txtEdad = Objects.requireNonNull(edtEdad.getText()).toString();
         int idGenero = spinGenero.getSelectedItemPosition(); // 1: masculino, 2: femenino
         String txtCorreo = Objects.requireNonNull(edtCorreo.getText()).toString();
         String txtContrasena = Objects.requireNonNull(edtContrasena.getText()).toString();
         String idOneSignal = "1234";
 
         compositeDisposable.add(
-                service.registroUsuario(txtNombre, txtApellido, txtEdad, idGenero,
+                service.registroUsuario(txtNombre, txtApellido, fechaNacimiento, idGenero,
                                 idSpinnerIglesia, txtCorreo, txtContrasena, idOneSignal, version)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())

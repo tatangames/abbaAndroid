@@ -49,7 +49,7 @@ public class TokenManager {
 
 
 
-    public ModeloUsuario getIdUsuario(){
+    public ModeloUsuario getToken(){
         ModeloUsuario token = new ModeloUsuario();
         token.setId(prefs.getString("ID", null));
         return token;
