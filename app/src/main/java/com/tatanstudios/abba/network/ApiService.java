@@ -1,11 +1,11 @@
 package com.tatanstudios.abba.network;
 
+import com.tatanstudios.abba.modelos.perfil.ModeloAjustes;
 import com.tatanstudios.abba.modelos.usuario.ModeloUsuario;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface ApiService {
@@ -26,7 +26,7 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<ModeloUsuario> registroUsuario(@Field("nombre") String nombre,
                                                 @Field("apellido") String apellido,
-                                                @Field("edad") String edad,
+                                                @Field("edad") String fechaNacimiento,
                                                 @Field("genero") int idGenero,
                                                 @Field("iglesia") int idIglesia,
                                                 @Field("correo") String correo,
@@ -34,12 +34,23 @@ public interface ApiService {
                                                 @Field("onesignal") String idOneSignal,
                                                 @Field("version") String version);
 
+    @POST("app/solicitar/listado/opcion/perfil")
+    @FormUrlEncoded
+    Observable<ModeloAjustes> informacionListadoAjuste(@Field("iduser") String idUsuario);
+
+
     @POST("app/solicitar/informacion/perfil")
     @FormUrlEncoded
     Observable<ModeloUsuario> informacionPerfil(@Field("iduser") String idUsuario);
 
 
-
+    @POST("app/actualizar/perfil/usuario")
+    @FormUrlEncoded
+    Observable<ModeloUsuario> actualizarPerfilUsuario(@Field("iduser") String idUsuario,
+                                              @Field("nombre") String nombre,
+                                              @Field("apellido") String apellido,
+                                              @Field("fechanac") String fechaNacimiento,
+                                              @Field("correo") String correo);
 
 
 

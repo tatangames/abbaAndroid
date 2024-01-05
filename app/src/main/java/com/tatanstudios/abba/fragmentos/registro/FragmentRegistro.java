@@ -537,26 +537,23 @@ public class FragmentRegistro extends Fragment {
             return;
         }
 
-            //String txtCorreo = Objects.requireNonNull(edtCorreo.getText()).toString();
-
-            KAlertDialog pDialog = new KAlertDialog(getActivity(), KAlertDialog.SUCCESS_TYPE);
-            pDialog.setTitleText(getString(R.string.completar_registro));
-            pDialog.setContentText("");
-            pDialog.setConfirmText(getString(R.string.si));
-            pDialog.setContentTextSize(16);
-            pDialog.setCancelable(false);
-            pDialog.setCanceledOnTouchOutside(false);
-            pDialog.confirmButtonColor(R.drawable.dialogo_theme_success)
-                    .setConfirmClickListener(sDialog -> {
-                        sDialog.dismissWithAnimation();
-                        registrarUsuario();
-                    });
-            pDialog.cancelButtonColor(R.drawable.dialogo_theme_cancel)
-                    .setContentTextSize(16)
-                    .setCancelText(getString(R.string.editar))
-                    .setCancelClickListener(kAlertDialog -> kAlertDialog.dismissWithAnimation());
-            pDialog.show();
-
+        KAlertDialog pDialog = new KAlertDialog(getActivity(), KAlertDialog.SUCCESS_TYPE);
+        pDialog.setTitleText(getString(R.string.completar_registro));
+        pDialog.setContentText("");
+        pDialog.setConfirmText(getString(R.string.si));
+        pDialog.setContentTextSize(16);
+        pDialog.setCancelable(false);
+        pDialog.setCanceledOnTouchOutside(false);
+        pDialog.confirmButtonColor(R.drawable.dialogo_theme_success)
+                .setConfirmClickListener(sDialog -> {
+                    sDialog.dismissWithAnimation();
+                    registrarUsuario();
+                });
+        pDialog.cancelButtonColor(R.drawable.dialogo_theme_cancel)
+                .setContentTextSize(16)
+                .setCancelText(getString(R.string.editar))
+                .setCancelClickListener(kAlertDialog -> kAlertDialog.dismissWithAnimation());
+        pDialog.show();
     }
 
     private void registrarUsuario(){

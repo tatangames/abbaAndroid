@@ -63,6 +63,8 @@
     <string name="no">No</string>
     <string name="cancelar">Cancelar</string>
     <string name="ajustes">Ajustes</string>
+    <string name="correo_no_disponible">Correo no disponible</string>
+    <string name="actualizado">Actualizado</string>
 
 
     <string name="bienvenidos_a_abba_app">Bienvenidos a Abba App</string>
@@ -77,9 +79,6 @@
     <string name="editar_perfil">Editar Perfil</string>
     <string name="actualizar">Actualizar</string>
     <string name="fecha_de_nacimiento">Fecha de Nacimiento</string>
-
-
-
 
 
     <string-array name="generos_array">

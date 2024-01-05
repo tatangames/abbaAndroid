@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.developer.kalert.KAlertDialog;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tatanstudios.abba.R;
@@ -42,8 +43,8 @@ public class EditarPerfilActivity extends AppCompatActivity {
 
     private OnBackPressedDispatcher onBackPressedDispatcher;
 
-    private TextInputLayout inputNombre, inputApellido, inputCorreo, inputContrasena;
-    private TextInputEditText edtNombre, edtApellido, edtCorreo, edtContrasena;
+    private TextInputLayout inputCorreo;
+    private TextInputEditText edtNombre, edtApellido, edtCorreo;
 
     private ApiService service;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -85,8 +86,6 @@ public class EditarPerfilActivity extends AppCompatActivity {
         rootRelative = findViewById(R.id.rootRelative);
         txtFechaNac = findViewById(R.id.txtCalendario);
 
-        inputNombre = findViewById(R.id.inputNombre);
-        inputApellido = findViewById(R.id.inputApellido);
         inputCorreo = findViewById(R.id.inputCorreo);
 
         edtNombre = findViewById(R.id.edtNombre);
@@ -194,19 +193,6 @@ public class EditarPerfilActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         solicitarPerfil();
     }
 
@@ -222,7 +208,6 @@ public class EditarPerfilActivity extends AppCompatActivity {
                         .subscribe(apiRespuesta -> {
 
                                     progressBar.setVisibility(View.GONE);
-                                    linearContenedor.setVisibility(View.VISIBLE);
 
                                     if(apiRespuesta != null) {
 
@@ -233,6 +218,8 @@ public class EditarPerfilActivity extends AppCompatActivity {
                                            txtFechaNac.setText(apiRespuesta.getFechaNacimiento());
                                            edtCorreo.setText(apiRespuesta.getCorreo());
                                            fechaNacimiento = apiRespuesta.getFechaNacimientoRaw();
+
+                                           linearContenedor.setVisibility(View.VISIBLE);
                                         }
                                         else{
                                             mensajeSinConexion();
@@ -307,11 +294,63 @@ public class EditarPerfilActivity extends AppCompatActivity {
 
     private void actualizarPerfil(){
 
+        closeKeyboard();
+
+        String iduser = tokenManager.getToken().getId();
+
+        String txtNombre = Objects.requireNonNull(edtNombre.getText()).toString();
+        String txtApellido = Objects.requireNonNull(edtApellido.getText()).toString();
+        String txtCorreo = Objects.requireNonNull(edtCorreo.getText()).toString();
+
+        progressBar.setVisibility(View.VISIBLE);
+
+        compositeDisposable.add(
+                service.actualizarPerfilUsuario(iduser, txtNombre, txtApellido, fechaNacimiento, txtCorreo)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .retry()
+                        .subscribe(apiRespuesta -> {
+
+                                    progressBar.setVisibility(View.GONE);
+
+                                    if(apiRespuesta != null) {
+
+                                        if(apiRespuesta.getSuccess() == 1) {
+
+                                           correoYaRegistrado(txtCorreo);
+                                        }
+                                        else if(apiRespuesta.getSuccess() == 2){
+
+                                            Toasty.success(this, getString(R.string.actualizado)).show();
+                                            volverAtras();
+                                        }
+                                        else{
+                                            mensajeSinConexion();
+                                        }
+                                    }else{
+                                        mensajeSinConexion();
+                                    }
+                                },
+                                throwable -> {
+                                    mensajeSinConexion();
+                                })
+        );
     }
 
 
 
-
+    private void correoYaRegistrado(String correo){
+        KAlertDialog pDialog = new KAlertDialog(this, KAlertDialog.WARNING_TYPE);
+        pDialog.setTitleText(getString(R.string.correo_no_disponible));
+        pDialog.setContentText(correo);
+        pDialog.setConfirmText(getString(R.string.aceptar));
+        pDialog.setContentTextSize(16);
+        pDialog.setCancelable(false);
+        pDialog.setCanceledOnTouchOutside(false);
+        pDialog.confirmButtonColor(R.drawable.dialogo_theme_success)
+                .setConfirmClickListener(KAlertDialog::dismissWithAnimation);
+        pDialog.show();
+    }
 
 
 

@@ -116,8 +116,6 @@ public class AdaptadorFragmentMas extends RecyclerView.Adapter<RecyclerView.View
             // Configurar el ViewHolder para una línea de separación
 
 
-
-
         }
     }
 
