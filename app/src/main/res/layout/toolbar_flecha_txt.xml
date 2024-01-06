@@ -21,7 +21,6 @@
                 android:id="@+id/imgFlechaAtras"
                 android:layout_width="34dp"
                 android:layout_height="34dp"
-                android:layout_marginStart="16dp"
                 android:src="@drawable/ic_arrow_left_white"
                 android:layout_marginEnd="8dp"/>
 
@@ -29,12 +28,11 @@
                 android:id="@+id/txtToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="6dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/aktivgroteskcorp_bold"
-                android:padding="8dp"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
         </LinearLayout>
 

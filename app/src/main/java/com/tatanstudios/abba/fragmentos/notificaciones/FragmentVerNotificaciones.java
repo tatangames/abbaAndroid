@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +38,11 @@ public class FragmentVerNotificaciones extends Fragment {
     private TextView txtToolbar;
     private ImageView imgFlechaAtras, imgAjustes;
 
+
+    private OnBackPressedDispatcher onBackPressedDispatcher;
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_ver_notificaciones, container, false);
@@ -49,6 +55,7 @@ public class FragmentVerNotificaciones extends Fragment {
 
         txtToolbar.setText(getString(R.string.notificaciones));
 
+        onBackPressedDispatcher = getActivity().getOnBackPressedDispatcher();
 
         tokenManager = TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE));
         service = RetrofitBuilder.createServiceNoAuth(ApiService.class);
@@ -58,8 +65,7 @@ public class FragmentVerNotificaciones extends Fragment {
         rootRelative.addView(progressBar, params);
 
         imgFlechaAtras.setOnClickListener(v -> {
-
-
+            onBackPressedDispatcher.onBackPressed();
         });
 
         imgAjustes.setOnClickListener(v -> {

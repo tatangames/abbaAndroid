@@ -16,6 +16,6 @@
 
     <item
         android:id="@+id/menu_mas"
-        android:icon="@drawable/vector_parrafo_linea"
+        android:icon="@drawable/vector_tuerca_linea"
         android:title="@string/ajustes"/>
 </menu>

@@ -3,4 +3,6 @@
 
     <dimen name="grosor_progressbar">6.5dp</dimen>
     <dimen name="custom_icon_size">14dp</dimen>
+
+
 </resources>

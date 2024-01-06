@@ -81,7 +81,7 @@ public class PrincipalActivity extends AppCompatActivity {
 
         menuBiblia.setIcon(R.drawable.vector_biblia_linea);
         menuPlanes.setIcon(R.drawable.vector_planes_linea);
-        menuMas.setIcon(R.drawable.vector_parrafo_linea);
+        menuMas.setIcon(R.drawable.vector_tuerca_linea);
     }
 
     private void cambioMenuBiblia(){
@@ -89,7 +89,7 @@ public class PrincipalActivity extends AppCompatActivity {
 
         menuInicio.setIcon(R.drawable.vector_casa_linea);
         menuPlanes.setIcon(R.drawable.vector_planes_linea);
-        menuMas.setIcon(R.drawable.vector_parrafo_linea);
+        menuMas.setIcon(R.drawable.vector_tuerca_linea);
     }
 
     private void cambioMenuPlanes(){
@@ -97,11 +97,11 @@ public class PrincipalActivity extends AppCompatActivity {
 
         menuInicio.setIcon(R.drawable.vector_casa_linea);
         menuBiblia.setIcon(R.drawable.vector_biblia_linea);
-        menuMas.setIcon(R.drawable.vector_parrafo_linea);
+        menuMas.setIcon(R.drawable.vector_tuerca_linea);
     }
 
     private void cambioMenuMas(){
-        menuMas.setIcon(R.drawable.vector_parrafo_lleno);
+        menuMas.setIcon(R.drawable.vector_tuerca_lleno);
 
         menuInicio.setIcon(R.drawable.vector_casa_linea);
         menuBiblia.setIcon(R.drawable.vector_biblia_linea);

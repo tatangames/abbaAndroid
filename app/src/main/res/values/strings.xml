@@ -79,6 +79,11 @@
     <string name="editar_perfil">Editar Perfil</string>
     <string name="actualizar">Actualizar</string>
     <string name="fecha_de_nacimiento">Fecha de Nacimiento</string>
+    <string name="editar_notificaciones">Editar Notificaciones</string>
+
+
+
+
 
 
     <string-array name="generos_array">
