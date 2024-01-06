@@ -27,14 +27,7 @@ public class FragmentEditarNotificacion extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_editar_notificaciones, container, false);
 
-        switchCompat = vista.findViewById(R.id.idnoti);
 
-        switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
-
-
-
-
-        });
 
 
         return vista;

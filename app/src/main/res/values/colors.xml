@@ -35,6 +35,17 @@
     <color name="colorHint">#808080</color> <!-- Color del texto Hint -->
     <color name="colorUnderline">#FF0000</color>
 
+
+
+    <color name="blue_moon">#FF25316D</color>
+    <color name="blue_soft">#FF5F9DF7</color>
+    <color name="orange_sun">#FFFD841F</color>
+    <color name="yellow_soft">#FFFDFDBD</color>
+    <color name="gray">#FF8C8C8C</color>
+
+    <color name="grey">#aaa</color>
+    <color name="darkGrey">#ff424242</color>
+
 </resources>
 
 
