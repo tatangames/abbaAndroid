@@ -43,10 +43,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-
+        app:itemTextAppearanceInactive="@style/AppBottomNavigationView.InactiveTextAppearance"
+        app:itemTextAppearanceActive="@style/AppBottomNavigationView.ActiveTextAppearance"
+        app:itemBackground="@color/bottom_navigation_background_color"
         app:itemIconTint="@drawable/bottom_nav_icon_color_selector"
-        app:itemTextColor="@drawable/bottom_nav_icon_color_selector"
-
+        app:itemTextColor="@color/bottom_navigation_text_color"
         app:menu="@menu/bottom_nav_menu" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

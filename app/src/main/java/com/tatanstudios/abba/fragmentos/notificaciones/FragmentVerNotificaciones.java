@@ -74,8 +74,6 @@ public class FragmentVerNotificaciones extends Fragment {
         });
 
 
-
-
         solicitarNotificaciones();
 
         return vista;

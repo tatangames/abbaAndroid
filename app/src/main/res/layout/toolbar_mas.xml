@@ -8,7 +8,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        style="@style/TOOLBAR_V1_WHITE_DARK_TEMA"
         android:minHeight="?attr/actionBarSize">
 
         <TextView
@@ -18,7 +18,7 @@
             android:layout_gravity="center"
             android:text="@string/mas"
             android:gravity="left"
-            android:textColor="@color/black"
+            style="@style/TEXTVIEW_WHITE_DARK_TEMA"
             android:textSize="30sp"
             android:fontFamily="@font/elvetica_medium"
             android:textStyle="bold" />

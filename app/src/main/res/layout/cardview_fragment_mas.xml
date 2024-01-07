@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    style="@style/BACKGROUND_WHITE_DARK_TEMA"
     android:padding="16dp">
 
     <!-- Icono a la izquierda -->
@@ -14,7 +15,6 @@
         android:layout_height="24dp"
         android:layout_marginStart="8dp"
         android:contentDescription="@string/logo"
-        android:src="@drawable/icono_campana"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,8 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:textSize="18sp"
+        style="@style/TEXTVIEW_WHITE_DARK_TEMA"
         android:fontFamily="@font/roboto_regular"
-        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgIcono"
         app:layout_constraintTop_toTopOf="parent" />

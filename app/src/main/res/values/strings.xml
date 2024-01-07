@@ -65,6 +65,17 @@
     <string name="ajustes">Ajustes</string>
     <string name="correo_no_disponible">Correo no disponible</string>
     <string name="actualizado">Actualizado</string>
+    <string name="cambiar_tema">Cambiar Tema</string>
+    <string name="tema_claro">Tema Claro</string>
+    <string name="tema_oscuro">Tema Oscuro</string>
+    <string name="para_aplicar_efectos_se_debe_reiniciar">Para aplicar efectos se debe reiniciar</string>
+    <string name="reiniciar">Reiniciar</string>
+    <string name="tema_actualizado">Tema Actualizado</string>
+
+
+
+
+
 
 
     <string name="bienvenidos_a_abba_app">Bienvenidos a Abba App</string>

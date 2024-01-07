@@ -2,15 +2,25 @@ package com.tatanstudios.abba.fragmentos.menu;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -19,10 +29,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.developer.kalert.KAlertDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.tatanstudios.abba.R;
 import com.tatanstudios.abba.activitys.login.LoginActivity;
 import com.tatanstudios.abba.activitys.perfil.EditarPerfilActivity;
 import com.tatanstudios.abba.activitys.perfil.VerNotificacionesActivity;
+import com.tatanstudios.abba.activitys.principal.PrincipalActivity;
 import com.tatanstudios.abba.adaptadores.mas.AdaptadorFragmentMas;
 import com.tatanstudios.abba.modelos.mas.ModeloFraMasConfig;
 import com.tatanstudios.abba.modelos.mas.ModeloFraMasPerfil;
@@ -56,6 +68,10 @@ public class FragmentMas extends Fragment {
     private String letra = "";
     private String nombreUsuario = "";
 
+
+
+    private boolean bottomSheetShowing = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_mas, container, false);
@@ -74,10 +90,18 @@ public class FragmentMas extends Fragment {
 
         rootRelative.addView(progressBar, params);
 
+
+
+
+
+
         informacionListado();
 
         return vista;
     }
+
+
+
 
     private void informacionListado(){
 
@@ -162,6 +186,9 @@ public class FragmentMas extends Fragment {
                 verNotificaciones();
                 break;
 
+            case 2:
+                editarTema();
+                break;
             case 12:
                 cerrarSesion();
                 break;
@@ -171,6 +198,63 @@ public class FragmentMas extends Fragment {
         }
     }
 
+    private void editarTema(){
+
+        if (!bottomSheetShowing) {
+            bottomSheetShowing = true;
+
+            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireContext());
+            View bottomSheetView = getLayoutInflater().inflate(R.layout.botton_sheet_tema, null);
+            bottomSheetDialog.setContentView(bottomSheetView);
+
+            SwitchCompat switchCompat = bottomSheetDialog.findViewById(R.id.switchButtonTema);
+
+            if(tokenManager.getToken().getTema() == 0){
+                switchCompat.setTextOff(getString(R.string.claro));
+                switchCompat.setChecked(false);
+            }else{
+                switchCompat.setTextOn(getString(R.string.oscuro));
+                switchCompat.setChecked(true);
+            }
+
+            switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
+                if (isChecked) {
+                    tokenManager.guardarEstiloTema(1);
+                    alertaTemaCambio();
+                } else {
+                    tokenManager.guardarEstiloTema(0);
+                    alertaTemaCambio();
+                }
+
+            });
+
+            // Configura un oyente para saber cuándo se cierra el BottomSheetDialog
+            bottomSheetDialog.setOnDismissListener(dialog -> {
+                bottomSheetShowing = false;
+            });
+
+            bottomSheetDialog.show();
+        }
+    }
+
+
+    private void alertaTemaCambio(){
+        KAlertDialog pDialog = new KAlertDialog(getContext(), KAlertDialog.SUCCESS_TYPE);
+        pDialog.setTitleText(getString(R.string.tema_actualizado));
+        pDialog.setContentText(getString(R.string.para_aplicar_efectos_se_debe_reiniciar));
+        pDialog.setConfirmText(getString(R.string.reiniciar));
+        pDialog.setContentTextSize(16);
+        pDialog.setCancelable(false);
+        pDialog.setCanceledOnTouchOutside(false);
+        pDialog.confirmButtonColor(R.drawable.dialogo_theme_success)
+                .setConfirmClickListener(sDialog -> {
+                    sDialog.dismissWithAnimation();
+                    reiniciarApp();
+                });
+        pDialog.show();
+
+    }
 
     private void verNotificaciones(){
         Intent intentLogin = new Intent(getContext(), VerNotificacionesActivity.class);
@@ -181,6 +265,12 @@ public class FragmentMas extends Fragment {
     public void editarPerfil(){
         Intent intentLogin = new Intent(getContext(), EditarPerfilActivity.class);
         startActivity(intentLogin);
+    }
+
+    private void reiniciarApp(){
+        Intent intentLogin = new Intent(getContext(), PrincipalActivity.class);
+        startActivity(intentLogin);
+        getActivity().finish();
     }
 
     boolean seguroCerrarSesion = true;
@@ -211,6 +301,16 @@ public class FragmentMas extends Fragment {
             pDialog.show();
         }
     }
+
+
+
+
+
+
+
+
+
+
 
 
     void salir(){

@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="10dp"
+    style="@style/BACKGROUND_WHITE_DARK_TEMA"
     android:layout_height="wrap_content">
 
     <TextView
@@ -31,8 +32,8 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/roboto_regular"
-        android:gravity="left"
-        android:textColor="@color/black"
+        android:gravity="start"
+        style="@style/TEXTVIEW_WHITE_DARK_TEMA"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/txtLetra"

@@ -32,7 +32,9 @@ public class TokenManager {
     }
 
 
-
+    public void guardarEstiloTema(int code) {
+        editor.putInt("TEMA", code).commit();
+    }
 
 
 
@@ -44,6 +46,7 @@ public class TokenManager {
     // borrar datos guardados
     public void deletePreferences(){
         editor.remove("ID").commit();
+        editor.remove("TEMA").commit();
     }
 
 
@@ -52,6 +55,7 @@ public class TokenManager {
     public ModeloUsuario getToken(){
         ModeloUsuario token = new ModeloUsuario();
         token.setId(prefs.getString("ID", null));
+        token.setTema(prefs.getInt("TEMA", 0));
         return token;
     }
 

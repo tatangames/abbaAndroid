@@ -30,6 +30,16 @@ public class ModeloUsuario {
     @SerializedName("fecha_nac_raw")
     public String fechaNacimientoRaw;
 
+    public int tema;
+
+
+    public int getTema() {
+        return tema;
+    }
+
+    public void setTema(int tema) {
+        this.tema = tema;
+    }
 
     public String getFechaNacimientoRaw() {
         return fechaNacimientoRaw;

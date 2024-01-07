@@ -2,9 +2,11 @@ package com.tatanstudios.abba.activitys.principal;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,10 +14,14 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.tatanstudios.abba.R;
+import com.tatanstudios.abba.activitys.perfil.EditarPerfilActivity;
 import com.tatanstudios.abba.fragmentos.menu.FragmentBiblia;
 import com.tatanstudios.abba.fragmentos.menu.FragmentInicio;
 import com.tatanstudios.abba.fragmentos.menu.FragmentMas;
 import com.tatanstudios.abba.fragmentos.menu.FragmentPlanes;
+import com.tatanstudios.abba.network.TokenManager;
+
+import es.dmoral.toasty.Toasty;
 
 public class PrincipalActivity extends AppCompatActivity {
 
@@ -27,7 +33,7 @@ public class PrincipalActivity extends AppCompatActivity {
     private MenuItem menuPlanes;
     private MenuItem menuMas;
 
-
+    private TokenManager tokenManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,35 +50,48 @@ public class PrincipalActivity extends AppCompatActivity {
         menuPlanes = menu.findItem(R.id.menu_planes);
         menuMas = menu.findItem(R.id.menu_mas);
 
+        tokenManager = TokenManager.getInstance(this.getSharedPreferences("prefs", MODE_PRIVATE));
+
+        if(tokenManager.getToken().getTema() == 1){
+            changeThemeDark();
+        }else{
+            changeThemeLight();
+        }
+
         getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new FragmentInicio()).commit();
+
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
 
-            Fragment selectedFragment = null;
             int itemId = item.getItemId();
             if (itemId == R.id.menu_inicio) {
                 cambioMenuInicio();
-                selectedFragment = new FragmentInicio();
+                loadFragment(new FragmentInicio());
             } else if (itemId == R.id.menu_biblia) {
                 cambioMenuBiblia();
-                selectedFragment = new FragmentBiblia();
+                loadFragment(new FragmentBiblia());
             } else if (itemId == R.id.menu_planes) {
                 cambioMenuPlanes();
-                selectedFragment = new FragmentPlanes();
+                loadFragment(new FragmentPlanes());
+
             }
             else if (itemId == R.id.menu_mas) {
                 cambioMenuMas();
-                selectedFragment = new FragmentMas();
+                loadFragment(new FragmentMas());
             }
-            // It will help to replace the
-            // one fragment to other.
-            if (selectedFragment != null) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_container, selectedFragment).commit();
-            }
+
             return true;
         });
+
+
     }
 
+
+    private void loadFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_container, fragment)
+                .commit();
+    }
 
 
 
@@ -107,6 +126,20 @@ public class PrincipalActivity extends AppCompatActivity {
         menuBiblia.setIcon(R.drawable.vector_biblia_linea);
         menuPlanes.setIcon(R.drawable.vector_planes_linea);
     }
+
+
+    // Cambiar el tema de la actividad según sea necesario
+    public void changeThemeDark() {
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+    }
+
+    public void changeThemeLight() {
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+    }
+
+
+
+
 
 
 
