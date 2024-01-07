@@ -94,6 +94,7 @@ public class AdaptadorFragmentMas extends RecyclerView.Adapter<RecyclerView.View
 
                 case 1:
                     ((ItemNormalViewHolder) holder).imgPerfil.setImageResource(R.drawable.icono_campana);
+
                     break;
 
                 case 2:

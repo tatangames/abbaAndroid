@@ -46,6 +46,9 @@
 
     <color name="grey">#aaa</color>
     <color name="darkGrey">#ff424242</color>
+    <color name="colorBordeToolbar">#2A3B47</color>
+    <color name="colorIconosTema">#FFFFFF</color>
+
 
 
     <color name="colorPrimaryDark2">#1C1C1C</color>
