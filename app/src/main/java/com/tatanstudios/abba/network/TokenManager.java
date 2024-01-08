@@ -36,7 +36,9 @@ public class TokenManager {
         editor.putInt("TEMA", code).commit();
     }
 
-
+    public void guardarIdioma(int code) {
+        editor.putInt("IDIOMA", code).commit();
+    }
 
 
 
@@ -56,6 +58,7 @@ public class TokenManager {
         ModeloUsuario token = new ModeloUsuario();
         token.setId(prefs.getString("ID", null));
         token.setTema(prefs.getInt("TEMA", 0));
+        token.setIdioma(prefs.getInt("IDIOMA", 0));
         return token;
     }
 

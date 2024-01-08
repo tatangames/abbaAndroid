@@ -4,8 +4,10 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,6 +22,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -34,11 +37,14 @@ import com.developer.kalert.KAlertDialog;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tatanstudios.abba.R;
+import com.tatanstudios.abba.activitys.login.LoginActivity;
 import com.tatanstudios.abba.activitys.principal.PrincipalActivity;
 import com.tatanstudios.abba.adaptadores.spinner.AdaptadorSpinnerGenero;
 import com.tatanstudios.abba.adaptadores.spinner.AdaptadorSpinnerIglesia;
 import com.tatanstudios.abba.adaptadores.spinner.AdaptadorSpinnerPais;
 import com.tatanstudios.abba.adaptadores.spinner.AdaptadorSpinnerZona;
+import com.tatanstudios.abba.extras.CustomDatePickerDialog;
+import com.tatanstudios.abba.extras.OnFragmentInteractionTema;
 import com.tatanstudios.abba.modelos.registro.ModeloIglesias;
 import com.tatanstudios.abba.network.ApiService;
 import com.tatanstudios.abba.network.RetrofitBuilder;
@@ -85,17 +91,13 @@ public class FragmentRegistro extends Fragment {
     private static final String CERO = "0";
     private static final String BARRA = "-";
 
-    //Calendario para obtener fecha & hora
-    public final Calendar c = Calendar.getInstance();
-
-    //Variables para obtener la fecha
-    private final int mes = c.get(Calendar.MONTH);
-    private final int dia = c.get(Calendar.DAY_OF_MONTH);
-    private final int anio = c.get(Calendar.YEAR);
-
 
     private String fechaNacimiento = "";
     private boolean hayFecha = false;
+
+
+    private OnFragmentInteractionTema mListener;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -129,6 +131,18 @@ public class FragmentRegistro extends Fragment {
 
         int colorProgress = ContextCompat.getColor(requireContext(), R.color.colorProgress);
 
+        if(tokenManager.getToken().getTema() == 1){
+            inputNombre.setBoxStrokeColor(ContextCompat.getColor(getContext(), R.color.white));
+            inputNombre.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED);
+            inputApellido.setBoxStrokeColor(ContextCompat.getColor(getContext(), R.color.white));
+            inputApellido.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED);
+            inputCorreo.setBoxStrokeColor(ContextCompat.getColor(getContext(), R.color.white));
+            inputCorreo.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED);
+            inputContrasena.setBoxStrokeColor(ContextCompat.getColor(getContext(), R.color.white));
+            inputContrasena.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED);
+        }
+
+
         service = RetrofitBuilder.createServiceNoAuth(ApiService.class);
         progressBar = new ProgressBar(getActivity(), null, android.R.attr.progressBarStyleLarge);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 100);
@@ -142,6 +156,7 @@ public class FragmentRegistro extends Fragment {
         txtFecha.setOnClickListener(v -> {
             elegirFecha();
         });
+
 
 
         // volver atras
@@ -272,24 +287,82 @@ public class FragmentRegistro extends Fragment {
 
         closeKeyboard();
 
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+
+        CustomDatePickerDialog datePickerDialog = new CustomDatePickerDialog(
+                getContext(),
+                (view, year1, month1, dayOfMonth1) -> {
+                    //Esta variable lo que realiza es aumentar en uno el mes ya que comienza desde 0 = enero
+                    final int mesActual = month1 + 1;
+                    //Formateo el día obtenido: antepone el 0 si son menores de 10
+                    String diaFormateado = (dayOfMonth1 < 10)? CERO + String.valueOf(dayOfMonth1):String.valueOf(dayOfMonth1);
+                    //Formateo el mes obtenido: antepone el 0 si son menores de 10
+                    String mesFormateado = (mesActual < 10)? CERO + String.valueOf(mesActual):String.valueOf(mesActual);
+                    //Muestro la fecha con el formato deseado
+                    txtFecha.setText(diaFormateado + BARRA + mesFormateado + BARRA + year1);
+
+                    fechaNacimiento = year1 + BARRA + mesFormateado + BARRA + diaFormateado;
+                    hayFecha = true;
+
+                },
+                year,
+                month,
+                dayOfMonth
+        );
+
+        datePickerDialog.setButton(DatePickerDialog.BUTTON_POSITIVE, getString(R.string.si), datePickerDialog);
+
+        datePickerDialog.show();
+
+        //datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
+
+
         //Estos valores deben ir en ese orden, de lo contrario no mostrara la fecha actual
-        DatePickerDialog recogerFecha = new DatePickerDialog(getActivity(),  (view, year, month, dayOfMonth) -> {
+       /* DatePickerDialog recogerFecha = new DatePickerDialog(getActivity(),  (view, year, month, dayOfMonth) -> {
 
-            //Esta variable lo que realiza es aumentar en uno el mes ya que comienza desde 0 = enero
-            final int mesActual = month + 1;
-            //Formateo el día obtenido: antepone el 0 si son menores de 10
-            String diaFormateado = (dayOfMonth < 10)? CERO + String.valueOf(dayOfMonth):String.valueOf(dayOfMonth);
-            //Formateo el mes obtenido: antepone el 0 si son menores de 10
-            String mesFormateado = (mesActual < 10)? CERO + String.valueOf(mesActual):String.valueOf(mesActual);
-            //Muestro la fecha con el formato deseado
-            txtFecha.setText(diaFormateado + BARRA + mesFormateado + BARRA + year);
 
-            fechaNacimiento = year + BARRA + mesFormateado + BARRA + diaFormateado;
-            hayFecha = true;
         },anio, mes, dia);
         //Muestro el widget
-        recogerFecha.show();
+        recogerFecha.show();*/
     }
+
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionTema) {
+            mListener = (OnFragmentInteractionTema) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+
+    private boolean conocerTema() {
+        // ...
+        // Llama a la función de la Activity
+        if (mListener != null) {
+
+            boolean info = mListener.onFragmentInteraction();
+           // Toasty.info(getContext(), "es: " + info, Toasty.LENGTH_SHORT).show();
+            return info;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+
 
     private void llenarSpinner(){
 
@@ -297,7 +370,9 @@ public class FragmentRegistro extends Fragment {
 
         String[] listaGeneros = getResources().getStringArray(R.array.generos_array);
 
-        AdaptadorSpinnerGenero generoAdapter = new AdaptadorSpinnerGenero(getContext(), android.R.layout.simple_spinner_item, listaGeneros);
+        boolean infoTema = conocerTema();
+
+        AdaptadorSpinnerGenero generoAdapter = new AdaptadorSpinnerGenero(getContext(), android.R.layout.simple_spinner_item, listaGeneros, infoTema);
         generoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinGenero.setAdapter(generoAdapter);

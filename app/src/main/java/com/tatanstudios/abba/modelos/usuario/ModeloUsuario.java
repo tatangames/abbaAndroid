@@ -31,7 +31,16 @@ public class ModeloUsuario {
     public String fechaNacimientoRaw;
 
     public int tema;
+    public int idioma; // 1: espanol, 2: ingles
 
+
+    public int getIdioma() {
+        return idioma;
+    }
+
+    public void setIdioma(int idioma) {
+        this.idioma = idioma;
+    }
 
     public int getTema() {
         return tema;

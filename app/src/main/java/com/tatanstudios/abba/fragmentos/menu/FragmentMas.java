@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,8 @@ import com.tatanstudios.abba.activitys.perfil.EditarPerfilActivity;
 import com.tatanstudios.abba.activitys.perfil.VerNotificacionesActivity;
 import com.tatanstudios.abba.activitys.principal.PrincipalActivity;
 import com.tatanstudios.abba.adaptadores.mas.AdaptadorFragmentMas;
+import com.tatanstudios.abba.extras.LanguageUtils;
+import com.tatanstudios.abba.extras.LocaleManagerExtras;
 import com.tatanstudios.abba.modelos.mas.ModeloFraMasConfig;
 import com.tatanstudios.abba.modelos.mas.ModeloFraMasPerfil;
 import com.tatanstudios.abba.modelos.mas.ModeloFragmentMas;
@@ -69,8 +72,10 @@ public class FragmentMas extends Fragment {
     private String nombreUsuario = "";
 
 
+    private static final String APPINGLES = "en";
+    private static final String APPESPANOL = "es";
 
-    private boolean bottomSheetShowing = false;
+    private boolean bottomSheetShowing, bottomDialogIdioma = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -99,7 +104,6 @@ public class FragmentMas extends Fragment {
 
         return vista;
     }
-
 
 
 
@@ -188,6 +192,9 @@ public class FragmentMas extends Fragment {
 
             case 2:
                 editarTema();
+                break;
+            case 3:
+                cambiarIdiomaModal();
                 break;
             case 12:
                 cerrarSesion();
@@ -303,14 +310,67 @@ public class FragmentMas extends Fragment {
     }
 
 
+    private void cambiarIdiomaModal(){
+
+        if (!bottomDialogIdioma) {
+            bottomDialogIdioma = true;
+
+            String currentLanguage = LanguageUtils.getCurrentLanguage(getContext());
+
+            BottomSheetDialog bottomSheetDialogIdioma = new BottomSheetDialog(requireContext());
+            View bottomSheetView = getLayoutInflater().inflate(R.layout.modal_opciones_idiomas, null);
+            bottomSheetDialogIdioma.setContentView(bottomSheetView);
+
+            RadioButton radioIngles = bottomSheetDialogIdioma.findViewById(R.id.radio_button_english);
+            RadioButton radioEspanol = bottomSheetDialogIdioma.findViewById(R.id.radio_button_spanish);
+
+            if (APPINGLES.equals(currentLanguage)) {
+                radioIngles.setChecked(true);
+            } else if (APPESPANOL.equals(currentLanguage)) {
+                radioEspanol.setChecked(true);
+            }
+
+            radioIngles.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    changeLanguage(APPINGLES);
+                }
+            });
+
+            radioEspanol.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    changeLanguage(APPESPANOL);
+                }
+            });
+
+            // Configura un oyente para saber cuándo se cierra el BottomSheetDialog
+            bottomSheetDialogIdioma.setOnDismissListener(dialog -> {
+                bottomDialogIdioma = false;
+            });
+
+            bottomSheetDialogIdioma.show();
+        }
+    }
 
 
+    private void changeLanguage(String languageCode) {
+        LocaleManagerExtras.setLocale(getContext(), languageCode);
 
-
-
-
-
-
+        /*KAlertDialog pDialog = new KAlertDialog(getContext(), KAlertDialog.SUCCESS_TYPE);
+        pDialog.setTitleText(getString(R.string.idioma_actualizado));
+        pDialog.setContentText(getString(R.string.para_aplicar_efectos_se_debe_reiniciar));
+        pDialog.setConfirmText(getString(R.string.reiniciar));
+        pDialog.setContentTextSize(16);
+        pDialog.setCancelable(false);
+        pDialog.setCanceledOnTouchOutside(false);
+        pDialog.confirmButtonColor(R.drawable.dialogo_theme_success)
+                .setConfirmClickListener(sDialog -> {
+                    sDialog.dismissWithAnimation();
+                    reiniciarApp();
+                });
+        pDialog.show();*/
+    }
 
 
     void salir(){

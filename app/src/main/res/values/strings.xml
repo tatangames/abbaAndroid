@@ -21,6 +21,23 @@
     <string name="error_intentar_de_nuevo">Error, intentar de nuevo</string>
     <string name="editar">Editar</string>
     <string name="se_ve_genial">Se ve genial</string>
+    <string name="bienvenidos_a_abba_app">Bienvenidos a Abba App</string>
+    <string name="levantado_el_ejercito">\"Levantando el ejército poderoso de Dios\"</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <string name="flecha_atras">Flecha Atras</string>
     <string name="aceptar">Aceptar</string>
     <string name="correo_ya_registrado">El correo ya se encuentra registrado</string>
@@ -70,16 +87,7 @@
     <string name="tema_oscuro">Tema Oscuro</string>
     <string name="para_aplicar_efectos_se_debe_reiniciar">Para aplicar efectos se debe reiniciar</string>
     <string name="reiniciar">Reiniciar</string>
-    <string name="tema_actualizado">Tema Actualizado</string>
 
-
-
-
-
-
-
-    <string name="bienvenidos_a_abba_app">Bienvenidos a Abba App</string>
-    <string name="levantado_el_ejercito">\"Levantando el ejército poderoso de Dios\"</string>
     <string name="edad">edad</string>
     <string name="telefono">Teléfono</string>
     <string name="pais">País</string>
@@ -91,7 +99,11 @@
     <string name="actualizar">Actualizar</string>
     <string name="fecha_de_nacimiento">Fecha de Nacimiento</string>
     <string name="editar_notificaciones">Editar Notificaciones</string>
-
+    <string name="tema_actualizado">Tema Actualizado</string>
+    <string name="cambiar_idioma">Cambiar Idioma</string>
+    <string name="ingles">Ingles</string>
+    <string name="espanol">Español</string>
+    <string name="idioma_actualizado">Idioma Actualizado</string>
 
 
 

@@ -60,9 +60,10 @@
             </LinearLayout>
 
 
+
             <Button
                 android:id="@+id/btnRegistro"
-                style="@style/BotonRedondoLogin"
+                style="@style/ButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"

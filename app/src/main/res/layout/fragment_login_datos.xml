@@ -5,7 +5,8 @@
     android:id="@+id/rootRelative"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
 
 
     <ScrollView
@@ -52,7 +53,6 @@
             <com.google.android.material.textfield.TextInputLayout
 
                 android:id="@+id/inputCorreo"
-                style="@style/Style_TextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -87,7 +87,6 @@
             <com.google.android.material.textfield.TextInputLayout
 
                 android:id="@+id/inputContrasena"
-                style="@style/Style_TextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"

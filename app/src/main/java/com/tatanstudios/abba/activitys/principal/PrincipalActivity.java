@@ -1,29 +1,23 @@
 package com.tatanstudios.abba.activitys.principal;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.tatanstudios.abba.R;
-import com.tatanstudios.abba.activitys.perfil.EditarPerfilActivity;
 import com.tatanstudios.abba.fragmentos.menu.FragmentBiblia;
 import com.tatanstudios.abba.fragmentos.menu.FragmentInicio;
 import com.tatanstudios.abba.fragmentos.menu.FragmentMas;
 import com.tatanstudios.abba.fragmentos.menu.FragmentPlanes;
 import com.tatanstudios.abba.network.TokenManager;
 
-import es.dmoral.toasty.Toasty;
-
-public class PrincipalActivity extends AppCompatActivity {
+public class PrincipalActivity extends AppCompatActivity  {
 
 
     public BottomNavigationView bottomNavigationView;
@@ -43,6 +37,10 @@ public class PrincipalActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setBackground(null);
 
+        tokenManager = TokenManager.getInstance(this.getSharedPreferences("prefs", MODE_PRIVATE));
+
+        cambioIdioma();
+
         Menu menu = bottomNavigationView.getMenu();
 
         menuInicio = menu.findItem(R.id.menu_inicio);
@@ -50,13 +48,14 @@ public class PrincipalActivity extends AppCompatActivity {
         menuPlanes = menu.findItem(R.id.menu_planes);
         menuMas = menu.findItem(R.id.menu_mas);
 
-        tokenManager = TokenManager.getInstance(this.getSharedPreferences("prefs", MODE_PRIVATE));
 
         if(tokenManager.getToken().getTema() == 1){
-            changeThemeDark();
+        //    changeThemeDark();
         }else{
-            changeThemeLight();
+            // changeThemeLight();
         }
+
+        tokenManager.deletePreferences();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new FragmentInicio()).commit();
 
@@ -82,9 +81,24 @@ public class PrincipalActivity extends AppCompatActivity {
 
             return true;
         });
+    }
+
+    private void cambioIdioma(){
+
+        /*String[] supportedLanguages = {"en", "es"};  // Idiomas soportados en tu aplicación
+        String defaultLanguage = "en";  // Idioma por defecto
+
+        String preferredLanguage = LanguageUtils.getPreferredLanguage(supportedLanguages, defaultLanguage);
+
+        // Cambiar la configuración del idioma de la aplicación
+        LocaleManager.setLocale(this, preferredLanguage);*/
+
+
+
 
 
     }
+
 
 
     private void loadFragment(Fragment fragment) {

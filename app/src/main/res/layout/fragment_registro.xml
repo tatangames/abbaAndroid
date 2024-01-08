@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootRelative"
+    style="@style/BACKGROUND_WHITE_DARK_TEMA"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+    android:layout_height="match_parent">
 
 
     <ScrollView
@@ -52,7 +52,7 @@
             <com.google.android.material.textfield.TextInputLayout
 
                 android:id="@+id/inputNombre"
-                style="@style/Style_TextInput"
+                style="@style/TEXT_INPUT_LAYOUT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -69,14 +69,13 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtNombre"
+                    style="@style/INPUT_EDIT_TEXT_TEMA"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
                     android:fontFamily="@font/roboto_regular"
                     android:hint="@string/primer_nombre"
                     android:inputType="textPersonName"
                     android:maxLength="50"
-                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="normal"
                     app:hintTextAppearance="@style/Style_HintInput" />
@@ -86,7 +85,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/inputApellido"
-                style="@style/Style_TextInput"
+                style="@style/TEXT_INPUT_LAYOUT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -103,14 +102,13 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtApellido"
+                    style="@style/INPUT_EDIT_TEXT_TEMA"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
                     android:fontFamily="@font/roboto_regular"
                     android:hint="@string/apellido"
                     android:inputType="textPersonName"
                     android:maxLength="50"
-                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="normal"
                     app:hintTextAppearance="@style/Style_HintInput" />
@@ -204,7 +202,7 @@
             <com.google.android.material.textfield.TextInputLayout
 
                 android:id="@+id/inputCorreo"
-                style="@style/Style_TextInput"
+                style="@style/TEXT_INPUT_LAYOUT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -221,6 +219,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtCorreo"
+                    style="@style/INPUT_EDIT_TEXT_TEMA"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
@@ -239,7 +238,7 @@
             <com.google.android.material.textfield.TextInputLayout
 
                 android:id="@+id/inputContrasena"
-                style="@style/Style_TextInput"
+                style="@style/TEXT_INPUT_LAYOUT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -257,6 +256,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtContrasena"
+                    style="@style/INPUT_EDIT_TEXT_TEMA"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
