@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
 
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -25,18 +25,21 @@
 
     </style>
 
-
-    <!-- Nuevo estilo para los botones -->
-    <style name="ButtonStyle" parent="Widget.MaterialComponents.Button">
+    <!-- ESTILO BOTON PARA IR A LOGIN -->
+    <style name="ButtonStyleLogin" parent="Widget.MaterialComponents.Button">
         <!-- Puedes quitar el atributo colorPrimary aquí -->
         <item name="android:background">@drawable/boton_redondeado_negro</item>
         <item name="android:textColor">@color/white</item>
         <item name="backgroundTint">@color/black</item>
     </style>
 
-
-
-
+    <!-- ESTILO BOTON PARA IR A REGISTRO -->
+    <style name="ButtonStyleRegistro" parent="Widget.MaterialComponents.Button">
+        <!-- Puedes quitar el atributo colorPrimary aquí -->
+        <item name="android:background">@drawable/boton_redondeado_negro</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/black</item>
+    </style>
 
     <!-- ESTO LO LLEVARAN TODOS LOS TEXTVIEW PARA COLOR  BLANCO/OSCURO. -->
     <style name="TEXTVIEW_WHITE_DARK_TEMA">
@@ -77,6 +80,12 @@
     <style name="INPUT_EDIT_TEXT_TEMA" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="android:textColor">@color/black</item>
     </style>
+
+    <!-- ESTILO PARA LOS SPINNER -->
+    <style name="CustomSpinnerStyle" parent="Widget.AppCompat.Spinner">
+        <item name="android:background">@drawable/background_spinner_light</item>
+    </style>
+
 
 
 

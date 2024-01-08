@@ -18,10 +18,12 @@ public class AdaptadorSpinnerPais extends ArrayAdapter<String> {
 
 
     private Context context;
+    private boolean tipoTema;
 
-    public AdaptadorSpinnerPais(@NonNull Context context, int resource, @NonNull String[] objects) {
+    public AdaptadorSpinnerPais(@NonNull Context context, int resource, @NonNull String[] objects, boolean tipoTema) {
         super(context, resource, objects);
         this.context = context;
+        this.tipoTema = tipoTema;
     }
 
     @NonNull
@@ -62,9 +64,18 @@ public class AdaptadorSpinnerPais extends ArrayAdapter<String> {
         TextView textView = convertView.findViewById(android.R.id.text1);
         textView.setText(getItem(position));
 
-        // Color del texto para el primer elemento
-        int textColor = isFirstItem ? ContextCompat.getColor(context, R.color.colorTextoGris) : ContextCompat.getColor(context, R.color.black);
-        textView.setTextColor(textColor);
+        if(tipoTema){ // dark
+            // Color del texto para el primer elemento
+            int textColor = ContextCompat.getColor(context, R.color.white);
+            textView.setTextColor(textColor);
+
+        }else{
+            // Color del texto para el primer elemento
+            int textColor = isFirstItem ? ContextCompat.getColor(context, R.color.colorTextoGris) : ContextCompat.getColor(context, R.color.black);
+            textView.setTextColor(textColor);
+        }
+
+
 
         return convertView;
     }

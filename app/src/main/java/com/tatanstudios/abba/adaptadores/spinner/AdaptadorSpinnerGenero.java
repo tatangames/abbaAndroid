@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,7 +16,6 @@ import com.tatanstudios.abba.R;
 
 public class AdaptadorSpinnerGenero extends ArrayAdapter<String> {
 
-
     private Context context;
     private boolean tipoTema;
 
@@ -23,6 +23,8 @@ public class AdaptadorSpinnerGenero extends ArrayAdapter<String> {
         super(context, resource, objects);
         this.context = context;
         this.tipoTema = tipoTema;
+
+        Toast.makeText(context, "huy: " + tipoTema, Toast.LENGTH_SHORT).show();
     }
 
     @NonNull
@@ -49,6 +51,7 @@ public class AdaptadorSpinnerGenero extends ArrayAdapter<String> {
             // Color del texto para el primer elemento
             int textColor = ContextCompat.getColor(context, R.color.white);
             textView.setTextColor(textColor);
+
         }else{
             // Color del texto para el primer elemento
             int textColor = isFirstItem ? ContextCompat.getColor(context, R.color.colorTextoGris) : ContextCompat.getColor(context, R.color.black);

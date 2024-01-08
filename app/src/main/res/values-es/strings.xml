@@ -23,7 +23,8 @@
     <string name="se_ve_genial">Se ve genial</string>
     <string name="bienvenidos_a_abba_app">Bienvenidos a Abba App</string>
     <string name="levantado_el_ejercito">\"Levantando el ejército poderoso de Dios\"</string>
-
+    <string name="aceptar">Aceptar</string>
+    <string name="cancelar">Cancelar</string>
 
 
 
@@ -37,7 +38,7 @@
 
 
     <string name="flecha_atras">Flecha Atras</string>
-    <string name="aceptar">Aceptar</string>
+
     <string name="correo_ya_registrado">El correo ya se encuentra registrado</string>
     <string name="registrado_correctamente">Registrado correctamente</string>
     <string name="continuar">Continuar</string>
@@ -76,7 +77,6 @@
     <string name="cerrar_sesion">Cerrar Sesión</string>
     <string name="si">Si</string>
     <string name="no">No</string>
-    <string name="cancelar">Cancelar</string>
     <string name="ajustes">Ajustes</string>
     <string name="seleccionar_edad">Seleccionar Edad</string>
     <string name="fecha_nacimiento_es_requerido">Fecha Nacimiento es requerido</string>

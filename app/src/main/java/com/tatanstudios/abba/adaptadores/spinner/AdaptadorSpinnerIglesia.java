@@ -17,10 +17,12 @@ public class AdaptadorSpinnerIglesia extends ArrayAdapter<String> {
 
 
     private Context context;
+    private boolean tipoTema;
 
-    public AdaptadorSpinnerIglesia(@NonNull Context context, int resource) {
+    public AdaptadorSpinnerIglesia(@NonNull Context context, int resource, boolean tipoTema) {
         super(context, resource);
         this.context = context;
+        this.tipoTema = tipoTema;
     }
 
     @NonNull
@@ -43,9 +45,16 @@ public class AdaptadorSpinnerIglesia extends ArrayAdapter<String> {
         TextView textView = convertView.findViewById(android.R.id.text1);
         textView.setText(getItem(position));
 
-        // Color del texto para el primer elemento
-        int textColor = ContextCompat.getColor(context, R.color.black);
-        textView.setTextColor(textColor);
+        if(tipoTema){ // dark
+            // Color del texto para el primer elemento
+            int textColor = ContextCompat.getColor(context, R.color.white);
+            textView.setTextColor(textColor);
+        }else{
+            // Color del texto para el primer elemento
+            int textColor = ContextCompat.getColor(context, R.color.black);
+            textView.setTextColor(textColor);
+        }
+
 
         return convertView;
     }

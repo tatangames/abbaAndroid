@@ -92,11 +92,6 @@ public class PrincipalActivity extends AppCompatActivity  {
 
         // Cambiar la configuración del idioma de la aplicación
         LocaleManager.setLocale(this, preferredLanguage);*/
-
-
-
-
-
     }
 
 
@@ -106,7 +101,6 @@ public class PrincipalActivity extends AppCompatActivity  {
                 .replace(R.id.main_container, fragment)
                 .commit();
     }
-
 
 
     private void cambioMenuInicio(){

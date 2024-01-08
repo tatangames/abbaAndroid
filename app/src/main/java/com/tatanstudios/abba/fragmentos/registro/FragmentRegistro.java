@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.Editable;
@@ -142,6 +143,9 @@ public class FragmentRegistro extends Fragment {
             inputContrasena.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED);
         }
 
+        int colorGris = ContextCompat.getColor(requireContext(), R.color.grey);
+        btnRegistro.setTextColor(colorGris);
+
 
         service = RetrofitBuilder.createServiceNoAuth(ApiService.class);
         progressBar = new ProgressBar(getActivity(), null, android.R.attr.progressBarStyleLarge);
@@ -152,6 +156,9 @@ public class FragmentRegistro extends Fragment {
         progressBar.getIndeterminateDrawable().setColorFilter(colorProgress, PorterDuff.Mode.SRC_IN);
         progressBar.setVisibility(View.GONE);
 
+
+        txtFecha.setPaintFlags(txtFecha.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        txtFecha.setPadding(0, 8, 0, 8);
 
         txtFecha.setOnClickListener(v -> {
             elegirFecha();
@@ -314,20 +321,10 @@ public class FragmentRegistro extends Fragment {
                 dayOfMonth
         );
 
-        datePickerDialog.setButton(DatePickerDialog.BUTTON_POSITIVE, getString(R.string.si), datePickerDialog);
+        datePickerDialog.setButton(DatePickerDialog.BUTTON_POSITIVE, getString(R.string.aceptar), datePickerDialog);
+        datePickerDialog.setButton(DatePickerDialog.BUTTON_NEGATIVE, getString(R.string.cancelar), datePickerDialog);
 
         datePickerDialog.show();
-
-        //datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
-
-
-        //Estos valores deben ir en ese orden, de lo contrario no mostrara la fecha actual
-       /* DatePickerDialog recogerFecha = new DatePickerDialog(getActivity(),  (view, year, month, dayOfMonth) -> {
-
-
-        },anio, mes, dia);
-        //Muestro el widget
-        recogerFecha.show();*/
     }
 
 
@@ -347,10 +344,7 @@ public class FragmentRegistro extends Fragment {
         // ...
         // Llama a la función de la Activity
         if (mListener != null) {
-
-            boolean info = mListener.onFragmentInteraction();
-           // Toasty.info(getContext(), "es: " + info, Toasty.LENGTH_SHORT).show();
-            return info;
+            return mListener.onFragmentInteraction();
         }else{
             return false;
         }
@@ -370,9 +364,7 @@ public class FragmentRegistro extends Fragment {
 
         String[] listaGeneros = getResources().getStringArray(R.array.generos_array);
 
-        boolean infoTema = conocerTema();
-
-        AdaptadorSpinnerGenero generoAdapter = new AdaptadorSpinnerGenero(getContext(), android.R.layout.simple_spinner_item, listaGeneros, infoTema);
+        AdaptadorSpinnerGenero generoAdapter = new AdaptadorSpinnerGenero(getContext(), android.R.layout.simple_spinner_item, listaGeneros, conocerTema());
         generoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinGenero.setAdapter(generoAdapter);
@@ -382,20 +374,20 @@ public class FragmentRegistro extends Fragment {
 
         String[] listaPais = getResources().getStringArray(R.array.paises_array);
 
-        AdaptadorSpinnerPais paisAdapter = new AdaptadorSpinnerPais(getContext(), android.R.layout.simple_spinner_item, listaPais);
+        AdaptadorSpinnerPais paisAdapter = new AdaptadorSpinnerPais(getContext(), android.R.layout.simple_spinner_item, listaPais, conocerTema());
         paisAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinPais.setAdapter(paisAdapter);
 
         // *********** ESTADOS *****************
 
-        AdaptadorSpinnerZona adapterEstados = new AdaptadorSpinnerZona(getContext(), android.R.layout.simple_spinner_item);
+        AdaptadorSpinnerZona adapterEstados = new AdaptadorSpinnerZona(getContext(), android.R.layout.simple_spinner_item, conocerTema());
         spinEstado.setAdapter(adapterEstados);
 
 
         // *********** IGLESIAS *****************
 
 
-        AdaptadorSpinnerIglesia adapterIglesia = new AdaptadorSpinnerIglesia(getContext(), android.R.layout.simple_spinner_item);
+        AdaptadorSpinnerIglesia adapterIglesia = new AdaptadorSpinnerIglesia(getContext(), android.R.layout.simple_spinner_item, conocerTema());
         spinCiudad.setAdapter(adapterIglesia);
 
 

@@ -16,23 +16,38 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activitys.Prueba2Activity"
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activitys.PruebaActivity"
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activitys.perfil.VerNotificacionesActivity"
+            android:configChanges="uiMode"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activitys.perfil.EditarPerfilActivity"
+            android:configChanges="uiMode"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activitys.principal.PrincipalActivity"
+            android:configChanges="uiMode"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activitys.login.LoginActivity"
+            android:configChanges="uiMode"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activitys.splash.SplashActivity"
+            android:configChanges="uiMode"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

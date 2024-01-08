@@ -1,6 +1,7 @@
 package com.tatanstudios.abba.activitys.splash;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,6 +12,8 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.tatanstudios.abba.R;
+import com.tatanstudios.abba.activitys.Prueba2Activity;
+import com.tatanstudios.abba.activitys.PruebaActivity;
 import com.tatanstudios.abba.activitys.login.LoginActivity;
 import com.tatanstudios.abba.activitys.principal.PrincipalActivity;
 import com.tatanstudios.abba.network.TokenManager;
@@ -29,13 +32,22 @@ public class SplashActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-
         setContentView(R.layout.activity_splash);
-
 
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
 
         new Handler().postDelayed(() -> {
+
+
+            if(tokenManager.getToken().getTema() == 0){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+            else if(tokenManager.getToken().getTema() == 1){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+            else{
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
 
             // inicio automatico con token que iria en el SPLASH
             if(tokenManager.getToken().getId() != null){
@@ -49,11 +61,14 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
 
             }else {
-
                 Intent intentLogin = new Intent(this, LoginActivity.class);
                 startActivity(intentLogin);
                 finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
     }
+
+
+
+
 }

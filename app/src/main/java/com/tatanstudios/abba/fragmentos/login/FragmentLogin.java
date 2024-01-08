@@ -30,7 +30,6 @@ import io.reactivex.schedulers.Schedulers;
 public class FragmentLogin extends Fragment {
 
 
-
     private TextView txtIngresar;
     private Button btnRegistro;
 
@@ -42,7 +41,6 @@ public class FragmentLogin extends Fragment {
         btnRegistro = vista.findViewById(R.id.btnRegistro);
         txtIngresar = vista.findViewById(R.id.btnIngresar);
 
-
         btnRegistro.setOnClickListener(v ->{
             vistaRegistro();
         });
@@ -53,6 +51,7 @@ public class FragmentLogin extends Fragment {
 
         return vista;
     }
+
 
     private void vistaIngresarDatos(){
 
@@ -67,7 +66,6 @@ public class FragmentLogin extends Fragment {
     }
 
 
-
     private void vistaRegistro(){
         FragmentRegistro fragmentRegistro = new FragmentRegistro();
         Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragmentContenedor);
@@ -78,6 +76,8 @@ public class FragmentLogin extends Fragment {
                 .addToBackStack(null)
                 .commit();
     }
+
+
 
 
 
