@@ -10,7 +10,7 @@
 
         <item name="colorSecondary">@color/colorRed</item>
         <item name="colorSecondaryVariant">@color/grey</item>
-        <item name="colorOnSecondary">@color/colorLineaConFocoClaro</item>
+        <item name="colorOnSecondary">@color/colorRed</item>
 
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
 
@@ -40,11 +40,7 @@
     </style>
 
 
-    <!-- ESTILO BOTON PARA IR A REGISTRO -->
-    <style name="ButtonStyleRegistro" parent="Widget.MaterialComponents.Button">
-        <!-- Puedes quitar el atributo colorPrimary aquí -->
-        <item name="android:background">@drawable/boton_redondeado_negro_linea_blanca</item>
-    </style>
+
 
     <!-- ESTO LO LLEVARAN TODOS LOS TEXTVIEW PARA COLOR  BLANCO/OSCURO. -->
     <style name="TEXTVIEW_WHITE_DARK_TEMA">

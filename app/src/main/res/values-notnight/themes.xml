@@ -10,7 +10,7 @@
 
         <item name="colorSecondary">@color/colorRed</item>
         <item name="colorSecondaryVariant">@color/grey</item>
-        <item name="colorOnSecondary">@color/colorLineaConFocoClaro</item>
+        <item name="colorOnSecondary">@color/colorRed</item>
 
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
 
@@ -34,6 +34,16 @@
     </style>
 
     <!-- ESTILO BOTON PARA IR A REGISTRO -->
+
+
+    <style name="ButtonStyleRegistroActivado" parent="Widget.MaterialComponents.Button">
+        <!-- Puedes quitar el atributo colorPrimary aquí -->
+        <item name="android:background">@drawable/boton_redondeado_negro_linea_blanca</item>
+        <item name="android:textColor">@color/white</item>
+
+
+    </style>
+
     <style name="ButtonStyleRegistro" parent="Widget.MaterialComponents.Button">
         <!-- Puedes quitar el atributo colorPrimary aquí -->
         <item name="android:background">@drawable/boton_redondeado_negro</item>
@@ -85,6 +95,28 @@
     <style name="CustomSpinnerStyle" parent="Widget.AppCompat.Spinner">
         <item name="android:background">@drawable/background_spinner_light</item>
     </style>
+
+
+
+
+    <style name="KAlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Otros atributos de estilo aquí -->
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:paddingStart">16dp</item> <!-- Ajusta según sea necesario -->
+        <item name="android:paddingEnd">16dp</item> <!-- Ajusta según sea necesario -->
+    </style>
+
+    <style name="NegativeButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:paddingStart">16dp</item> <!-- Ajusta según sea necesario -->
+        <item name="android:paddingEnd">16dp</item> <!-- Ajusta según sea necesario -->
+    </style>
+
+
+
 
 
 

@@ -340,7 +340,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
 
 
     private void correoYaRegistrado(String correo){
-        KAlertDialog pDialog = new KAlertDialog(this, KAlertDialog.WARNING_TYPE);
+       /* KAlertDialog pDialog = new KAlertDialog(this, KAlertDialog.WARNING_TYPE);
         pDialog.setTitleText(getString(R.string.correo_no_disponible));
         pDialog.setContentText(correo);
         pDialog.setConfirmText(getString(R.string.aceptar));
@@ -349,7 +349,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
         pDialog.setCanceledOnTouchOutside(false);
         pDialog.confirmButtonColor(R.drawable.dialogo_theme_success)
                 .setConfirmClickListener(KAlertDialog::dismissWithAnimation);
-        pDialog.show();
+        pDialog.show();*/
     }
 
 

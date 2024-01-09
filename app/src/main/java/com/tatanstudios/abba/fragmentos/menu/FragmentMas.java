@@ -247,7 +247,7 @@ public class FragmentMas extends Fragment {
 
 
     private void alertaTemaCambio(){
-        KAlertDialog pDialog = new KAlertDialog(getContext(), KAlertDialog.SUCCESS_TYPE);
+       /* KAlertDialog pDialog = new KAlertDialog(getContext(), KAlertDialog.SUCCESS_TYPE);
         pDialog.setTitleText(getString(R.string.tema_actualizado));
         pDialog.setContentText(getString(R.string.para_aplicar_efectos_se_debe_reiniciar));
         pDialog.setConfirmText(getString(R.string.reiniciar));
@@ -259,7 +259,7 @@ public class FragmentMas extends Fragment {
                     sDialog.dismissWithAnimation();
                     reiniciarApp();
                 });
-        pDialog.show();
+        pDialog.show();*/
 
     }
 
@@ -286,7 +286,7 @@ public class FragmentMas extends Fragment {
 
         if(seguroCerrarSesion) {
             seguroCerrarSesion = false;
-            KAlertDialog pDialog = new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE);
+           /* KAlertDialog pDialog = new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE);
             pDialog.setTitleText(getString(R.string.cerrar_sesion));
             pDialog.setContentText("");
             pDialog.setConfirmText(getString(R.string.si));
@@ -305,7 +305,7 @@ public class FragmentMas extends Fragment {
                         kAlertDialog.dismissWithAnimation();
                         seguroCerrarSesion = true;
                     });
-            pDialog.show();
+            pDialog.show();*/
         }
     }
 

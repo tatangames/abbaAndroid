@@ -41,22 +41,6 @@
     <color name="colorIconosTema">#000000</color>
     <color name="colorHintLayout">#7b7b7d</color>
 
-
-    <!-- Color de la línea sin foco en modo claro -->
-    <color name="colorLineaSinFocoClaro">#FF0000</color>
-
-    <!-- Color de la línea con foco en modo claro -->
-    <color name="colorLineaConFocoClaro">#00FF00</color>
-
-    <!-- Color de la línea sin foco en modo oscuro -->
-    <color name="colorLineaSinFocoOscuro">#FFFFFF</color>
-
-    <!-- Color de la línea con foco en modo oscuro -->
-    <color name="colorLineaConFocoOscuro">#000000</color>
-
-    <!-- Otros estilos y colores aquí -->
-
-
     <color name="colorPrimaryDark2">#FFFFFF</color>
     <color name="bottomNavigationItemColor">#000000</color>
 
@@ -65,8 +49,8 @@
     <color name="bottom_navigation_icon_color_selected">#000000</color> <!-- Color de los iconos seleccionados -->
     <color name="bottom_navigation_background_color">#FFFFFF</color>
 
+    <color name="colorGrisBtnDisable">#4C4C4C</color> <!-- boton disabled -->
 
-    <color name="custom_day_background_color">#FF0000</color>
 
 
 

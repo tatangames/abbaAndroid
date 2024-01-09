@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -100,6 +101,12 @@ public class FragmentRegistro extends Fragment {
     private OnFragmentInteractionTema mListener;
 
 
+    private boolean temaActual; // false: light  true: dark;
+
+    private int colorGris ,colorBlanco, colorBlack = 0;
+
+    private ColorStateList colorStateTintGrey, colorStateTintWhite, colorStateTintBlack;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_registro, container, false);
@@ -127,10 +134,15 @@ public class FragmentRegistro extends Fragment {
         iglesiasList = new ArrayList<>();
 
         btnRegistro = vista.findViewById(R.id.btnRegistro);
-        btnRegistro.setEnabled(false);
+
         tokenManager = TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE));
 
         int colorProgress = ContextCompat.getColor(requireContext(), R.color.colorProgress);
+
+        colorGris = ContextCompat.getColor(requireContext(), R.color.colorGrisBtnDisable);
+        colorBlanco = ContextCompat.getColor(requireContext(), R.color.white);
+        colorBlack = ContextCompat.getColor(requireContext(), R.color.black);
+
 
         if(tokenManager.getToken().getTema() == 1){
             inputNombre.setBoxStrokeColor(ContextCompat.getColor(getContext(), R.color.white));
@@ -143,8 +155,23 @@ public class FragmentRegistro extends Fragment {
             inputContrasena.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED);
         }
 
-        int colorGris = ContextCompat.getColor(requireContext(), R.color.grey);
-        btnRegistro.setTextColor(colorGris);
+
+        temaActual = mListener.onFragmentInteraction();
+
+        colorStateTintGrey = ColorStateList.valueOf(colorGris);
+        colorStateTintWhite = ColorStateList.valueOf(colorBlanco);
+        colorStateTintBlack = ColorStateList.valueOf(colorBlack);
+
+        btnRegistro.setEnabled(false);
+
+        if(temaActual){ // dark
+            btnRegistro.setBackgroundTintList(colorStateTintGrey);
+            btnRegistro.setTextColor(colorBlanco);
+        }else{
+            btnRegistro.setBackgroundTintList(colorStateTintGrey);
+            btnRegistro.setTextColor(colorBlanco);
+        }
+
 
 
         service = RetrofitBuilder.createServiceNoAuth(ApiService.class);
@@ -163,8 +190,6 @@ public class FragmentRegistro extends Fragment {
         txtFecha.setOnClickListener(v -> {
             elegirFecha();
         });
-
-
 
         // volver atras
         imgFlechaAtras.setOnClickListener(v -> {
@@ -195,6 +220,7 @@ public class FragmentRegistro extends Fragment {
             public void afterTextChanged(Editable editable) {
 
                 verificarEntradas();
+
 
             }
         });
@@ -312,6 +338,13 @@ public class FragmentRegistro extends Fragment {
                     //Muestro la fecha con el formato deseado
                     txtFecha.setText(diaFormateado + BARRA + mesFormateado + BARRA + year1);
 
+                    if(temaActual) { // dark
+                        txtFecha.setTextColor(colorBlanco);
+                    }else{
+                        txtFecha.setTextColor(colorBlack);
+                    }
+
+
                     fechaNacimiento = year1 + BARRA + mesFormateado + BARRA + diaFormateado;
                     hayFecha = true;
 
@@ -340,15 +373,6 @@ public class FragmentRegistro extends Fragment {
     }
 
 
-    private boolean conocerTema() {
-        // ...
-        // Llama a la función de la Activity
-        if (mListener != null) {
-            return mListener.onFragmentInteraction();
-        }else{
-            return false;
-        }
-    }
 
     @Override
     public void onDetach() {
@@ -364,7 +388,7 @@ public class FragmentRegistro extends Fragment {
 
         String[] listaGeneros = getResources().getStringArray(R.array.generos_array);
 
-        AdaptadorSpinnerGenero generoAdapter = new AdaptadorSpinnerGenero(getContext(), android.R.layout.simple_spinner_item, listaGeneros, conocerTema());
+        AdaptadorSpinnerGenero generoAdapter = new AdaptadorSpinnerGenero(getContext(), android.R.layout.simple_spinner_item, listaGeneros, temaActual);
         generoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinGenero.setAdapter(generoAdapter);
@@ -374,20 +398,20 @@ public class FragmentRegistro extends Fragment {
 
         String[] listaPais = getResources().getStringArray(R.array.paises_array);
 
-        AdaptadorSpinnerPais paisAdapter = new AdaptadorSpinnerPais(getContext(), android.R.layout.simple_spinner_item, listaPais, conocerTema());
+        AdaptadorSpinnerPais paisAdapter = new AdaptadorSpinnerPais(getContext(), android.R.layout.simple_spinner_item, listaPais, temaActual);
         paisAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinPais.setAdapter(paisAdapter);
 
         // *********** ESTADOS *****************
 
-        AdaptadorSpinnerZona adapterEstados = new AdaptadorSpinnerZona(getContext(), android.R.layout.simple_spinner_item, conocerTema());
+        AdaptadorSpinnerZona adapterEstados = new AdaptadorSpinnerZona(getContext(), android.R.layout.simple_spinner_item, temaActual);
         spinEstado.setAdapter(adapterEstados);
 
 
         // *********** IGLESIAS *****************
 
 
-        AdaptadorSpinnerIglesia adapterIglesia = new AdaptadorSpinnerIglesia(getContext(), android.R.layout.simple_spinner_item, conocerTema());
+        AdaptadorSpinnerIglesia adapterIglesia = new AdaptadorSpinnerIglesia(getContext(), android.R.layout.simple_spinner_item, temaActual);
         spinCiudad.setAdapter(adapterIglesia);
 
 
@@ -574,16 +598,27 @@ public class FragmentRegistro extends Fragment {
 
     private void activarBtnRegistro(){
         btnRegistro.setEnabled(true);
-        int colorBtnTextoBlanco = ContextCompat.getColor(requireContext(), R.color.white);
-        btnRegistro.setBackgroundResource(R.drawable.boton_redondeado_negro);
-        btnRegistro.setTextColor(colorBtnTextoBlanco);
+
+        if(temaActual){ // Dark
+            btnRegistro.setBackgroundTintList(colorStateTintWhite);
+            btnRegistro.setTextColor(colorBlack);
+        }else{
+            btnRegistro.setBackgroundTintList(colorStateTintBlack);
+            btnRegistro.setTextColor(colorBlanco);
+        }
     }
 
     private void desactivarBtnRegistro(){
         btnRegistro.setEnabled(false);
-        int colorBtnTextoGris = ContextCompat.getColor(requireContext(), R.color.colorGrisBotonRegistroTexto);
-        btnRegistro.setBackgroundResource(R.drawable.boton_redondeado_gris);
-        btnRegistro.setTextColor(colorBtnTextoGris);
+
+        if(temaActual){ // Dark
+            btnRegistro.setBackgroundTintList(colorStateTintGrey);
+            btnRegistro.setTextColor(colorBlanco);
+        }else{
+            btnRegistro.setBackgroundTintList(colorStateTintGrey);
+            btnRegistro.setTextColor(colorBlanco);
+        }
+
     }
 
     private void confirmarRegistro(){
@@ -604,7 +639,7 @@ public class FragmentRegistro extends Fragment {
             return;
         }
 
-        KAlertDialog pDialog = new KAlertDialog(getActivity(), KAlertDialog.SUCCESS_TYPE);
+        /*KAlertDialog pDialog = new KAlertDialog(getActivity(), KAlertDialog.SUCCESS_TYPE);
         pDialog.setTitleText(getString(R.string.completar_registro));
         pDialog.setContentText("");
         pDialog.setConfirmText(getString(R.string.si));
@@ -620,7 +655,7 @@ public class FragmentRegistro extends Fragment {
                 .setContentTextSize(16)
                 .setCancelText(getString(R.string.editar))
                 .setCancelClickListener(kAlertDialog -> kAlertDialog.dismissWithAnimation());
-        pDialog.show();
+        pDialog.show();*/
     }
 
     private void registrarUsuario(){
@@ -671,7 +706,7 @@ public class FragmentRegistro extends Fragment {
     }
 
     private void correoYaRegistrado(String correo){
-        KAlertDialog pDialog = new KAlertDialog(getActivity(), KAlertDialog.WARNING_TYPE);
+        /*KAlertDialog pDialog = new KAlertDialog(getActivity(), KAlertDialog.WARNING_TYPE);
         pDialog.setTitleText(getString(R.string.correo_ya_registrado));
         pDialog.setContentText(correo);
         pDialog.setConfirmText(getString(R.string.aceptar));
@@ -680,7 +715,7 @@ public class FragmentRegistro extends Fragment {
         pDialog.setCanceledOnTouchOutside(false);
         pDialog.confirmButtonColor(R.drawable.dialogo_theme_success)
                 .setConfirmClickListener(KAlertDialog::dismissWithAnimation);
-        pDialog.show();
+        pDialog.show();*/
     }
 
     void finalizar(){
