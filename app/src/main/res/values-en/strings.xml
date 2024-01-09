@@ -25,10 +25,9 @@
     <string name="levantado_el_ejercito">\"Raising up the mighty army of God\"</string>
     <string name="aceptar">Ok</string>
     <string name="cancelar">Cancel</string>
-
-
-
-
+    <string name="seleccionar_genero">Select gender</string>
+    <string name="masculino">Male</string>
+    <string name="femenino">Female</string>
 
 
 
@@ -109,11 +108,7 @@
     <string name="area">Area</string>
     <string name="iglesia">Church</string>
 
-    <string-array name="generos_array">
-        <item>select gender</item>
-        <item>Male</item>
-        <item>Female</item>
-    </string-array>
+
 
     <string-array name="paises_array">
         <item>Seleccionar País</item>

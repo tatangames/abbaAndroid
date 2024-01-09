@@ -32,6 +32,8 @@ public class SplashActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        //setTheme(R.style.AppTheme);
+
         setContentView(R.layout.activity_splash);
 
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
@@ -40,13 +42,16 @@ public class SplashActivity extends AppCompatActivity {
 
 
             if(tokenManager.getToken().getTema() == 0){
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+               // setTheme(R.style.AppTheme);
+                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
             else if(tokenManager.getToken().getTema() == 1){
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                //setTheme(R.style.AppThemeDark);
             }
             else{
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                //setTheme(R.style.AppTheme);
             }
 
             // inicio automatico con token que iria en el SPLASH

@@ -45,6 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/grey_sans_black"
                     android:gravity="center"

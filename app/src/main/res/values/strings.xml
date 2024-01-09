@@ -25,7 +25,9 @@
     <string name="levantado_el_ejercito">\"Levantando el ejército poderoso de Dios\"</string>
     <string name="aceptar">Aceptar</string>
     <string name="cancelar">Cancelar</string>
-
+    <string name="seleccionar_genero">Seleccionar Género</string>
+    <string name="masculino">Masculino</string>
+    <string name="femenino">Femenino</string>
 
 
 

@@ -6,27 +6,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.tatanstudios.abba.R;
+import com.tatanstudios.abba.modelos.registro.ModeloGeneros;
+
+import java.util.List;
 
 public class AdaptadorSpinnerGenero extends ArrayAdapter<String> {
 
     private Context context;
     private boolean tipoTema;
 
-    public AdaptadorSpinnerGenero(@NonNull Context context, int resource, @NonNull String[] objects, boolean tipoTema) {
-        super(context, resource, objects);
+
+
+    public AdaptadorSpinnerGenero(@NonNull Context context, int resource, boolean tipoTema) {
+        super(context, resource);
         this.context = context;
         this.tipoTema = tipoTema;
-
-        Toast.makeText(context, "huy: " + tipoTema, Toast.LENGTH_SHORT).show();
     }
-
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

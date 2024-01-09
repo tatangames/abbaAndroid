@@ -31,6 +31,10 @@
 
     </style>
 
+
+
+
+
     <!-- ESTILO BOTON PARA IR A LOGIN -->
     <style name="ButtonStyleLogin" parent="Widget.MaterialComponents.Button">
         <!-- Puedes quitar el atributo colorPrimary aquí -->
@@ -72,7 +76,7 @@
     <!-- ESTO LO LLEVARA TODOS LOS TEXT INPUT LAYOUT -->
     <style name="TEXT_INPUT_LAYOUT" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="hintTextColor">@color/white</item>
-        <item name="cursorColor">@color/colorRed</item>
+        <item name="cursorColor">@color/colorPrimary</item>
     </style>
 
     <!-- ESTO LO LLEVARA TODOS LOS INPUT EDIT TEXT -->
@@ -84,6 +88,12 @@
     <style name="CustomSpinnerStyle" parent="Widget.AppCompat.Spinner">
         <item name="android:background">@drawable/background_spinner_dark</item>
     </style>
+
+
+
+
+
+
 
 
 

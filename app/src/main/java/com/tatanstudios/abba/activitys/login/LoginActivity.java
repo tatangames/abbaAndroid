@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity implements OnFragmentIntera
     @Override
     public boolean onFragmentInteraction() {
         // Implementa la lógica que deseas ejecutar desde el Fragment
+
         return isDarkModeEnabled();
     }
 

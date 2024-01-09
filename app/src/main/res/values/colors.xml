@@ -49,10 +49,9 @@
     <color name="bottom_navigation_icon_color_selected">#000000</color> <!-- Color de los iconos seleccionados -->
     <color name="bottom_navigation_background_color">#FFFFFF</color>
 
-
-
     <color name="colorGrisBtnDisable">#4C4C4C</color> <!-- boton disabled -->
 
+    <color name="colorVerdeSuccess">#A5DC86</color>
 
 
 </resources>

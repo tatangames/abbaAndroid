@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
 
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -24,6 +24,9 @@
 
 
     </style>
+
+
+
 
     <!-- ESTILO BOTON PARA IR A LOGIN -->
     <style name="ButtonStyleLogin" parent="Widget.MaterialComponents.Button">
@@ -81,7 +84,7 @@
         <item name="android:background">@color/white</item>
         <item name="hintTextColor">@color/colorTextoGris</item>
         <item name="boxBackgroundColor">@android:color/transparent</item>
-        <item name="cursorColor">@color/colorAccent</item>
+        <item name="cursorColor">@color/colorPrimary</item>
         <item name="boxStrokeColor">@color/colorTextoGris</item>
         <item name="boxStrokeWidth">2dp</item>
     </style>

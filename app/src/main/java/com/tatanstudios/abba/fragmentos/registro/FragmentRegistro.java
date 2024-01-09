@@ -17,6 +17,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,7 @@ import com.tatanstudios.abba.adaptadores.spinner.AdaptadorSpinnerPais;
 import com.tatanstudios.abba.adaptadores.spinner.AdaptadorSpinnerZona;
 import com.tatanstudios.abba.extras.CustomDatePickerDialog;
 import com.tatanstudios.abba.extras.OnFragmentInteractionTema;
+import com.tatanstudios.abba.modelos.registro.ModeloGeneros;
 import com.tatanstudios.abba.modelos.registro.ModeloIglesias;
 import com.tatanstudios.abba.network.ApiService;
 import com.tatanstudios.abba.network.RetrofitBuilder;
@@ -66,6 +68,26 @@ import io.reactivex.schedulers.Schedulers;
 public class FragmentRegistro extends Fragment {
 
 
+    // ****** ID CONSTANTES ******
+
+    private static final int ElSalvador_SantaAna_Iglesia_ID_1 = 1;
+    private static final int ElSalvador_SantaAna_Iglesia_ID_2 = 1;
+
+    private static final int ElSalvador_Metapan_Iglesia_ID_3 = 3;
+    private static final int ElSalvador_Metapan_Iglesia_ID_4 = 4;
+    private static final int ElSalvador_Metapan_Iglesia_ID_5 = 5;
+
+
+    private static final int Guatemala_Chiquimula_Iglesia_ID_6 = 6;
+    private static final int Guatemala_Chiquimula_Iglesia_ID_7 = 7;
+
+
+    private static final int Guatemala_Jalapa_Iglesia_ID_8 = 8;
+    private static final int Guatemala_Jalapa_Iglesia_ID_9 = 9;
+    private static final int Guatemala_Jalapa_Iglesia_ID_10 = 10;
+
+
+
     private ImageView imgFlechaAtras;
 
     private TextInputLayout inputNombre, inputApellido, inputCorreo, inputContrasena;
@@ -82,11 +104,9 @@ public class FragmentRegistro extends Fragment {
     private Spinner spinGenero, spinPais, spinEstado, spinCiudad;
 
     private List<ModeloIglesias> iglesiasList;
+    private List<ModeloGeneros> generosList;
 
     private int idSpinnerIglesia = 0;
-
-
-    private static final int ELSalvador_SantaAna_Iglesia1 = 1;
 
     private TextView txtFecha;
 
@@ -100,12 +120,14 @@ public class FragmentRegistro extends Fragment {
 
     private OnFragmentInteractionTema mListener;
 
-
     private boolean temaActual; // false: light  true: dark;
 
-    private int colorGris ,colorBlanco, colorBlack = 0;
+    private int colorBlanco, colorBlack = 0;
 
     private ColorStateList colorStateTintGrey, colorStateTintWhite, colorStateTintBlack;
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -132,6 +154,7 @@ public class FragmentRegistro extends Fragment {
         txtFecha = vista.findViewById(R.id.txtCalendario);
 
         iglesiasList = new ArrayList<>();
+        generosList = new ArrayList<>();
 
         btnRegistro = vista.findViewById(R.id.btnRegistro);
 
@@ -139,7 +162,7 @@ public class FragmentRegistro extends Fragment {
 
         int colorProgress = ContextCompat.getColor(requireContext(), R.color.colorProgress);
 
-        colorGris = ContextCompat.getColor(requireContext(), R.color.colorGrisBtnDisable);
+        int colorGris = ContextCompat.getColor(requireContext(), R.color.colorGrisBtnDisable);
         colorBlanco = ContextCompat.getColor(requireContext(), R.color.white);
         colorBlack = ContextCompat.getColor(requireContext(), R.color.black);
 
@@ -173,16 +196,13 @@ public class FragmentRegistro extends Fragment {
         }
 
 
-
         service = RetrofitBuilder.createServiceNoAuth(ApiService.class);
         progressBar = new ProgressBar(getActivity(), null, android.R.attr.progressBarStyleLarge);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 100);
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
         rootRelative.addView(progressBar, params);
-        // Aplicar el ColorFilter al Drawable del ProgressBar
         progressBar.getIndeterminateDrawable().setColorFilter(colorProgress, PorterDuff.Mode.SRC_IN);
         progressBar.setVisibility(View.GONE);
-
 
         txtFecha.setPaintFlags(txtFecha.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         txtFecha.setPadding(0, 8, 0, 8);
@@ -273,7 +293,6 @@ public class FragmentRegistro extends Fragment {
             }
         });
 
-
         edtContrasena.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {
@@ -360,8 +379,6 @@ public class FragmentRegistro extends Fragment {
         datePickerDialog.show();
     }
 
-
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -371,7 +388,6 @@ public class FragmentRegistro extends Fragment {
             throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
         }
     }
-
 
 
     @Override
@@ -386,12 +402,17 @@ public class FragmentRegistro extends Fragment {
 
         // GENEROS
 
-        String[] listaGeneros = getResources().getStringArray(R.array.generos_array);
+        generosList.add(new ModeloGeneros(0, getString(R.string.seleccionar_genero)));
+        generosList.add(new ModeloGeneros(1, getString(R.string.masculino)));
+        generosList.add(new ModeloGeneros(2, getString(R.string.femenino)));
 
-        AdaptadorSpinnerGenero generoAdapter = new AdaptadorSpinnerGenero(getContext(), android.R.layout.simple_spinner_item, listaGeneros, temaActual);
-        generoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spinGenero.setAdapter(generoAdapter);
+        AdaptadorSpinnerGenero adapterGenero = new AdaptadorSpinnerGenero(getContext(), android.R.layout.simple_spinner_item, temaActual);
+        spinCiudad.setAdapter(adapterGenero);
+        for (ModeloGeneros geneLista : generosList) {
+            adapterGenero.add(geneLista.getNombre());
+        }
+        spinGenero.setAdapter(adapterGenero);
 
 
         // *********** PAISES ****************
@@ -529,14 +550,14 @@ public class FragmentRegistro extends Fragment {
                 switch (estadoPosition) { // POSICION DE ESTADOS
                     case 1: // santa ana
 
-                        iglesiasList.add(new ModeloIglesias(ELSalvador_SantaAna_Iglesia1, getString(R.string.elsalvador_santaana_id_1)));
-                        iglesiasList.add(new ModeloIglesias(2, getString(R.string.elsalvador_santaana_id_2)));
+                        iglesiasList.add(new ModeloIglesias(ElSalvador_SantaAna_Iglesia_ID_1, getString(R.string.elsalvador_santaana_id_1)));
+                        iglesiasList.add(new ModeloIglesias(ElSalvador_SantaAna_Iglesia_ID_2, getString(R.string.elsalvador_santaana_id_2)));
 
                         break;
                     case 2: // metapan
-                        iglesiasList.add(new ModeloIglesias(3, getString(R.string.elsalvador_metapan_id_3)));
-                        iglesiasList.add(new ModeloIglesias(4, getString(R.string.elsalvador_metapan_id_4)));
-                        iglesiasList.add(new ModeloIglesias(5, getString(R.string.elsalvador_metapan_id_5)));
+                        iglesiasList.add(new ModeloIglesias(ElSalvador_Metapan_Iglesia_ID_3, getString(R.string.elsalvador_metapan_id_3)));
+                        iglesiasList.add(new ModeloIglesias(ElSalvador_Metapan_Iglesia_ID_4, getString(R.string.elsalvador_metapan_id_4)));
+                        iglesiasList.add(new ModeloIglesias(ElSalvador_Metapan_Iglesia_ID_5, getString(R.string.elsalvador_metapan_id_5)));
                         break;
                     // Agrega más casos según la jerarquía deseada
                     default:
@@ -548,13 +569,13 @@ public class FragmentRegistro extends Fragment {
 
                 switch (estadoPosition) { // POSICION DE ESTADOS
                     case 1: // chiquimula
-                        iglesiasList.add(new ModeloIglesias(6, getString(R.string.guatemala_chiquimula_id_6)));
-                        iglesiasList.add(new ModeloIglesias(7, getString(R.string.guatemala_chiquimula_id_7)));
+                        iglesiasList.add(new ModeloIglesias(Guatemala_Chiquimula_Iglesia_ID_6, getString(R.string.guatemala_chiquimula_id_6)));
+                        iglesiasList.add(new ModeloIglesias(Guatemala_Chiquimula_Iglesia_ID_7, getString(R.string.guatemala_chiquimula_id_7)));
                         break;
                     case 2: // jalapa
-                        iglesiasList.add(new ModeloIglesias(8, getString(R.string.guatemala_jalapa_id_8)));
-                        iglesiasList.add(new ModeloIglesias(9, getString(R.string.guatemala_jalapa_id_9)));
-                        iglesiasList.add(new ModeloIglesias(10, getString(R.string.guatemala_jalapa_id_10)));
+                        iglesiasList.add(new ModeloIglesias(Guatemala_Jalapa_Iglesia_ID_8, getString(R.string.guatemala_jalapa_id_8)));
+                        iglesiasList.add(new ModeloIglesias(Guatemala_Jalapa_Iglesia_ID_9, getString(R.string.guatemala_jalapa_id_9)));
+                        iglesiasList.add(new ModeloIglesias(Guatemala_Jalapa_Iglesia_ID_10, getString(R.string.guatemala_jalapa_id_10)));
                         break;
                     // Agrega más casos según la jerarquía deseada
                     default:
@@ -618,7 +639,6 @@ public class FragmentRegistro extends Fragment {
             btnRegistro.setBackgroundTintList(colorStateTintGrey);
             btnRegistro.setTextColor(colorBlanco);
         }
-
     }
 
     private void confirmarRegistro(){
@@ -628,7 +648,7 @@ public class FragmentRegistro extends Fragment {
             return;
         }
 
-        if(spinGenero.getSelectedItemPosition() == 0){
+        if(generosList.get(spinGenero.getSelectedItemPosition()).getId() == 0){
             Toasty.error(getContext(), getString(R.string.genero_es_requerido)).show();
             return;
         }
@@ -638,24 +658,32 @@ public class FragmentRegistro extends Fragment {
             Toasty.error(getContext(), getString(R.string.iglesia_es_requerido)).show();
             return;
         }
+        int colorVerdeSuccess = ContextCompat.getColor(requireContext(), R.color.colorVerdeSuccess);
+        KAlertDialog pDialog = new KAlertDialog(getContext(), KAlertDialog.SUCCESS_TYPE, false);
+        pDialog.getProgressHelper().setBarColor(colorVerdeSuccess);
 
-        /*KAlertDialog pDialog = new KAlertDialog(getActivity(), KAlertDialog.SUCCESS_TYPE);
         pDialog.setTitleText(getString(R.string.completar_registro));
-        pDialog.setContentText("");
-        pDialog.setConfirmText(getString(R.string.si));
-        pDialog.setContentTextSize(16);
+        pDialog.setTitleTextGravity(Gravity.CENTER);
+        pDialog.setTitleTextSize(19);
+
+        pDialog.setContentText(getString(R.string.se_ve_genial));
+        pDialog.setContentTextAlignment(View.TEXT_ALIGNMENT_VIEW_START, Gravity.START);
+        pDialog.setContentTextSize(17);
+
         pDialog.setCancelable(false);
         pDialog.setCanceledOnTouchOutside(false);
-        pDialog.confirmButtonColor(R.drawable.dialogo_theme_success)
-                .setConfirmClickListener(sDialog -> {
-                    sDialog.dismissWithAnimation();
-                    registrarUsuario();
-                });
-        pDialog.cancelButtonColor(R.drawable.dialogo_theme_cancel)
-                .setContentTextSize(16)
-                .setCancelText(getString(R.string.editar))
-                .setCancelClickListener(kAlertDialog -> kAlertDialog.dismissWithAnimation());
-        pDialog.show();*/
+        pDialog.confirmButtonColor(R.drawable.kalert_dialog_corners_confirmar);
+        pDialog.setConfirmClickListener(getString(R.string.enviar), sDialog -> {
+            sDialog.dismissWithAnimation();
+            registrarUsuario();
+        });
+
+        pDialog.cancelButtonColor(R.drawable.kalert_dialog_corners_cancelar);
+        pDialog.setCancelClickListener(getString(R.string.editar), sDialog -> {
+            sDialog.dismissWithAnimation();
+
+        });
+        pDialog.show();
     }
 
     private void registrarUsuario(){
@@ -665,7 +693,7 @@ public class FragmentRegistro extends Fragment {
         String version = getString(R.string.version_app);
         String txtNombre = Objects.requireNonNull(edtNombre.getText()).toString();
         String txtApellido = Objects.requireNonNull(edtApellido.getText()).toString();
-        int idGenero = spinGenero.getSelectedItemPosition(); // 1: masculino, 2: femenino
+        int idGenero = generosList.get(spinGenero.getSelectedItemPosition()).getId();
         String txtCorreo = Objects.requireNonNull(edtCorreo.getText()).toString();
         String txtContrasena = Objects.requireNonNull(edtContrasena.getText()).toString();
         String idOneSignal = "1234";
@@ -685,8 +713,8 @@ public class FragmentRegistro extends Fragment {
                                         if(apiRespuesta.getSuccess() == 1) {
 
                                             correoYaRegistrado(txtCorreo);
-
                                         }
+
                                         else if(apiRespuesta.getSuccess() == 2){
 
                                             tokenManager.guardarClienteID(apiRespuesta);
@@ -706,22 +734,31 @@ public class FragmentRegistro extends Fragment {
     }
 
     private void correoYaRegistrado(String correo){
-        /*KAlertDialog pDialog = new KAlertDialog(getActivity(), KAlertDialog.WARNING_TYPE);
+
+        KAlertDialog pDialog = new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE, false);
+
         pDialog.setTitleText(getString(R.string.correo_ya_registrado));
+        pDialog.setTitleTextGravity(Gravity.CENTER);
+        pDialog.setTitleTextSize(19);
+
         pDialog.setContentText(correo);
-        pDialog.setConfirmText(getString(R.string.aceptar));
-        pDialog.setContentTextSize(16);
+        pDialog.setContentTextAlignment(View.TEXT_ALIGNMENT_VIEW_START, Gravity.START);
+        pDialog.setContentTextSize(17);
+
         pDialog.setCancelable(false);
         pDialog.setCanceledOnTouchOutside(false);
-        pDialog.confirmButtonColor(R.drawable.dialogo_theme_success)
-                .setConfirmClickListener(KAlertDialog::dismissWithAnimation);
-        pDialog.show();*/
+        pDialog.confirmButtonColor(R.drawable.kalert_dialog_corners_confirmar);
+        pDialog.setConfirmClickListener(getString(R.string.aceptar), sDialog -> {
+            sDialog.dismissWithAnimation();
+
+        });
+        pDialog.show();
     }
 
     void finalizar(){
         Toasty.success(getActivity(), getString(R.string.registrado_correctamente)).show();
 
-        edtNombre.setText("");
+        /*edtNombre.setText("");
         edtApellido.setText("");
         edtCorreo.setText("");
         edtContrasena.setText("");
@@ -729,7 +766,7 @@ public class FragmentRegistro extends Fragment {
         inputNombre.setError(null);
         inputApellido.setError(null);
         inputCorreo.setError(null);
-        inputContrasena.setError(null);
+        inputContrasena.setError(null);*/
 
         // Siguiente Actvity
         Intent intent = new Intent(getActivity(), PrincipalActivity.class);
@@ -740,11 +777,12 @@ public class FragmentRegistro extends Fragment {
         getActivity().finish();
     }
 
+
+
     void mensajeSinConexion(){
         progressBar.setVisibility(View.GONE);
         Toasty.error(getActivity(), getString(R.string.error_intentar_de_nuevo)).show();
     }
-
 
     @Override
     public void onDestroy(){

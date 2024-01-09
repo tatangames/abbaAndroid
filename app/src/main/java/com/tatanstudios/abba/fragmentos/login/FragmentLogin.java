@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.developer.kalert.KAlertDialog;
 import com.tatanstudios.abba.R;
+import com.tatanstudios.abba.fragmentos.registro.FragmentRegistro;
 
 
 public class FragmentLogin extends Fragment {
@@ -55,52 +56,14 @@ public class FragmentLogin extends Fragment {
 
 
     private void vistaRegistro(){
-        /*FragmentRegistro fragmentRegistro = new FragmentRegistro();
+        FragmentRegistro fragmentRegistro = new FragmentRegistro();
         Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragmentContenedor);
         if(currentFragment.getClass().equals(fragmentRegistro.getClass())) return;
 
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragmentContenedor, fragmentRegistro)
                 .addToBackStack(null)
-                .commit();*/
-
-
-
-        KAlertDialog pDialog = new KAlertDialog(getContext(), KAlertDialog.SUCCESS_TYPE, false);
-        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-
-        pDialog.setTitleText(getString(R.string.completar_registro));
-        pDialog.setTitleTextGravity(Gravity.CENTER);
-        pDialog.setTitleTextSize(19);
-
-        pDialog.setContentText("fdfsdf ");
-        pDialog.setContentTextAlignment(View.TEXT_ALIGNMENT_VIEW_START, Gravity.START);
-        pDialog.setContentTextSize(17);
-
-        pDialog.setCancelable(false);
-        pDialog.setCanceledOnTouchOutside(false);
-        pDialog.confirmButtonColor(R.drawable.kalert_dialog_corners_confirmar); // you can change border and color of button
-        pDialog.setConfirmClickListener(getString(R.string.aceptar),new KAlertDialog.KAlertClickListener() {
-            @Override
-            public void onClick(KAlertDialog sDialog) {
-                sDialog.dismissWithAnimation();
-
-            }
-        });
-
-        pDialog.cancelButtonColor(R.drawable.kalert_dialog_corners_cancelar); // you can change border and color of button
-        pDialog.setCancelClickListener(getString(R.string.cancelar),new KAlertDialog.KAlertClickListener() {
-            @Override
-            public void onClick(KAlertDialog sDialog) {
-                sDialog.dismissWithAnimation();
-
-            }
-        });
-
-
-        pDialog.show();
-
-
+                .commit();
     }
 
 
