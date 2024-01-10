@@ -733,6 +733,8 @@ public class FragmentRegistro extends Fragment {
         );
     }
 
+
+
     private void correoYaRegistrado(String correo){
 
         KAlertDialog pDialog = new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE, false);

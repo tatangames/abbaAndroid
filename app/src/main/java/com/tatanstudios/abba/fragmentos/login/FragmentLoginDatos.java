@@ -3,7 +3,9 @@ package com.tatanstudios.abba.fragmentos.login;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.Editable;
@@ -27,6 +29,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tatanstudios.abba.R;
 import com.tatanstudios.abba.activitys.principal.PrincipalActivity;
+import com.tatanstudios.abba.extras.OnFragmentInteractionTema;
 import com.tatanstudios.abba.network.ApiService;
 import com.tatanstudios.abba.network.RetrofitBuilder;
 import com.tatanstudios.abba.network.TokenManager;
@@ -53,6 +56,14 @@ public class FragmentLoginDatos extends Fragment {
     private Button btnLogin;
     private TextView txtOlvide;
 
+    private ColorStateList colorStateTintGrey, colorStateTintWhite, colorStateTintBlack;
+
+    private int colorBlanco, colorBlack = 0;
+
+    private OnFragmentInteractionTema mListener;
+
+    private boolean temaActual; // false: light  true: dark;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,7 +72,6 @@ public class FragmentLoginDatos extends Fragment {
         imgFlechaAtras = vista.findViewById(R.id.imgFlechaAtras);
         btnLogin = vista.findViewById(R.id.btnLogin);
 
-        btnLogin.setEnabled(false);
         inputCorreo = vista.findViewById(R.id.inputCorreo);
         inputContrasena = vista.findViewById(R.id.inputContrasena);
 
@@ -69,6 +79,11 @@ public class FragmentLoginDatos extends Fragment {
         edtContrasena = vista.findViewById(R.id.edtContrasena);
         rootRelative = vista.findViewById(R.id.rootRelative);
         txtOlvide = vista.findViewById(R.id.btnOlvide);
+
+        service = RetrofitBuilder.createServiceNoAuth(ApiService.class);
+        tokenManager = TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE));
+
+
 
         int colorProgress = ContextCompat.getColor(requireContext(), R.color.colorProgress);
 
@@ -79,6 +94,29 @@ public class FragmentLoginDatos extends Fragment {
         // Aplicar el ColorFilter al Drawable del ProgressBar
         progressBar.getIndeterminateDrawable().setColorFilter(colorProgress, PorterDuff.Mode.SRC_IN);
         progressBar.setVisibility(View.GONE);
+
+        colorBlanco = ContextCompat.getColor(requireContext(), R.color.white);
+        colorBlack = ContextCompat.getColor(requireContext(), R.color.black);
+        int colorGris = ContextCompat.getColor(requireContext(), R.color.colorGrisBtnDisable);
+
+        temaActual = mListener.onFragmentInteraction();
+
+        colorStateTintGrey = ColorStateList.valueOf(colorGris);
+        colorStateTintWhite = ColorStateList.valueOf(colorBlanco);
+        colorStateTintBlack = ColorStateList.valueOf(colorBlack);
+
+
+        btnLogin.setEnabled(false);
+
+        if(temaActual){ // dark
+            btnLogin.setBackgroundTintList(colorStateTintGrey);
+            btnLogin.setTextColor(colorBlanco);
+        }else{
+            btnLogin.setBackgroundTintList(colorStateTintGrey);
+            btnLogin.setTextColor(colorBlanco);
+        }
+
+
 
         // volver atras
         imgFlechaAtras.setOnClickListener(v -> {
@@ -93,12 +131,6 @@ public class FragmentLoginDatos extends Fragment {
             vistaRecuperarPassword();
         });
 
-        service = RetrofitBuilder.createServiceNoAuth(ApiService.class);
-        tokenManager = TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE));
-
-        int colorBtnTextoBlanco = ContextCompat.getColor(requireContext(), R.color.white);
-        int colorBtnTextoGris = ContextCompat.getColor(requireContext(), R.color.colorGrisBotonRegistroTexto);
-
 
         TextWatcher textWatcher = new TextWatcher() {
             @Override
@@ -109,23 +141,8 @@ public class FragmentLoginDatos extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String txtCorreo = Objects.requireNonNull(edtCorreo.getText()).toString();
-                String txtContrasena = Objects.requireNonNull(edtContrasena.getText()).toString();
 
-                boolean validacion = true;
-
-                // Habilitar el botón si ambos campos tienen texto, de lo contrario, deshabilitarlo
-                if(TextUtils.isEmpty(txtCorreo) || TextUtils.isEmpty(txtContrasena)){
-
-                    btnLogin.setEnabled(false);
-                    btnLogin.setBackgroundResource(R.drawable.boton_redondeado_gris);
-                    btnLogin.setTextColor(colorBtnTextoGris);
-                }else{
-
-                    btnLogin.setEnabled(true);
-                    btnLogin.setBackgroundResource(R.drawable.boton_redondeado_negro);
-                    btnLogin.setTextColor(colorBtnTextoBlanco);
-                }
+                verificarEntrada();
             }
         };
 
@@ -134,6 +151,65 @@ public class FragmentLoginDatos extends Fragment {
 
         return vista;
     }
+
+
+    private void verificarEntrada(){
+        String txtCorreo = Objects.requireNonNull(edtCorreo.getText()).toString();
+        String txtContrasena = Objects.requireNonNull(edtContrasena.getText()).toString();
+
+        // Habilitar el botón si ambos campos tienen texto, de lo contrario, deshabilitarlo
+        if(TextUtils.isEmpty(txtCorreo) || TextUtils.isEmpty(txtContrasena)){
+            desactivarBoton();
+        }else{
+            activarBoton();
+        }
+    }
+
+    private void activarBoton(){
+
+        btnLogin.setEnabled(true);
+
+        if(temaActual){ // Dark
+            btnLogin.setBackgroundTintList(colorStateTintWhite);
+            btnLogin.setTextColor(colorBlack);
+        }else{
+            btnLogin.setBackgroundTintList(colorStateTintBlack);
+            btnLogin.setTextColor(colorBlanco);
+        }
+    }
+
+    private void desactivarBoton(){
+        btnLogin.setEnabled(false);
+
+        if(temaActual){ // Dark
+            btnLogin.setBackgroundTintList(colorStateTintGrey);
+            btnLogin.setTextColor(colorBlanco);
+        }else{
+            btnLogin.setBackgroundTintList(colorStateTintGrey);
+            btnLogin.setTextColor(colorBlanco);
+        }
+    }
+
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionTema) {
+            mListener = (OnFragmentInteractionTema) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+
 
     private void vistaRecuperarPassword(){
         FragmentOlvidePassword fragmentOlvidePassword = new FragmentOlvidePassword();

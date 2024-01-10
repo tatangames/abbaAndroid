@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootRelative"
+    style="@style/BACKGROUND_WHITE_DARK_TEMA"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+    android:layout_height="match_parent">
 
 
     <ScrollView
@@ -31,6 +29,7 @@
                 <!-- Texto -->
                 <ImageView
                     android:id="@+id/imgFlechaAtras"
+                    style="@style/FLECHA_LEFT_TEMA"
                     android:layout_width="35dp"
                     android:layout_height="30dp"
                     android:contentDescription="@string/flecha_atras"
@@ -38,6 +37,7 @@
 
                 <!-- Botón a la derecha del texto -->
                 <TextView
+                    style="@style/TEXTVIEW_WHITE_DARK_TEMA"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -45,7 +45,6 @@
                     android:layout_toEndOf="@id/imgFlechaAtras"
                     android:fontFamily="@font/roboto_medium"
                     android:text="@string/ingresar"
-                    android:textColor="@color/black"
                     android:textSize="21sp" />
             </RelativeLayout>
 
@@ -53,10 +52,11 @@
             <com.google.android.material.textfield.TextInputLayout
 
                 android:id="@+id/inputCorreo"
+                style="@style/TEXT_INPUT_LAYOUT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="45dp"
                 android:layout_marginEnd="16dp"
                 app:boxStrokeColor="@color/selector_line_color"
                 app:boxStrokeWidth="1dp"
@@ -69,14 +69,13 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtCorreo"
+                    style="@style/INPUT_EDIT_TEXT_TEMA"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
                     android:fontFamily="@font/roboto_regular"
                     android:hint="@string/correo_electronico"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textPersonName"
                     android:maxLength="200"
-                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="normal"
                     app:hintTextAppearance="@style/Style_HintInput" />
@@ -87,10 +86,11 @@
             <com.google.android.material.textfield.TextInputLayout
 
                 android:id="@+id/inputContrasena"
+                style="@style/TEXT_INPUT_LAYOUT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="45dp"
                 android:layout_marginEnd="16dp"
                 app:boxStrokeColor="@color/selector_line_color"
                 app:boxStrokeWidth="1dp"
@@ -104,14 +104,13 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtContrasena"
+                    style="@style/INPUT_EDIT_TEXT_TEMA"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
                     android:fontFamily="@font/roboto_regular"
                     android:hint="@string/contrasena"
                     android:inputType="textPassword"
-                    android:maxLength="100"
-                    android:textColor="@color/black"
+                    android:maxLength="30"
                     android:textSize="20sp"
                     android:textStyle="normal"
                     app:hintTextAppearance="@style/Style_HintInput" />
@@ -124,23 +123,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="75dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="100dp"
-                android:background="@drawable/boton_redondeado_gris"
+                android:background="@drawable/boton_redondeado_negro"
                 android:fontFamily="@font/elvetica_medium"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:textAllCaps="false"
                 android:text="@string/continuar"
-                android:textColor="@color/white"
+                android:textAllCaps="false"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/inputContrasena"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/inputContrasena" />
 
 
             <TextView
@@ -151,6 +146,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="60dp"
+                style="@style/TEXTVIEW_WHITE_DARK_TEMA"
                 android:fontFamily="@font/aktivgroteskcorp_bold"
                 android:gravity="center"
                 android:paddingLeft="5dp"
@@ -158,7 +154,6 @@
                 android:paddingRight="5dp"
                 android:paddingBottom="5dp"
                 android:text="@string/olvido_su_contrasena"
-                android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

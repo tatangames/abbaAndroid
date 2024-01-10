@@ -39,8 +39,6 @@ public class PrincipalActivity extends AppCompatActivity  {
 
         tokenManager = TokenManager.getInstance(this.getSharedPreferences("prefs", MODE_PRIVATE));
 
-        cambioIdioma();
-
         Menu menu = bottomNavigationView.getMenu();
 
         menuInicio = menu.findItem(R.id.menu_inicio);
@@ -48,14 +46,6 @@ public class PrincipalActivity extends AppCompatActivity  {
         menuPlanes = menu.findItem(R.id.menu_planes);
         menuMas = menu.findItem(R.id.menu_mas);
 
-
-        if(tokenManager.getToken().getTema() == 1){
-        //    changeThemeDark();
-        }else{
-            // changeThemeLight();
-        }
-
-        tokenManager.deletePreferences();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new FragmentInicio()).commit();
 

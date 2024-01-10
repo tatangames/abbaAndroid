@@ -28,6 +28,10 @@
     <string name="seleccionar_genero">Select gender</string>
     <string name="masculino">Male</string>
     <string name="femenino">Female</string>
+    <string name="sin_conexion_a_internet">No internet connection</string>
+    <string name="correo_ya_registrado">The email is already registered</string>
+    <string name="enviar_codigo">Send code</string>
+    <string name="escribe_tu_correo_electronico">Enter your email, and we will send you a code to reset your password</string>
 
 
 
@@ -39,13 +43,11 @@
 
 
     <string name="flecha_atras">Flecha Atras</string>
-    <string name="correo_ya_registrado">El correo ya se encuentra registrado</string>
     <string name="registrado_correctamente">Registrado correctamente</string>
     <string name="continuar">Continuar</string>
     <string name="correo_o_contrasena_incorrectos">Correo o contraseña incorrectos</string>
     <string name="lo_siento_algo_salio_mal">Lo siento, algo salio mal :(</string>
     <string name="olvido_su_contrasena">¿Olvido su contraseña?</string>
-    <string name="escribe_tu_correo_electronico">Escribe tu correo electrónico o usuario, y te enviaremos un enlace para restablecer tu contraseña</string>
     <string name="correo">Correo</string>
     <string name="enviar">Enviar</string>
     <string name="inicio">Inicio</string>
@@ -54,7 +56,6 @@
     <string name="mas">Más</string>
     <string name="notificaciones">Notificaciones</string>
     <string name="versiculo_del_dia">Versículo del Día</string>
-    <string name="sin_conexion_a_internet">Sin conexión a Internet</string>
     <string name="por_favor_asegurate_tener">Por favor asegúrate tener servicio de internet para usar esta función.</string>
     <string name="videos">Videos</string>
     <string name="temas">Temas</string>
