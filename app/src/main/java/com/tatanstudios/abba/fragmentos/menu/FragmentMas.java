@@ -95,11 +95,6 @@ public class FragmentMas extends Fragment {
 
         rootRelative.addView(progressBar, params);
 
-
-
-
-
-
         informacionListado();
 
         return vista;
@@ -152,24 +147,14 @@ public class FragmentMas extends Fragment {
         elementos.add(new ModeloFragmentMas( ModeloFragmentMas.TIPO_PERFIL, new ModeloFraMasPerfil(letra, nombreUsuario), null));
 
         elementos.add(new ModeloFragmentMas( ModeloFragmentMas.TIPO_ITEM_NORMAL, null, new ModeloFraMasConfig(1, getString(R.string.notificaciones))));
+        elementos.add(new ModeloFragmentMas( ModeloFragmentMas.TIPO_ITEM_NORMAL, null, new ModeloFraMasConfig(2, getString(R.string.contrasena))));
+
         elementos.add(new ModeloFragmentMas( ModeloFragmentMas.TIPO_LINEA_SEPARACION, null, null));
 
-        elementos.add(new ModeloFragmentMas( ModeloFragmentMas.TIPO_ITEM_NORMAL, null, new ModeloFraMasConfig(2, getString(R.string.versiculo_del_dia))));
-        elementos.add(new ModeloFragmentMas( ModeloFragmentMas.TIPO_ITEM_NORMAL, null, new ModeloFraMasConfig(3, getString(R.string.oracion))));
-        elementos.add(new ModeloFragmentMas( ModeloFragmentMas.TIPO_ITEM_NORMAL, null, new ModeloFraMasConfig(4, getString(R.string.videos))));
-        elementos.add(new ModeloFragmentMas( ModeloFragmentMas.TIPO_ITEM_NORMAL, null, new ModeloFraMasConfig(5, getString(R.string.eventos))));
-        elementos.add(new ModeloFragmentMas( ModeloFragmentMas.TIPO_LINEA_SEPARACION, null, null));
-
-        elementos.add(new ModeloFragmentMas( ModeloFragmentMas.TIPO_ITEM_NORMAL, null, new ModeloFraMasConfig(6, getString(R.string.imagenes))));
-        elementos.add(new ModeloFragmentMas( ModeloFragmentMas.TIPO_ITEM_NORMAL, null, new ModeloFraMasConfig(7, getString(R.string.notas))));
-        elementos.add(new ModeloFragmentMas( ModeloFragmentMas.TIPO_ITEM_NORMAL, null, new ModeloFraMasConfig(8, getString(R.string.insignias))));
-        elementos.add(new ModeloFragmentMas( ModeloFragmentMas.TIPO_LINEA_SEPARACION, null, null));
-
-        elementos.add(new ModeloFragmentMas( ModeloFragmentMas.TIPO_ITEM_NORMAL, null, new ModeloFraMasConfig(9, getString(R.string.acerca_de))));
-        elementos.add(new ModeloFragmentMas( ModeloFragmentMas.TIPO_ITEM_NORMAL, null, new ModeloFraMasConfig(10, getString(R.string.idioma))));
-        elementos.add(new ModeloFragmentMas( ModeloFragmentMas.TIPO_ITEM_NORMAL, null, new ModeloFraMasConfig(11, getString(R.string.temas))));
-        elementos.add(new ModeloFragmentMas( ModeloFragmentMas.TIPO_ITEM_NORMAL, null, new ModeloFraMasConfig(12, getString(R.string.configuracion))));
-
+        elementos.add(new ModeloFragmentMas( ModeloFragmentMas.TIPO_ITEM_NORMAL, null, new ModeloFraMasConfig(3, getString(R.string.insignias))));
+        elementos.add(new ModeloFragmentMas( ModeloFragmentMas.TIPO_ITEM_NORMAL, null, new ModeloFraMasConfig(4, getString(R.string.idioma))));
+        elementos.add(new ModeloFragmentMas( ModeloFragmentMas.TIPO_ITEM_NORMAL, null, new ModeloFraMasConfig(5, getString(R.string.temas))));
+        elementos.add(new ModeloFragmentMas( ModeloFragmentMas.TIPO_ITEM_NORMAL, null, new ModeloFraMasConfig(6, getString(R.string.cerrar_sesion))));
 
         AdaptadorFragmentMas adapter = new AdaptadorFragmentMas(getContext(), elementos, this);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
@@ -193,7 +178,7 @@ public class FragmentMas extends Fragment {
             case 2:
                 editarTema();
                 break;
-            case 3:
+            case 4:
                 cambiarIdiomaModal();
                 break;
             case 12:
@@ -247,19 +232,27 @@ public class FragmentMas extends Fragment {
 
 
     private void alertaTemaCambio(){
-       /* KAlertDialog pDialog = new KAlertDialog(getContext(), KAlertDialog.SUCCESS_TYPE);
+
+        KAlertDialog pDialog = new KAlertDialog(getContext(), KAlertDialog.SUCCESS_TYPE, false);
+
         pDialog.setTitleText(getString(R.string.tema_actualizado));
+        pDialog.setTitleTextGravity(Gravity.CENTER);
+        pDialog.setTitleTextSize(19);
+
         pDialog.setContentText(getString(R.string.para_aplicar_efectos_se_debe_reiniciar));
-        pDialog.setConfirmText(getString(R.string.reiniciar));
-        pDialog.setContentTextSize(16);
+        pDialog.setContentTextAlignment(View.TEXT_ALIGNMENT_VIEW_START, Gravity.START);
+        pDialog.setContentTextSize(17);
+
         pDialog.setCancelable(false);
         pDialog.setCanceledOnTouchOutside(false);
-        pDialog.confirmButtonColor(R.drawable.dialogo_theme_success)
-                .setConfirmClickListener(sDialog -> {
-                    sDialog.dismissWithAnimation();
-                    reiniciarApp();
-                });
-        pDialog.show();*/
+        pDialog.confirmButtonColor(R.drawable.kalert_dialog_corners_confirmar);
+        pDialog.setConfirmClickListener(getString(R.string.reiniciar), sDialog -> {
+            sDialog.dismissWithAnimation();
+            reiniciarApp();
+        });
+        pDialog.show();
+
+
 
     }
 
@@ -357,19 +350,24 @@ public class FragmentMas extends Fragment {
     private void changeLanguage(String languageCode) {
         LocaleManagerExtras.setLocale(getContext(), languageCode);
 
-        /*KAlertDialog pDialog = new KAlertDialog(getContext(), KAlertDialog.SUCCESS_TYPE);
+        KAlertDialog pDialog = new KAlertDialog(getContext(), KAlertDialog.SUCCESS_TYPE, false);
+
         pDialog.setTitleText(getString(R.string.idioma_actualizado));
+        pDialog.setTitleTextGravity(Gravity.CENTER);
+        pDialog.setTitleTextSize(19);
+
         pDialog.setContentText(getString(R.string.para_aplicar_efectos_se_debe_reiniciar));
-        pDialog.setConfirmText(getString(R.string.reiniciar));
-        pDialog.setContentTextSize(16);
+        pDialog.setContentTextAlignment(View.TEXT_ALIGNMENT_VIEW_START, Gravity.START);
+        pDialog.setContentTextSize(17);
+
         pDialog.setCancelable(false);
         pDialog.setCanceledOnTouchOutside(false);
-        pDialog.confirmButtonColor(R.drawable.dialogo_theme_success)
-                .setConfirmClickListener(sDialog -> {
-                    sDialog.dismissWithAnimation();
-                    reiniciarApp();
-                });
-        pDialog.show();*/
+        pDialog.confirmButtonColor(R.drawable.kalert_dialog_corners_confirmar);
+        pDialog.setConfirmClickListener(getString(R.string.reiniciar), sDialog -> {
+            sDialog.dismissWithAnimation();
+            reiniciarApp();
+        });
+        pDialog.show();
     }
 
 

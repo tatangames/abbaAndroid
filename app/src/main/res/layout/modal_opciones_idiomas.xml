@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bottom_sheet_background"
+    style="@style/BACKGROUND_WHITE_DARK_TEMA"
     android:orientation="vertical">
 
     <TextView
@@ -16,7 +17,7 @@
         android:padding="8dp"
         android:text="@string/cambiar_idioma"
         android:textAlignment="viewStart"
-        android:textColor="@color/colorTextoGris"
+        style="@style/TEXTVIEW_WHITE_DARK_TEMA"
         android:textSize="22sp" />
 
     <RadioGroup
@@ -24,6 +25,7 @@
         android:id="@+id/radio_group_language"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical">
 
         <RadioButton
@@ -31,18 +33,18 @@
             style="@style/TEXTVIEW_WHITE_DARK_TEMA"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/roboto_regular"
             android:text="@string/ingles"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/radio_button_spanish"
             style="@style/TEXTVIEW_WHITE_DARK_TEMA"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/roboto_regular"
             android:text="@string/espanol"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
     </RadioGroup>
 
 

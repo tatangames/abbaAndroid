@@ -32,7 +32,8 @@
     <string name="correo_ya_registrado">The email is already registered</string>
     <string name="enviar_codigo">Send code</string>
     <string name="escribe_tu_correo_electronico">Enter your email, and we will send you a code to reset your password</string>
-
+    <string name="notificaciones">Notifications</string>
+    <string name="versiculo_del_dia">Verse of the Day</string>
 
 
 
@@ -54,8 +55,7 @@
     <string name="biblia">Biblia</string>
     <string name="planes">Planes</string>
     <string name="mas">Más</string>
-    <string name="notificaciones">Notificaciones</string>
-    <string name="versiculo_del_dia">Versículo del Día</string>
+
     <string name="por_favor_asegurate_tener">Por favor asegúrate tener servicio de internet para usar esta función.</string>
     <string name="videos">Videos</string>
     <string name="temas">Temas</string>

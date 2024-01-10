@@ -14,18 +14,14 @@
 
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
 
-
-        <!-- Color de fondo del BottomNavigationView en modo oscuro -->
-        <item name="android:colorPrimaryDark">@color/colorPrimaryDark2</item>
-
-        <!-- Color del texto y de los elementos del menú en modo oscuro -->
-        <item name="android:textColorPrimary">@color/bottomNavigationItemColor</item>
-
-        <!-- Configurar el estilo del texto del BottomNavigationView en modo oscuro -->
-        <item name="bottomNavigationStyle">@style/AppBottomNavigationView</item>
-
-
+        <!-- ESTILO PARA EL DATE PICKER DIALOG -->
         <item name="android:datePickerDialogTheme">@style/MyDatePickerDialogTheme</item>
+
+
+
+        <item name="android:colorPrimaryDark">@color/white</item>
+        <item name="android:textColorPrimary">@color/bottomNavigationItemColor</item>
+        <item name="bottomNavigationStyle">@style/AppBottomNavigationView</item>
 
 
 
@@ -72,7 +68,6 @@
     </style>
 
 
-
     <!-- ESTO LO LLEVARA TODOS LOS TEXT INPUT LAYOUT -->
     <style name="TEXT_INPUT_LAYOUT" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="hintTextColor">@color/white</item>
@@ -89,27 +84,48 @@
         <item name="android:background">@drawable/background_spinner_dark</item>
     </style>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <style name="Style_HintInput" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <!-- LO LLEVA TODOS LOS TEXT INPUT EDIT TEXT PARA EL app:hintTextAppearance -->
+    <style name="Style_HintInput" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="android:textSize">18sp</item>
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <style name="AppBottomNavigationView" parent="Widget.Design.BottomNavigationView">
+        <!-- Configurar el color de fondo en modo claro -->
+        <item name="android:background">@color/white</item>
+
+        <!-- Configurar el color del texto en modo claro -->
+        <item name="itemTextColor">@color/black</item>
+
+        <!-- Configurar el color del texto seleccionado en modo claro -->
+        <item name="itemTextAppearanceActive">@style/AppBottomNavigationView.ActiveTextAppearance</item>
+
+        <!-- Configurar el color del texto no seleccionado en modo claro -->
+        <item name="itemTextAppearanceInactive">@style/AppBottomNavigationView.InactiveTextAppearance</item>
 
     </style>
 
 
+    <style name="AppBottomNavigationView.ActiveTextAppearance" parent="Widget.Design.BottomNavigationView">
+        <!-- Configurar el color del texto seleccionado en modo claro -->
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="AppBottomNavigationView.InactiveTextAppearance" parent="Widget.Design.BottomNavigationView">
+        <!-- Configurar el color del texto no seleccionado en modo claro -->
+        <item name="android:textColor">@color/bottomNavigationItemColor</item>
+    </style>
 
 
 

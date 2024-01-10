@@ -46,8 +46,8 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(intent);
 
                 // Animación personalizada de entrada
-                overridePendingTransition(R.anim.slide_in_right_activity, R.anim.slide_out_left_activity);
-                finish();
+                //overridePendingTransition(R.anim.slide_in_right_activity, R.anim.slide_out_left_activity);
+                //finish();
 
             }else {
                 Intent intentLogin = new Intent(this, LoginActivity.class);

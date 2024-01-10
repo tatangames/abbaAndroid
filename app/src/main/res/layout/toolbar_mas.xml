@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/mas"
+            android:text="@string/ajustes"
             android:gravity="left"
             style="@style/TEXTVIEW_WHITE_DARK_TEMA"
             android:textSize="30sp"

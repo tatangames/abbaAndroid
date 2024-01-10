@@ -260,7 +260,6 @@ public class FragmentLoginDatos extends Fragment {
 
         String txtCorreo = Objects.requireNonNull(edtCorreo.getText()).toString();
         String txtContrasena = Objects.requireNonNull(edtContrasena.getText()).toString();
-
         String idfirebase = "1234";
 
         compositeDisposable.add(
