@@ -1,18 +1,13 @@
 package com.tatanstudios.abba.fragmentos.login;
 
-
-
 import static android.content.Context.INPUT_METHOD_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
-
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-
-
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -27,8 +22,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -36,7 +32,6 @@ import com.developer.kalert.KAlertDialog;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tatanstudios.abba.R;
-import com.tatanstudios.abba.activitys.principal.PrincipalActivity;
 import com.tatanstudios.abba.extras.OnFragmentInteractionTema;
 import com.tatanstudios.abba.network.ApiService;
 import com.tatanstudios.abba.network.RetrofitBuilder;
@@ -49,19 +44,23 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class FragmentOlvidePassword extends Fragment {
+public class FragmentCodigoPassword extends Fragment {
+
+    private TextView txtTitulo, txtReintento;
+    private String correo = "";
+
 
     private ApiService service;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private TextInputLayout inputCorreo;
-    private TextInputEditText edtCorreo;
+    private TextInputLayout inputCodigo;
+    private TextInputEditText edtCodigo;
     private RelativeLayout rootRelative;
     private ImageView imgFlechaAtras;
 
     private ProgressBar progressBar;
 
     private TokenManager tokenManager;
-    private Button btnEnviarCorreo;
+    private Button btnEnviarCodigo;
 
     private ColorStateList colorStateTintGrey, colorStateTintWhite, colorStateTintBlack;
 
@@ -73,17 +72,34 @@ public class FragmentOlvidePassword extends Fragment {
 
     private boolean boolDialogEnviar;
 
+    private CountDownTimer countDownTimer;
+
+    private boolean puedeReenviarCodigo;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View vista = inflater.inflate(R.layout.fragment_olvide_password, container, false);
+        View vista = inflater.inflate(R.layout.fragment_codigo_password, container, false);
 
+        txtTitulo = vista.findViewById(R.id.txtMensaje);
         imgFlechaAtras = vista.findViewById(R.id.imgFlechaAtras);
-        btnEnviarCorreo = vista.findViewById(R.id.btnEnviar);
+        btnEnviarCodigo = vista.findViewById(R.id.btnEnviar);
 
-        inputCorreo = vista.findViewById(R.id.inputCorreo);
+        inputCodigo = vista.findViewById(R.id.inputCodigo);
 
-        edtCorreo = vista.findViewById(R.id.edtCorreo);
+        edtCodigo = vista.findViewById(R.id.edtCodigo);
         rootRelative = vista.findViewById(R.id.rootRelative);
+        txtReintento = vista.findViewById(R.id.txtReintento);
+
+        puedeReenviarCodigo = false;
+
+        Bundle bundle = getArguments();
+        if(bundle != null) {
+            correo = bundle.getString("CORREO");
+        }
+
+        String mensaje = String.format(getString(R.string.ingresar_el_codigo_que_se), correo);
+        txtTitulo.setText(mensaje);
+
 
         service = RetrofitBuilder.createServiceNoAuth(ApiService.class);
         tokenManager = TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE));
@@ -111,14 +127,14 @@ public class FragmentOlvidePassword extends Fragment {
         colorStateTintBlack = ColorStateList.valueOf(colorBlack);
 
 
-        btnEnviarCorreo.setEnabled(false);
+        btnEnviarCodigo.setEnabled(false);
 
         if(temaActual){ // dark
-            btnEnviarCorreo.setBackgroundTintList(colorStateTintGrey);
-            btnEnviarCorreo.setTextColor(colorBlanco);
+            btnEnviarCodigo.setBackgroundTintList(colorStateTintGrey);
+            btnEnviarCodigo.setTextColor(colorBlanco);
         }else{
-            btnEnviarCorreo.setBackgroundTintList(colorStateTintGrey);
-            btnEnviarCorreo.setTextColor(colorBlanco);
+            btnEnviarCodigo.setBackgroundTintList(colorStateTintGrey);
+            btnEnviarCodigo.setTextColor(colorBlanco);
         }
 
 
@@ -127,9 +143,17 @@ public class FragmentOlvidePassword extends Fragment {
             requireActivity().getSupportFragmentManager().popBackStack();
         });
 
-        btnEnviarCorreo.setOnClickListener(v -> {
+        btnEnviarCodigo.setOnClickListener(v -> {
             closeKeyboard();
             verificarDatos();
+        });
+
+        txtReintento.setOnClickListener(v -> {
+           if(puedeReenviarCodigo){
+               puedeReenviarCodigo = false;
+               closeKeyboard();
+               apiReenviarCodigo();
+           }
         });
 
 
@@ -147,20 +171,98 @@ public class FragmentOlvidePassword extends Fragment {
             }
         };
 
-        edtCorreo.addTextChangedListener(textWatcher);
-
+        edtCodigo.addTextChangedListener(textWatcher);
         return vista;
     }
 
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Configurar y comenzar el contador (10 segundos en este ejemplo)
+        iniciarContador();
+    }
+
+    private void iniciarContador() {
+
+        String texto = getString(R.string.reintentar_en);
+
+        countDownTimer = new CountDownTimer(10000, 1000) {
+            @Override
+            public void onTick(long tiempoRestante) {
+                // Actualizar el TextView con el tiempo restante
+                txtReintento.setText(texto + ": " + tiempoRestante / 1000);
+            }
+
+            @Override
+            public void onFinish() {
+                // Actualizar el TextView cuando el contador llega a cero
+                txtReintento.setText(getString(R.string.reenviar_codigo));
+                puedeReenviarCodigo = true;
+            }
+        };
+
+        // Iniciar el contador
+        countDownTimer.start();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // Detener el contador para evitar fugas de memoria
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+    }
+
+    private void apiReenviarCodigo(){
+
+        progressBar.setVisibility(View.VISIBLE);
+
+        int idioma = tokenManager.getToken().getIdioma();
+
+        compositeDisposable.add(
+                service.solicitarCodigoPassword(correo, idioma)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(apiRespuesta -> {
+
+                                    progressBar.setVisibility(View.GONE);
+
+                                    if(apiRespuesta != null) {
+
+                                        if(apiRespuesta.getSuccess() == 1) {
+                                           // correo no encontrado, pero no caera aqui
+                                        }
+                                        else if(apiRespuesta.getSuccess() == 2){
+                                            reintentoEnviado();
+                                        }else{
+                                            mensajeSinConexion();
+                                        }
+                                    }else{
+                                        mensajeSinConexion();
+                                    }
+                                },
+                                throwable -> {
+                                    mensajeSinConexion();
+                                })
+        );
+    }
+
+    private void reintentoEnviado(){
+        Toasty.success(getContext(), getString(R.string.codigo_enviado), Toasty.LENGTH_SHORT).show();
+        iniciarContador();
+    }
 
     private void verificarDatos(){
 
         if(boolDialogEnviar){
             boolDialogEnviar = false;
-            String txtCorreo = Objects.requireNonNull(edtCorreo.getText()).toString();
+            String txtCorreo = Objects.requireNonNull(edtCodigo.getText()).toString();
             KAlertDialog pDialog = new KAlertDialog(getContext(), KAlertDialog.NORMAL_TYPE, false);
 
-            pDialog.setTitleText(getString(R.string.solicitar_codigo));
+            pDialog.setTitleText(getString(R.string.enviar_codigo));
             pDialog.setTitleTextGravity(Gravity.CENTER);
             pDialog.setTitleTextSize(19);
 
@@ -174,7 +276,7 @@ public class FragmentOlvidePassword extends Fragment {
             pDialog.setConfirmClickListener(getString(R.string.enviar), sDialog -> {
                 sDialog.dismissWithAnimation();
                 boolDialogEnviar = true;
-                apiEnviarCorreoCodigo();
+                apiEnviarCodigo();
             });
 
             pDialog.cancelButtonColor(R.drawable.kalert_dialog_corners_cancelar);
@@ -187,16 +289,17 @@ public class FragmentOlvidePassword extends Fragment {
     }
 
 
-    private void apiEnviarCorreoCodigo(){
+    // VERIFICAR EN SERVER CODIGO, CORREO QUE COINCIDA
+    private void apiEnviarCodigo(){
 
         progressBar.setVisibility(View.VISIBLE);
 
         int idioma = tokenManager.getToken().getIdioma();
 
-        String txtCorreo = Objects.requireNonNull(edtCorreo.getText()).toString();
+        String txtCodigo = Objects.requireNonNull(edtCodigo.getText()).toString();
 
         compositeDisposable.add(
-                service.solicitarCodigoPassword(txtCorreo, idioma)
+                service.verificarCodigoCorreo(txtCodigo, correo)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(apiRespuesta -> {
@@ -206,10 +309,10 @@ public class FragmentOlvidePassword extends Fragment {
                                     if(apiRespuesta != null) {
 
                                         if(apiRespuesta.getSuccess() == 1) {
-                                            correoNoEncontrado();
+
                                         }
                                         else if(apiRespuesta.getSuccess() == 2){
-                                            pantallaIngresarCodigo(txtCorreo);
+
                                         }else{
                                             mensajeSinConexion();
                                         }
@@ -244,40 +347,37 @@ public class FragmentOlvidePassword extends Fragment {
 
 
     private void verificarEntrada(){
-        String txtCorreo = Objects.requireNonNull(edtCorreo.getText()).toString();
+        String txtCodigo = Objects.requireNonNull(edtCodigo.getText()).toString();
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(txtCorreo).matches()){
-            String valiCorreo = getString(R.string.direccion_correo_invalida);
-            inputCorreo.setError(valiCorreo);
-           desactivarBoton();
+        if(TextUtils.isEmpty(txtCodigo)){
+            desactivarBoton();
         }else{
-            inputCorreo.setError(null);
             activarBoton();
         }
     }
 
     private void activarBoton(){
 
-        btnEnviarCorreo.setEnabled(true);
+        btnEnviarCodigo.setEnabled(true);
 
         if(temaActual){ // Dark
-            btnEnviarCorreo.setBackgroundTintList(colorStateTintWhite);
-            btnEnviarCorreo.setTextColor(colorBlack);
+            btnEnviarCodigo.setBackgroundTintList(colorStateTintWhite);
+            btnEnviarCodigo.setTextColor(colorBlack);
         }else{
-            btnEnviarCorreo.setBackgroundTintList(colorStateTintBlack);
-            btnEnviarCorreo.setTextColor(colorBlanco);
+            btnEnviarCodigo.setBackgroundTintList(colorStateTintBlack);
+            btnEnviarCodigo.setTextColor(colorBlanco);
         }
     }
 
     private void desactivarBoton(){
-        btnEnviarCorreo.setEnabled(false);
+        btnEnviarCodigo.setEnabled(false);
 
         if(temaActual){ // Dark
-            btnEnviarCorreo.setBackgroundTintList(colorStateTintGrey);
-            btnEnviarCorreo.setTextColor(colorBlanco);
+            btnEnviarCodigo.setBackgroundTintList(colorStateTintGrey);
+            btnEnviarCodigo.setTextColor(colorBlanco);
         }else{
-            btnEnviarCorreo.setBackgroundTintList(colorStateTintGrey);
-            btnEnviarCorreo.setTextColor(colorBlanco);
+            btnEnviarCodigo.setBackgroundTintList(colorStateTintGrey);
+            btnEnviarCodigo.setTextColor(colorBlanco);
         }
     }
 
@@ -333,5 +433,6 @@ public class FragmentOlvidePassword extends Fragment {
             inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
+
 
 }

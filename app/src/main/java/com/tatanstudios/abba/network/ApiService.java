@@ -53,10 +53,18 @@ public interface ApiService {
                                               @Field("correo") String correo);
 
 
+    // solicitar codigo para recuperacion de contraseña
+    @POST("app/solicitar/codigo/contrasena")
+    @FormUrlEncoded
+    Observable<ModeloUsuario> solicitarCodigoPassword(@Field("correo") String correo,
+                                                      @Field("idioma") int idioma);
 
+    // verificar en servidor si codigo y correo coinciden
 
-
-
+    @POST("app/verificar/codigo/recuperacion")
+    @FormUrlEncoded
+    Observable<ModeloUsuario> verificarCodigoCorreo(@Field("codigo") String codigo,
+                                                      @Field("correo") String correo);
 
 
 

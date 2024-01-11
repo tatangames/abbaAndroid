@@ -95,6 +95,13 @@
     <string name="genero_es_requerido">Gender is required</string>
     <string name="iglesia_es_requerido">Church is required</string>
     <string name="completar_registro">Complete Registration</string>
+    <string name="correo_no_encontrado">Email not found</string>
+    <string name="ingresar_el_codigo_que_se">Enter the Code that has been sent to the following address: %1$s</string>
+    <string name="solicitar_codigo">Request code</string>
+    <string name="codigo">Code</string>
+    <string name="reintentar_en">Retry</string>
+    <string name="reenviar_codigo">Resend code</string>
+    <string name="codigo_enviado">Code sent</string>
 
 
 

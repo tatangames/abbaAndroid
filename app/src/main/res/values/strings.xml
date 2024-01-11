@@ -96,9 +96,13 @@
     <string name="genero_es_requerido">Género es requerido</string>
     <string name="iglesia_es_requerido">Iglesia es requerido</string>
     <string name="completar_registro">Completar Registro</string>
-
-
-
+    <string name="correo_no_encontrado">Correo no encontrado</string>
+    <string name="ingresar_el_codigo_que_se">Ingresar el Código que se ha enviado a la siguiente dirección: %1$s</string>
+    <string name="solicitar_codigo">Solicitar código</string>
+    <string name="codigo">Código</string>
+    <string name="reintentar_en">Reintentar en</string>
+    <string name="reenviar_codigo">Reenviar código</string>
+    <string name="codigo_enviado">Código enviado</string>
 
 
 
