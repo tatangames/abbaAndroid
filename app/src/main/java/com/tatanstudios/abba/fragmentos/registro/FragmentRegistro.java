@@ -734,7 +734,6 @@ public class FragmentRegistro extends Fragment {
     }
 
 
-
     private void correoYaRegistrado(String correo){
 
         KAlertDialog pDialog = new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE, false);
@@ -759,16 +758,6 @@ public class FragmentRegistro extends Fragment {
 
     void finalizar(){
         Toasty.success(getActivity(), getString(R.string.registrado_correctamente)).show();
-
-        /*edtNombre.setText("");
-        edtApellido.setText("");
-        edtCorreo.setText("");
-        edtContrasena.setText("");
-
-        inputNombre.setError(null);
-        inputApellido.setError(null);
-        inputCorreo.setError(null);
-        inputContrasena.setError(null);*/
 
         // Siguiente Actvity
         Intent intent = new Intent(getActivity(), PrincipalActivity.class);

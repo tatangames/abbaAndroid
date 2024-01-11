@@ -57,5 +57,9 @@
 
 
 
+    <!-- ICONOS DE RECYCLER VIEW, FRAGMENT AJUSTES -->
+    <color name="colorIconoVector">#FFFFFF</color>
+
+
 
 </resources>

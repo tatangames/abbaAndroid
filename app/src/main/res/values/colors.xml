@@ -54,6 +54,11 @@
     <color name="colorVerdeSuccess">#A5DC86</color>
 
 
+
+
+    <!-- ICONOS DE RECYCLER VIEW, FRAGMENT AJUSTES -->
+    <color name="colorIconoVector">#000000</color>
+
 </resources>
 
 

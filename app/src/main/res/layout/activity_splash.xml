@@ -16,7 +16,7 @@
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/grey_sans_black"
         android:gravity="center"
-        android:text="@string/abba_internacional"
+        android:text="@string/abba_app"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"

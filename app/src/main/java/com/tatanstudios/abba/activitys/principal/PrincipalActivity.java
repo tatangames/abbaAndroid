@@ -11,13 +11,16 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.tatanstudios.abba.R;
+import com.tatanstudios.abba.extras.InterfaceActualizarTema;
+import com.tatanstudios.abba.extras.LocaleManagerExtras;
+import com.tatanstudios.abba.extras.OnFragmentInteractionTema;
 import com.tatanstudios.abba.fragmentos.menu.FragmentBiblia;
 import com.tatanstudios.abba.fragmentos.menu.FragmentInicio;
 import com.tatanstudios.abba.fragmentos.menu.FragmentMas;
 import com.tatanstudios.abba.fragmentos.menu.FragmentPlanes;
 import com.tatanstudios.abba.network.TokenManager;
 
-public class PrincipalActivity extends AppCompatActivity  {
+public class PrincipalActivity extends AppCompatActivity  implements InterfaceActualizarTema {
 
 
     public BottomNavigationView bottomNavigationView;
@@ -29,15 +32,20 @@ public class PrincipalActivity extends AppCompatActivity  {
 
     private TokenManager tokenManager;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
-        bottomNavigationView = findViewById(R.id.navigation);
-        bottomNavigationView.setBackground(null);
 
         tokenManager = TokenManager.getInstance(this.getSharedPreferences("prefs", MODE_PRIVATE));
+
+
+
+        bottomNavigationView = findViewById(R.id.navigation);
+        bottomNavigationView.setBackground(null);
 
         Menu menu = bottomNavigationView.getMenu();
 
@@ -126,19 +134,14 @@ public class PrincipalActivity extends AppCompatActivity  {
     }
 
 
-    // Cambiar el tema de la actividad según sea necesario
-    public void changeThemeDark() {
-        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+    @Override
+    public void onFragmentInteraction(int tipoTema) {
+        if(tipoTema == 1){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
     }
-
-    public void changeThemeLight() {
-        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-    }
-
-
-
-
-
-
-
 }

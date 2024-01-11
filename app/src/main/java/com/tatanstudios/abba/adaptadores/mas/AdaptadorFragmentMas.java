@@ -1,6 +1,7 @@
 package com.tatanstudios.abba.adaptadores.mas;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Priority;
@@ -35,10 +37,19 @@ public class AdaptadorFragmentMas extends RecyclerView.Adapter<RecyclerView.View
     public ArrayList<ModeloFragmentMas> modeloFragmentMas;
     private FragmentMas fragmentMas;
 
+    ColorStateList colorStateListBlack, colorStateListWhite;
+
+
     public AdaptadorFragmentMas(Context context, ArrayList<ModeloFragmentMas> modeloFragmentMas, FragmentMas fragmentMas){
         this.context = context;
         this.fragmentMas = fragmentMas;
         this.modeloFragmentMas = modeloFragmentMas;
+
+        int colorWhite = context.getColor(R.color.white);
+        colorStateListWhite = ColorStateList.valueOf(colorWhite);
+
+        int colorBlack = context.getColor(R.color.black);
+        colorStateListBlack = ColorStateList.valueOf(colorBlack);
     }
 
     @NonNull
@@ -93,12 +104,22 @@ public class AdaptadorFragmentMas extends RecyclerView.Adapter<RecyclerView.View
             switch (m.getIdentificador()){
 
                 case 1:
-                    ((ItemNormalViewHolder) holder).imgPerfil.setImageResource(R.drawable.icono_campana);
-
+                    ((ItemNormalViewHolder) holder).imgPerfil.setImageResource(R.drawable.ic_campana_vector);
                     break;
-
                 case 2:
-                    ((ItemNormalViewHolder) holder).imgPerfil.setImageResource(R.drawable.icono_location);
+                    ((ItemNormalViewHolder) holder).imgPerfil.setImageResource(R.drawable.ic_candado_vector);
+                    break;
+                case 3:
+                    ((ItemNormalViewHolder) holder).imgPerfil.setImageResource(R.drawable.ic_insignia_vector);
+                    break;
+                case 4:
+                    ((ItemNormalViewHolder) holder).imgPerfil.setImageResource(R.drawable.icono_global);
+                    break;
+                case 5:
+                    ((ItemNormalViewHolder) holder).imgPerfil.setImageResource(R.drawable.ic_lampara_vector);
+                    break;
+                case 6:
+                    ((ItemNormalViewHolder) holder).imgPerfil.setImageResource(R.drawable.ic_cerrar_sesion_vector);
                     break;
                 default:
                     ((ItemNormalViewHolder) holder).imgPerfil.setImageResource(R.drawable.icono_global);
@@ -115,7 +136,6 @@ public class AdaptadorFragmentMas extends RecyclerView.Adapter<RecyclerView.View
 
         } else if (holder instanceof LineaSeparacionViewHolder) {
             // Configurar el ViewHolder para una línea de separación
-
 
         }
     }

@@ -16,7 +16,7 @@
         android:layout_marginStart="8dp"
         android:contentDescription="@string/logo"
         android:src="@drawable/vector_tuerca_linea"
-        app:tint="@color/colorIconosTema"
+        app:tint="@color/colorIconoVector"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

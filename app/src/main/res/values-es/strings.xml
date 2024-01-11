@@ -4,7 +4,7 @@
     <string name="app_name">Abba Internacional</string>
     <string name="version_app">V. 1.0.0</string>
 
-
+    <string name="abba_app">Abba App</string>
     <string name="abba_internacional">Abba Internacional</string>
     <string name="logo">Logo</string>
     <string name="continuar_con_correo">Continuar con correo</string>
@@ -34,20 +34,7 @@
     <string name="escribe_tu_correo_electronico">Escribe tu correo electrónico, y te enviaremos un código para restablecer tu contraseña</string>
     <string name="notificaciones">Notificaciones</string>
     <string name="versiculo_del_dia">Versículo del Día</string>
-
-
-
-
-
-
-
-
-
-
-
-
     <string name="flecha_atras">Flecha Atras</string>
-
     <string name="registrado_correctamente">Registrado correctamente</string>
     <string name="continuar">Continuar</string>
     <string name="correo_o_contrasena_incorrectos">Correo o contraseña incorrectos</string>
@@ -59,7 +46,6 @@
     <string name="biblia">Biblia</string>
     <string name="planes">Planes</string>
     <string name="mas">Más</string>
-
     <string name="por_favor_asegurate_tener">Por favor asegúrate tener servicio de internet para usar esta función.</string>
     <string name="videos">Videos</string>
     <string name="temas">Temas</string>
@@ -91,22 +77,47 @@
     <string name="correo_no_disponible">Correo no disponible</string>
     <string name="actualizado">Actualizado</string>
     <string name="editar_notificaciones">Editar Notificaciones</string>
-    <string name="cambiar_tema">Cambiar Tema</string>
-    <string name="tema_claro">Tema Claro</string>
-    <string name="tema_oscuro">Tema Oscuro</string>
-    <string name="para_aplicar_efectos_se_debe_reiniciar">Para aplicar efectos se debe reiniciar</string>
-    <string name="reiniciar">Reiniciar</string>
-
-    <string name="edad">Edad</string>
-    <string name="telefono">Teléfono</string>
-    <string name="pais">País</string>
-    <string name="area">Área</string>
-    <string name="iglesia">Iglesia</string>
     <string name="tema_actualizado">Tema Actualizado</string>
     <string name="cambiar_idioma">Cambiar Idioma</string>
     <string name="ingles">Ingles</string>
     <string name="espanol">Español</string>
     <string name="idioma_actualizado">Idioma Actualizado</string>
+    <string name="cambiar_tema">Cambiar Tema</string>
+    <string name="tema_claro">Tema Claro</string>
+    <string name="tema_oscuro">Tema Oscuro</string>
+    <string name="para_aplicar_efectos_se_debe_reiniciar">Para aplicar efectos se debe reiniciar</string>
+    <string name="reiniciar">Reiniciar</string>
+    <string name="edad">edad</string>
+    <string name="telefono">Teléfono</string>
+    <string name="pais">País</string>
+    <string name="area">Área</string>
+    <string name="iglesia">Iglesia</string>
+    <string name="genero_es_requerido">Género es requerido</string>
+    <string name="iglesia_es_requerido">Iglesia es requerido</string>
+    <string name="completar_registro">Completar Registro</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -142,12 +153,6 @@
     <string name="guatemala_jalapa_id_8">Iglesia jalapa 8</string>
     <string name="guatemala_jalapa_id_9">Iglesia jalapa 9</string>
     <string name="guatemala_jalapa_id_10">Iglesia jalapa 10</string>
-
-
-    <string name="genero_es_requerido">Género es requerido</string>
-    <string name="iglesia_es_requerido">Iglesia es requerido</string>
-    <string name="completar_registro">Completar Registro</string>
-
 
 
 

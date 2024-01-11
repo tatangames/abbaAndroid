@@ -54,7 +54,7 @@
 
     <!-- ESTO LO LLEVARAN TODOS LOS TOOLBAR PARA COLOR  BLANCO/OSCURO. -->
     <style name="TOOLBAR_V1_WHITE_DARK_TEMA">
-        <item name="android:background">@color/colorBordeToolbar</item>
+        <item name="android:background">@color/black</item>
     </style>
 
     <!-- ESTO LO LLEVARAN LAS DIVISIONES DE UN RECYCLERVIEW -->

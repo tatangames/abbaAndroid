@@ -4,7 +4,7 @@
     <string name="app_name">Abba Internacional</string>
     <string name="version_app">V. 1.0.0</string>
 
-
+    <string name="abba_app">Abba App</string>
     <string name="abba_internacional">Abba International</string>
     <string name="logo">Logo</string>
     <string name="continuar_con_correo">Continuar con correo</string>
@@ -34,80 +34,80 @@
     <string name="escribe_tu_correo_electronico">Enter your email, and we will send you a code to reset your password</string>
     <string name="notificaciones">Notifications</string>
     <string name="versiculo_del_dia">Verse of the Day</string>
-
-
-
-
-
-
-
-
-
-    <string name="flecha_atras">Flecha Atras</string>
-    <string name="registrado_correctamente">Registrado correctamente</string>
-    <string name="continuar">Continuar</string>
-    <string name="correo_o_contrasena_incorrectos">Correo o contraseña incorrectos</string>
-    <string name="lo_siento_algo_salio_mal">Lo siento, algo salio mal :(</string>
-    <string name="olvido_su_contrasena">¿Olvido su contraseña?</string>
-    <string name="correo">Correo</string>
-    <string name="enviar">Enviar</string>
-    <string name="inicio">Inicio</string>
-    <string name="biblia">Biblia</string>
-    <string name="planes">Planes</string>
-    <string name="mas">Más</string>
-
-    <string name="por_favor_asegurate_tener">Por favor asegúrate tener servicio de internet para usar esta función.</string>
+    <string name="flecha_atras">Back arrow</string>
+    <string name="registrado_correctamente">Registered Successfully</string>
+    <string name="continuar">Continue</string>
+    <string name="correo_o_contrasena_incorrectos">Incorrect email or password</string>
+    <string name="lo_siento_algo_salio_mal">Sorry, something went wrong :(</string>
+    <string name="olvido_su_contrasena">¿Forgot your password?</string>
+    <string name="correo">Email</string>
+    <string name="enviar">Send</string>
+    <string name="inicio">Start</string>
+    <string name="biblia">Bible</string>
+    <string name="planes">Plans</string>
+    <string name="mas">More</string>
+    <string name="por_favor_asegurate_tener">Please make sure you have internet service to use this feature.</string>
     <string name="videos">Videos</string>
-    <string name="temas">Temas</string>
-    <string name="oscuro">Oscuro</string>
-    <string name="claro">Claro</string>
-    <string name="eventos">Eventos</string>
+    <string name="temas">Themes</string>
+    <string name="oscuro">Dark</string>
+    <string name="claro">Light</string>
+    <string name="eventos">Events</string>
     <string name="insignias">Insignias</string>
-    <string name="acerca_de">Acerca de</string>
-    <string name="idioma">Idioma</string>
-    <string name="configuracion">Configuración</string>
-    <string name="ayuda">Ayuda</string>
-    <string name="marcadores">Marcadores</string>
-    <string name="notas">Notas</string>
-    <string name="amigos">Amigos</string>
-    <string name="ora">Ora</string>
-    <string name="imagenes">Imágenes</string>
-    <string name="resaltados">Resaltados</string>
-    <string name="historial">Historial</string>
-    <string name="oracion">Oración</string>
-    <string name="cerrar_sesion">Cerrar Sesión</string>
-    <string name="si">Si</string>
+    <string name="acerca_de">About</string>
+    <string name="idioma">Language</string>
+    <string name="configuracion">Setting</string>
+    <string name="ayuda">Help</string>
+    <string name="marcadores">Markers</string>
+    <string name="notas">Notes</string>
+    <string name="amigos">Friends</string>
+    <string name="ora">Pray</string>
+    <string name="imagenes">Images</string>
+    <string name="resaltados">Highlights</string>
+    <string name="historial">History</string>
+    <string name="oracion">Prayer</string>
+    <string name="cerrar_sesion">Sign off</string>
+    <string name="si">Yes</string>
     <string name="no">No</string>
-    <string name="ajustes">Ajustes</string>
-    <string name="seleccionar_edad">Seleccionar Edad</string>
-    <string name="fecha_nacimiento_es_requerido">Fecha Nacimiento es requerido</string>
-    <string name="editar_perfil">Editar Perfil</string>
-    <string name="actualizar">Actualizar</string>
-    <string name="fecha_de_nacimiento">Fecha de Nacimiento</string>
-    <string name="correo_no_disponible">Correo no disponible</string>
-    <string name="actualizado">Actualizado</string>
-    <string name="editar_notificaciones">Editar Notificaciones</string>
-    <string name="cambiar_tema">Cambiar Tema</string>
-    <string name="tema_claro">Tema Claro</string>
-    <string name="tema_oscuro">Tema Oscuro</string>
-    <string name="para_aplicar_efectos_se_debe_reiniciar">Para aplicar efectos se debe reiniciar</string>
-    <string name="reiniciar">Reiniciar</string>
-    <string name="tema_actualizado">Tema Actualizado</string>
+    <string name="ajustes">Settings</string>
+    <string name="seleccionar_edad">Select Age</string>
+    <string name="fecha_nacimiento_es_requerido">Date of Birth is required</string>
+    <string name="editar_perfil">Edit profile</string>
+    <string name="actualizar">Update</string>
+    <string name="fecha_de_nacimiento">Birthdate</string>
+    <string name="correo_no_disponible">Email not available</string>
+    <string name="actualizado">Updated</string>
+    <string name="editar_notificaciones">Edit Notifications</string>
+    <string name="tema_actualizado">Updated Theme</string>
     <string name="cambiar_idioma">Change Language</string>
     <string name="ingles">English</string>
     <string name="espanol">Spanish</string>
     <string name="idioma_actualizado">Language Update</string>
-
-
-
-
-
-
+    <string name="cambiar_tema">Change Theme</string>
+    <string name="tema_claro">Theme Light</string>
+    <string name="tema_oscuro">Theme Dark</string>
+    <string name="para_aplicar_efectos_se_debe_reiniciar">To apply effects you must restart</string>
+    <string name="reiniciar">Restart</string>
     <string name="edad">Age</string>
     <string name="telefono">Phone</string>
     <string name="pais">Country</string>
     <string name="area">Area</string>
     <string name="iglesia">Church</string>
+    <string name="genero_es_requerido">Gender is required</string>
+    <string name="iglesia_es_requerido">Church is required</string>
+    <string name="completar_registro">Complete Registration</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -144,9 +144,7 @@
     <string name="guatemala_jalapa_id_10">Iglesia jalapa 10</string>
 
 
-    <string name="genero_es_requerido">Género es requerido</string>
-    <string name="iglesia_es_requerido">Iglesia es requerido</string>
-    <string name="completar_registro">Completar Registro</string>
+
 
 
 

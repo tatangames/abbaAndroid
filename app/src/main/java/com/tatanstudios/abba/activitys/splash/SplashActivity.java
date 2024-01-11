@@ -16,6 +16,7 @@ import com.tatanstudios.abba.activitys.Prueba2Activity;
 import com.tatanstudios.abba.activitys.PruebaActivity;
 import com.tatanstudios.abba.activitys.login.LoginActivity;
 import com.tatanstudios.abba.activitys.principal.PrincipalActivity;
+import com.tatanstudios.abba.extras.LocaleManagerExtras;
 import com.tatanstudios.abba.network.TokenManager;
 
 public class SplashActivity extends AppCompatActivity {
@@ -24,6 +25,9 @@ public class SplashActivity extends AppCompatActivity {
     private final int SPLASH_DISPLAY_LENGTH = 3000;
     TokenManager tokenManager;
 
+
+    private static final String APP_INGLES = "en";
+    private static final String APP_ESPANOL = "es";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,16 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+
+        if(tokenManager.getToken().getIdioma() == 0){
+            LocaleManagerExtras.setLocale(this, APP_ESPANOL);
+        }
+        else if(tokenManager.getToken().getIdioma() == 1){
+            LocaleManagerExtras.setLocale(this, APP_INGLES);
+        }
+        else{
+            LocaleManagerExtras.setLocale(this, APP_ESPANOL);
+        }
 
         new Handler().postDelayed(() -> {
 

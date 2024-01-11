@@ -10,6 +10,11 @@ public class TemasController extends Application {
 
     TokenManager tokenManager;
 
+    private static final String APP_INGLES = "en";
+    private static final String APP_ESPANOL = "es";
+
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -20,7 +25,7 @@ public class TemasController extends Application {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
         else if(tokenManager.getToken().getTema() == 1){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
         else{
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
