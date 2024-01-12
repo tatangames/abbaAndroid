@@ -4,6 +4,7 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import com.developer.kalert.KAlertDialog;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tatanstudios.abba.R;
+import com.tatanstudios.abba.activitys.login.ReseteoPasswordActivity;
 import com.tatanstudios.abba.extras.OnFragmentInteractionTema;
 import com.tatanstudios.abba.network.ApiService;
 import com.tatanstudios.abba.network.RetrofitBuilder;
@@ -188,7 +190,7 @@ public class FragmentCodigoPassword extends Fragment {
 
         String texto = getString(R.string.reintentar_en);
 
-        countDownTimer = new CountDownTimer(10000, 1000) {
+        countDownTimer = new CountDownTimer(60000, 1000) {
             @Override
             public void onTick(long tiempoRestante) {
                 // Actualizar el TextView con el tiempo restante
@@ -294,8 +296,6 @@ public class FragmentCodigoPassword extends Fragment {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        int idioma = tokenManager.getToken().getIdioma();
-
         String txtCodigo = Objects.requireNonNull(edtCodigo.getText()).toString();
 
         compositeDisposable.add(
@@ -309,10 +309,15 @@ public class FragmentCodigoPassword extends Fragment {
                                     if(apiRespuesta != null) {
 
                                         if(apiRespuesta.getSuccess() == 1) {
+                                            // verificado
+
+                                            String idUser = apiRespuesta.getId();
+                                            vistaCambiarPassword(idUser);
 
                                         }
                                         else if(apiRespuesta.getSuccess() == 2){
-
+                                            // codigo no coincide
+                                            codigoNoValido();
                                         }else{
                                             mensajeSinConexion();
                                         }
@@ -326,25 +331,20 @@ public class FragmentCodigoPassword extends Fragment {
         );
     }
 
-    private void correoNoEncontrado(){
-        Toasty.error(getContext(), getString(R.string.correo_no_encontrado), Toasty.LENGTH_SHORT).show();
+    private void vistaCambiarPassword(String idUser){
+
+        Intent reseteo = new Intent(getContext(), ReseteoPasswordActivity.class);
+        reseteo.putExtra("ID", idUser);
+        startActivity(reseteo);
+        getActivity().finish();
     }
 
-    private void pantallaIngresarCodigo(String correo){
-        FragmentCodigoPassword fragmentCodigoPassword = new FragmentCodigoPassword();
-        Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragmentContenedor);
-        if(currentFragment.getClass().equals(fragmentCodigoPassword.getClass())) return;
 
-        Bundle bundle = new Bundle();
-        bundle.putString("CORREO", correo);
-        fragmentCodigoPassword.setArguments(bundle);
 
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentContenedor, fragmentCodigoPassword)
-                .addToBackStack(null)
-                .commit();
+
+    private void codigoNoValido(){
+        Toasty.error(getContext(), getString(R.string.codigo_incorrecto), Toasty.LENGTH_SHORT).show();
     }
-
 
     private void verificarEntrada(){
         String txtCodigo = Objects.requireNonNull(edtCodigo.getText()).toString();

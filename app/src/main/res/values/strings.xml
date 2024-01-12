@@ -103,6 +103,10 @@
     <string name="reintentar_en">Reintentar en</string>
     <string name="reenviar_codigo">Reenviar código</string>
     <string name="codigo_enviado">Código enviado</string>
+    <string name="codigo_incorrecto">Código incorrecto</string>
+    <string name="nueva_contrasena">Nueva contraseña</string>
+
+
 
 
 
@@ -147,9 +151,6 @@
     <string name="guatemala_jalapa_id_8">Iglesia jalapa 8</string>
     <string name="guatemala_jalapa_id_9">Iglesia jalapa 9</string>
     <string name="guatemala_jalapa_id_10">Iglesia jalapa 10</string>
-
-
-
 
 
 </resources>

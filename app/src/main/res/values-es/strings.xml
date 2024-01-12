@@ -102,7 +102,8 @@
     <string name="reintentar_en">Reintentar en</string>
     <string name="reenviar_codigo">Reenviar código</string>
     <string name="codigo_enviado">Código enviado</string>
-
+    <string name="codigo_incorrecto">Código incorrecto</string>
+    <string name="nueva_contrasena">Nueva contraseña</string>
 
 
 
