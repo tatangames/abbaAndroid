@@ -10,9 +10,6 @@ public class TemasController extends Application {
 
     TokenManager tokenManager;
 
-    private static final String APP_INGLES = "en";
-    private static final String APP_ESPANOL = "es";
-
 
 
     @Override
@@ -30,8 +27,6 @@ public class TemasController extends Application {
         else{
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
-
-
     }
 
 

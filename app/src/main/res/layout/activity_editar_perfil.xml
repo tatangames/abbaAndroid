@@ -5,6 +5,7 @@
     android:id="@+id/rootRelative"
     android:layout_width="match_parent"
     android:focusableInTouchMode="true"
+    style="@style/BACKGROUND_WHITE_DARK_TEMA"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -31,6 +32,7 @@
                 <com.google.android.material.textfield.TextInputLayout
 
                     android:id="@+id/inputNombre"
+                    style="@style/TEXT_INPUT_LAYOUT"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -44,14 +46,17 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtNombre"
+                        style="@style/INPUT_EDIT_TEXT_TEMA"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
+                        app:boxStrokeColor="@color/selector_line_color"
+                        app:boxStrokeWidth="1dp"
+                        app:errorTextAppearance="@style/Style_ErrorInput"
+                        app:hintTextColor="@color/colorTextoGris"
                         android:fontFamily="@font/roboto_regular"
                         android:hint="@string/primer_nombre"
                         android:inputType="textPersonName"
                         android:maxLength="50"
-                        android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="normal"
                         app:hintTextAppearance="@style/Style_HintInput" />
@@ -60,8 +65,14 @@
 
 
 
+
+
+
+
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputApellido"
+                    style="@style/TEXT_INPUT_LAYOUT"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -75,31 +86,33 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtApellido"
+                        style="@style/INPUT_EDIT_TEXT_TEMA"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
+                        app:boxStrokeColor="@color/selector_line_color"
+                        app:boxStrokeWidth="1dp"
+                        app:errorTextAppearance="@style/Style_ErrorInput"
+                        app:hintTextColor="@color/colorTextoGris"
                         android:fontFamily="@font/roboto_regular"
                         android:hint="@string/apellido"
                         android:inputType="textPersonName"
                         android:maxLength="50"
-                        android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="normal"
                         app:hintTextAppearance="@style/Style_HintInput" />
-
 
                 </com.google.android.material.textfield.TextInputLayout>
 
 
                 <TextView
                     android:id="@+id/txt"
+                    style="@style/TEXTVIEW_WHITE_DARK_TEMA"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="40dp"
                     android:layout_marginEnd="16dp"
                     android:text="@string/fecha_de_nacimiento"
-                    android:textColor="@color/colorTextoGris"
                     android:textSize="18sp"/>
 
                 <TextView
@@ -109,9 +122,9 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="16dp"
+                    style="@style/TEXTVIEW_WHITE_DARK_TEMA"
                     android:drawableStart="@drawable/ic_calendario"
                     android:drawablePadding="5dp"
-                    android:textColor="@color/black"
                     android:textSize="20sp"/>
 
 
@@ -119,6 +132,7 @@
                 <com.google.android.material.textfield.TextInputLayout
 
                     android:id="@+id/inputCorreo"
+                    style="@style/TEXT_INPUT_LAYOUT"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -132,6 +146,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtCorreo"
+                        style="@style/INPUT_EDIT_TEXT_TEMA"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
@@ -139,7 +154,10 @@
                         android:hint="@string/correo_electronico"
                         android:inputType="textEmailAddress"
                         android:maxLength="100"
-                        android:textColor="@color/black"
+                        app:boxStrokeColor="@color/selector_line_color"
+                        app:boxStrokeWidth="1dp"
+                        app:errorTextAppearance="@style/Style_ErrorInput"
+                        app:hintTextColor="@color/colorTextoGris"
                         android:textSize="20sp"
                         android:textStyle="normal"
                         app:hintTextAppearance="@style/Style_HintInput" />
@@ -161,7 +179,6 @@
                     android:paddingBottom="5dp"
                     android:text="@string/actualizar"
                     android:textAllCaps="false"
-                    android:textColor="@color/white"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

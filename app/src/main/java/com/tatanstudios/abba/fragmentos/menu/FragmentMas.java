@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,6 +86,9 @@ public class FragmentMas extends Fragment {
 
     private boolean bloqueoPorTema;
 
+    private boolean unaVezMlistener, unaVezRadioIdioma;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_mas, container, false);
@@ -104,6 +108,9 @@ public class FragmentMas extends Fragment {
         rootRelative.addView(progressBar, params);
 
         bloqueoPorTema = true;
+        unaVezMlistener = true;
+        unaVezRadioIdioma = true;
+
 
         apiInformacionListado();
 
@@ -224,6 +231,9 @@ public class FragmentMas extends Fragment {
     }
 
 
+
+
+
     private void editarTema(){
 
         if (!bottomSheetShowing) {
@@ -266,16 +276,23 @@ public class FragmentMas extends Fragment {
                                 if (buttonView.isChecked()) {
                                     // El SwitchCompat está en la posición ON
                                     // Tu código aquí
-                                    tokenManager.guardarEstiloTema(1);
-                                    mListener.onFragmentInteraction(1);
+                                    if(unaVezMlistener){
+                                        unaVezMlistener = false;
+                                        tokenManager.guardarEstiloTema(1);
+                                        mListener.onFragmentInteraction(1);
+                                    }
+
                                 } else {
                                     // El SwitchCompat está en la posición OFF
                                     // Tu código aquí
-                                    tokenManager.guardarEstiloTema(0);
-                                    mListener.onFragmentInteraction(0);
+                                    if(unaVezMlistener){
+                                        unaVezMlistener = false;
+                                        tokenManager.guardarEstiloTema(0);
+                                        mListener.onFragmentInteraction(0);
+                                    }
                                 }
 
-                                bottomSheetDialog.cancel();
+                                bottomSheetDialog.dismiss();
                             }
                         });
 
@@ -387,16 +404,27 @@ public class FragmentMas extends Fragment {
             radioIngles.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    tokenManager.guardarIdioma(APP_INGLES);
-                    changeLanguage();
+                    if(unaVezRadioIdioma){
+                      unaVezRadioIdioma = false;
+                        radioEspanol.setEnabled(false);
+                        tokenManager.guardarIdioma(APP_INGLES);
+                        changeLanguage();
+                    }
+
                 }
             });
 
             radioEspanol.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    tokenManager.guardarIdioma(APP_ESPANOL);
-                    changeLanguage();
+                    if(unaVezRadioIdioma){
+                        unaVezRadioIdioma = false;
+                        radioEspanol.setEnabled(false);
+                        tokenManager.guardarIdioma(APP_ESPANOL);
+                        changeLanguage();
+
+                    }
+
                 }
             });
 

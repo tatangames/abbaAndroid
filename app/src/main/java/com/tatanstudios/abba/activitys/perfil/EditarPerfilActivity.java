@@ -7,6 +7,8 @@ import androidx.core.content.ContextCompat;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.Editable;
@@ -68,7 +70,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
     private static final String BARRA = "-";
 
     //Calendario para obtener fecha & hora
-    public final Calendar c = Calendar.getInstance();
+    private final Calendar c = Calendar.getInstance();
 
     //Variables para obtener la fecha
     private final int mes = c.get(Calendar.MONTH);
@@ -76,7 +78,11 @@ public class EditarPerfilActivity extends AppCompatActivity {
     private final int anio = c.get(Calendar.YEAR);
 
     private LinearLayout linearContenedor;
+    private int colorBlanco, colorBlack = 0;
 
+    private ColorStateList colorStateTintGrey, colorStateTintWhite, colorStateTintBlack;
+
+    private DatePickerDialog recogerFecha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +118,19 @@ public class EditarPerfilActivity extends AppCompatActivity {
         // Aplicar el ColorFilter al Drawable del ProgressBar
         progressBar.getIndeterminateDrawable().setColorFilter(colorProgress, PorterDuff.Mode.SRC_IN);
 
+
+
+        int colorGris = ContextCompat.getColor(this, R.color.colorGrisBtnDisable);
+        colorBlanco = ContextCompat.getColor(this, R.color.white);
+        colorBlack = ContextCompat.getColor(this, R.color.black);
+
+        colorStateTintGrey = ColorStateList.valueOf(colorGris);
+        colorStateTintWhite = ColorStateList.valueOf(colorBlanco);
+        colorStateTintBlack = ColorStateList.valueOf(colorBlack);
+
+
+        btnActualizar.setBackgroundTintList(colorStateTintGrey);
+        btnActualizar.setTextColor(colorBlanco);
 
 
         imgFlechaAtras.setOnClickListener(v -> {
@@ -197,6 +216,28 @@ public class EditarPerfilActivity extends AppCompatActivity {
         solicitarPerfil();
     }
 
+    public boolean isDarkModeEnabled() {
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+        boolean valor;
+
+        switch (currentNightMode){
+            case Configuration.UI_MODE_NIGHT_NO:
+                valor = false;
+                break;
+
+            case Configuration.UI_MODE_NIGHT_YES:
+                valor = true;
+                break;
+            default:
+                valor = false;
+                break;
+        }
+
+        return valor;
+    }
+
+
     private void solicitarPerfil(){
 
         String iduser = tokenManager.getToken().getId();
@@ -239,21 +280,24 @@ public class EditarPerfilActivity extends AppCompatActivity {
 
     private void elegirFecha(){
         //Estos valores deben ir en ese orden, de lo contrario no mostrara la fecha actual
-        DatePickerDialog recogerFecha = new DatePickerDialog(this,  (view, year, month, dayOfMonth) -> {
 
-            //Esta variable lo que realiza es aumentar en uno el mes ya que comienza desde 0 = enero
-            final int mesActual = month + 1;
-            //Formateo el día obtenido: antepone el 0 si son menores de 10
-            String diaFormateado = (dayOfMonth < 10)? CERO + String.valueOf(dayOfMonth):String.valueOf(dayOfMonth);
-            //Formateo el mes obtenido: antepone el 0 si son menores de 10
-            String mesFormateado = (mesActual < 10)? CERO + String.valueOf(mesActual):String.valueOf(mesActual);
-            //Muestro la fecha con el formato deseado
-            txtFechaNac.setText(diaFormateado + BARRA + mesFormateado + BARRA + year);
+        if (recogerFecha == null || !recogerFecha.isShowing()) {
+            recogerFecha = new DatePickerDialog(this,  (view, year, month, dayOfMonth) -> {
 
-            fechaNacimiento = year + BARRA + mesFormateado + BARRA + diaFormateado;
-        },anio, mes, dia);
-        //Muestro el widget
-        recogerFecha.show();
+                //Esta variable lo que realiza es aumentar en uno el mes ya que comienza desde 0 = enero
+                final int mesActual = month + 1;
+                //Formateo el día obtenido: antepone el 0 si son menores de 10
+                String diaFormateado = (dayOfMonth < 10)? CERO + String.valueOf(dayOfMonth):String.valueOf(dayOfMonth);
+                //Formateo el mes obtenido: antepone el 0 si son menores de 10
+                String mesFormateado = (mesActual < 10)? CERO + String.valueOf(mesActual):String.valueOf(mesActual);
+                //Muestro la fecha con el formato deseado
+                txtFechaNac.setText(diaFormateado + BARRA + mesFormateado + BARRA + year);
+
+                fechaNacimiento = year + BARRA + mesFormateado + BARRA + diaFormateado;
+            },anio, mes, dia);
+            //Muestro el widget
+            recogerFecha.show();
+        }
     }
 
 
@@ -280,16 +324,26 @@ public class EditarPerfilActivity extends AppCompatActivity {
 
     private void activarBtnActualizar(){
         btnActualizar.setEnabled(true);
-        int colorBtnTextoBlanco = ContextCompat.getColor(this, R.color.white);
-        btnActualizar.setBackgroundResource(R.drawable.boton_redondeado_negro);
-        btnActualizar.setTextColor(colorBtnTextoBlanco);
+
+        if(isDarkModeEnabled()){ // Dark
+            btnActualizar.setBackgroundTintList(colorStateTintWhite);
+            btnActualizar.setTextColor(colorBlack);
+        }else{
+            btnActualizar.setBackgroundTintList(colorStateTintBlack);
+            btnActualizar.setTextColor(colorBlanco);
+        }
     }
 
     private void desactivarBtnActualizar(){
         btnActualizar.setEnabled(false);
-        int colorBtnTextoGris = ContextCompat.getColor(this, R.color.colorGrisBotonRegistroTexto);
-        btnActualizar.setBackgroundResource(R.drawable.boton_redondeado_gris);
-        btnActualizar.setTextColor(colorBtnTextoGris);
+
+        if(isDarkModeEnabled()){ // Dark
+            btnActualizar.setBackgroundTintList(colorStateTintGrey);
+            btnActualizar.setTextColor(colorBlanco);
+        }else{
+            btnActualizar.setBackgroundTintList(colorStateTintGrey);
+            btnActualizar.setTextColor(colorBlanco);
+        }
     }
 
 

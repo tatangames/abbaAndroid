@@ -3,6 +3,8 @@ package com.tatanstudios.abba.activitys.principal;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 
 import android.os.Bundle;
@@ -33,12 +35,19 @@ public class PrincipalActivity extends AppCompatActivity  implements InterfaceAc
     private MenuItem menuMas;
 
 
-    private FragmentInicio primerFragment;
-    private FragmentBiblia segundoFragment;
-    private FragmentPlanes tercerFragment;
-    private FragmentMas cuartoFragment;
-    private Fragment fragmentActivo;
+    private  Fragment fragmentInicio = new FragmentInicio();
+    private  Fragment fragmentBiblia = new FragmentBiblia();
+    private  Fragment fragmentPlanes = new FragmentPlanes();
 
+    private  Fragment fragmentAjustes = new FragmentMas();
+    private  FragmentManager fm = getSupportFragmentManager();
+
+    private Fragment fragmentActivo = fragmentInicio;
+
+
+    private boolean boolRecargarFragmentInicio;
+    private boolean boolRecargarFragmentBiblia;
+    private boolean boolRecargarFragmentPlanes;
 
 
     @Override
@@ -46,10 +55,6 @@ public class PrincipalActivity extends AppCompatActivity  implements InterfaceAc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
-        primerFragment = new FragmentInicio();
-        segundoFragment = new FragmentBiblia();
-        tercerFragment = new FragmentPlanes();
-        cuartoFragment = new FragmentMas();
 
         bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setBackground(null);
@@ -61,94 +66,102 @@ public class PrincipalActivity extends AppCompatActivity  implements InterfaceAc
         menuPlanes = menu.findItem(R.id.menu_planes);
         menuMas = menu.findItem(R.id.menu_mas);
 
-        // Configura el primer fragmento como el fragmento activo inicial
-        fragmentActivo = primerFragment;
+        boolRecargarFragmentInicio = false;
+        boolRecargarFragmentBiblia = false;
+        boolRecargarFragmentPlanes = false;
 
-       // getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new FragmentInicio()).commit();
-
+        fm.beginTransaction().add(R.id.main_container, fragmentAjustes, "4").hide(fragmentAjustes).commit();
+        fm.beginTransaction().add(R.id.main_container, fragmentPlanes, "3").hide(fragmentPlanes).commit();
+        fm.beginTransaction().add(R.id.main_container, fragmentBiblia, "2").hide(fragmentBiblia).commit();
+        fm.beginTransaction().add(R.id.main_container,fragmentInicio, "1").commit();
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
 
             int itemId = item.getItemId();
             if (itemId == R.id.menu_inicio) {
+
                 cambioMenuInicio();
-                //loadFragment(new FragmentInicio());
-                cambiarFragmento(primerFragment);
+                if(boolRecargarFragmentInicio){
+                    recargarFragmentInicio();
+                }
+
             } else if (itemId == R.id.menu_biblia) {
                 cambioMenuBiblia();
-                cambiarFragmento(segundoFragment);
-                //loadFragment(new FragmentBiblia());
+                if(boolRecargarFragmentBiblia){
+                    recargarFragmentBiblia();
+                }
+
             } else if (itemId == R.id.menu_planes) {
                 cambioMenuPlanes();
-                cambiarFragmento(tercerFragment);
-                //loadFragment(new FragmentPlanes());
+                if(boolRecargarFragmentPlanes){
+                    recargarFragmentPlanes();
+                }
 
             }
             else if (itemId == R.id.menu_mas) {
                 cambioMenuMas();
-                cambiarFragmento(cuartoFragment);
-                //loadFragment(new FragmentMas());
+
+
             }
 
             return true;
         });
-
-        // Agrega el primer fragmento al contenedor
-        getSupportFragmentManager().beginTransaction().add(R.id.main_container, primerFragment).commit();
     }
 
-
-    private void cambiarFragmento(Fragment nuevoFragmento) {
-        if (nuevoFragmento != fragmentActivo) {
-            getSupportFragmentManager().beginTransaction().hide(fragmentActivo).show(nuevoFragmento).commit();
-            fragmentActivo = nuevoFragmento;
-        }
-    }
-
-
-    private void recargarFragmentAjustes(){
-        loadFragment(new FragmentMas());
-    }
-
-
-    private void loadFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_container, fragment)
-                .commit();
-    }
 
 
     private void cambioMenuInicio(){
 
-        menuInicio.setIcon(R.drawable.vector_casa_lleno);
 
-        menuBiblia.setIcon(R.drawable.vector_biblia_linea);
-        menuPlanes.setIcon(R.drawable.vector_planes_linea);
-        menuMas.setIcon(R.drawable.vector_tuerca_linea);
+            menuInicio.setIcon(R.drawable.vector_casa_lleno);
+
+            menuBiblia.setIcon(R.drawable.vector_biblia_linea);
+            menuPlanes.setIcon(R.drawable.vector_planes_linea);
+            menuMas.setIcon(R.drawable.vector_tuerca_linea);
+
+            fm.beginTransaction().hide(fragmentActivo).show(fragmentInicio).commit();
+            fragmentActivo = fragmentInicio;
+
     }
 
     private void cambioMenuBiblia(){
-        menuBiblia.setIcon(R.drawable.vector_biblia_lleno);
 
-        menuInicio.setIcon(R.drawable.vector_casa_linea);
-        menuPlanes.setIcon(R.drawable.vector_planes_linea);
-        menuMas.setIcon(R.drawable.vector_tuerca_linea);
+
+            menuBiblia.setIcon(R.drawable.vector_biblia_lleno);
+
+            menuInicio.setIcon(R.drawable.vector_casa_linea);
+            menuPlanes.setIcon(R.drawable.vector_planes_linea);
+            menuMas.setIcon(R.drawable.vector_tuerca_linea);
+
+            fm.beginTransaction().hide(fragmentActivo).show(fragmentBiblia).commit();
+            fragmentActivo = fragmentBiblia;
+
     }
 
     private void cambioMenuPlanes(){
-        menuPlanes.setIcon(R.drawable.vector_planes_lleno);
 
-        menuInicio.setIcon(R.drawable.vector_casa_linea);
-        menuBiblia.setIcon(R.drawable.vector_biblia_linea);
-        menuMas.setIcon(R.drawable.vector_tuerca_linea);
+
+            menuPlanes.setIcon(R.drawable.vector_planes_lleno);
+
+            menuInicio.setIcon(R.drawable.vector_casa_linea);
+            menuBiblia.setIcon(R.drawable.vector_biblia_linea);
+            menuMas.setIcon(R.drawable.vector_tuerca_linea);
+
+            fm.beginTransaction().hide(fragmentActivo).show(fragmentPlanes).commit();
+            fragmentActivo = fragmentPlanes;
+
     }
 
     private void cambioMenuMas(){
+
         menuMas.setIcon(R.drawable.vector_tuerca_lleno);
 
         menuInicio.setIcon(R.drawable.vector_casa_linea);
         menuBiblia.setIcon(R.drawable.vector_biblia_linea);
         menuPlanes.setIcon(R.drawable.vector_planes_linea);
+
+        fm.beginTransaction().hide(fragmentActivo).show(fragmentAjustes).commit();
+        fragmentActivo = fragmentAjustes;
     }
 
 
@@ -161,12 +174,154 @@ public class PrincipalActivity extends AppCompatActivity  implements InterfaceAc
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
+        boolRecargarFragmentInicio = true;
         recargarFragmentAjustes();
     }
 
 
+    private void recargarFragmentAjustes(){
+
+        // Obtén el FragmentManager
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        // Comienza una transacción
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Si el fragmento ya existe, elimínalo
+        if (fragmentAjustes != null) {
+            fragmentTransaction.remove(fragmentAjustes);
+        }
+
+        // Crea una nueva instancia del fragmento
+        fragmentAjustes = new FragmentMas();
+
+        // Añade el fragmento al contenedor
+        fragmentTransaction.add(R.id.main_container, fragmentAjustes);
+
+        // Oculta el fragmento anterior si es necesario
+        if (fragmentActivo != null) {
+            fragmentTransaction.hide(fragmentActivo);
+        }
+
+        // Muestra el nuevo fragmento
+        fragmentTransaction.show(fragmentAjustes);
+
+        // Realiza la transacción
+        fragmentTransaction.commit();
+
+        // Actualiza el fragmento activo
+        fragmentActivo = fragmentAjustes;
+
+    }
+
+    private void recargarFragmentInicio(){
+
+        boolRecargarFragmentInicio = false;
+
+        // Obtén el FragmentManager
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        // Comienza una transacción
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Si el fragmento ya existe, elimínalo
+        if (fragmentInicio != null) {
+            fragmentTransaction.remove(fragmentInicio);
+        }
+
+        // Crea una nueva instancia del fragmento
+        fragmentInicio = new FragmentInicio();
+
+        // Añade el fragmento al contenedor
+        fragmentTransaction.add(R.id.main_container, fragmentInicio);
+
+        // Oculta el fragmento anterior si es necesario
+        if (fragmentActivo != null) {
+            fragmentTransaction.hide(fragmentActivo);
+        }
+
+        // Muestra el nuevo fragmento
+        fragmentTransaction.show(fragmentInicio);
+
+        // Realiza la transacción
+        fragmentTransaction.commit();
+
+        // Actualiza el fragmento activo
+        fragmentActivo = fragmentInicio;
+    }
 
 
+    private void recargarFragmentBiblia(){
 
+        boolRecargarFragmentBiblia = false;
+
+        // Obtén el FragmentManager
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        // Comienza una transacción
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Si el fragmento ya existe, elimínalo
+        if (fragmentBiblia != null) {
+            fragmentTransaction.remove(fragmentBiblia);
+        }
+
+        // Crea una nueva instancia del fragmento
+        fragmentBiblia = new FragmentInicio();
+
+        // Añade el fragmento al contenedor
+        fragmentTransaction.add(R.id.main_container, fragmentBiblia);
+
+        // Oculta el fragmento anterior si es necesario
+        if (fragmentActivo != null) {
+            fragmentTransaction.hide(fragmentBiblia);
+        }
+
+        // Muestra el nuevo fragmento
+        fragmentTransaction.show(fragmentBiblia);
+
+        // Realiza la transacción
+        fragmentTransaction.commit();
+
+        // Actualiza el fragmento activo
+        fragmentActivo = fragmentBiblia;
+    }
+
+
+    private void recargarFragmentPlanes(){
+
+        boolRecargarFragmentPlanes = false;
+
+        // Obtén el FragmentManager
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        // Comienza una transacción
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Si el fragmento ya existe, elimínalo
+        if (fragmentPlanes != null) {
+            fragmentTransaction.remove(fragmentPlanes);
+        }
+
+        // Crea una nueva instancia del fragmento
+        fragmentPlanes = new FragmentInicio();
+
+        // Añade el fragmento al contenedor
+        fragmentTransaction.add(R.id.main_container, fragmentPlanes);
+
+        // Oculta el fragmento anterior si es necesario
+        if (fragmentActivo != null) {
+            fragmentTransaction.hide(fragmentPlanes);
+        }
+
+        // Muestra el nuevo fragmento
+        fragmentTransaction.show(fragmentPlanes);
+
+        // Realiza la transacción
+        fragmentTransaction.commit();
+
+        // Actualiza el fragmento activo
+        fragmentActivo = fragmentPlanes;
+    }
 
 }

@@ -126,6 +126,12 @@ public class FragmentRegistro extends Fragment {
 
     private ColorStateList colorStateTintGrey, colorStateTintWhite, colorStateTintBlack;
 
+    private DatePickerDialog datePickerDialog;
+
+    private final Calendar c = Calendar.getInstance();
+    private final int mes = c.get(Calendar.MONTH);
+    private final int dia = c.get(Calendar.DAY_OF_MONTH);
+    private final int anio = c.get(Calendar.YEAR);
 
 
 
@@ -187,13 +193,8 @@ public class FragmentRegistro extends Fragment {
 
         btnRegistro.setEnabled(false);
 
-        if(temaActual){ // dark
-            btnRegistro.setBackgroundTintList(colorStateTintGrey);
-            btnRegistro.setTextColor(colorBlanco);
-        }else{
-            btnRegistro.setBackgroundTintList(colorStateTintGrey);
-            btnRegistro.setTextColor(colorBlanco);
-        }
+        btnRegistro.setBackgroundTintList(colorStateTintGrey);
+        btnRegistro.setTextColor(colorBlanco);
 
 
         service = RetrofitBuilder.createServiceNoAuth(ApiService.class);
@@ -339,44 +340,31 @@ public class FragmentRegistro extends Fragment {
 
         closeKeyboard();
 
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        if (datePickerDialog == null || !datePickerDialog.isShowing()) {
+            datePickerDialog = new DatePickerDialog(getContext(),  (view, year, month, dayOfMonth) -> {
 
+                //Esta variable lo que realiza es aumentar en uno el mes ya que comienza desde 0 = enero
+                final int mesActual = month + 1;
+                //Formateo el día obtenido: antepone el 0 si son menores de 10
+                String diaFormateado = (dayOfMonth < 10)? CERO + String.valueOf(dayOfMonth):String.valueOf(dayOfMonth);
+                //Formateo el mes obtenido: antepone el 0 si son menores de 10
+                String mesFormateado = (mesActual < 10)? CERO + String.valueOf(mesActual):String.valueOf(mesActual);
+                //Muestro la fecha con el formato deseado
+                txtFecha.setText(diaFormateado + BARRA + mesFormateado + BARRA + year);
 
-        CustomDatePickerDialog datePickerDialog = new CustomDatePickerDialog(
-                getContext(),
-                (view, year1, month1, dayOfMonth1) -> {
-                    //Esta variable lo que realiza es aumentar en uno el mes ya que comienza desde 0 = enero
-                    final int mesActual = month1 + 1;
-                    //Formateo el día obtenido: antepone el 0 si son menores de 10
-                    String diaFormateado = (dayOfMonth1 < 10)? CERO + String.valueOf(dayOfMonth1):String.valueOf(dayOfMonth1);
-                    //Formateo el mes obtenido: antepone el 0 si son menores de 10
-                    String mesFormateado = (mesActual < 10)? CERO + String.valueOf(mesActual):String.valueOf(mesActual);
-                    //Muestro la fecha con el formato deseado
-                    txtFecha.setText(diaFormateado + BARRA + mesFormateado + BARRA + year1);
+                if(temaActual) { // dark
+                    txtFecha.setTextColor(colorBlanco);
+                }else{
+                    txtFecha.setTextColor(colorBlack);
+                }
 
-                    if(temaActual) { // dark
-                        txtFecha.setTextColor(colorBlanco);
-                    }else{
-                        txtFecha.setTextColor(colorBlack);
-                    }
+                fechaNacimiento = year + BARRA + mesFormateado + BARRA + diaFormateado;
+                hayFecha = true;
+            },anio, mes, dia);
+            //Muestro el widget
+            datePickerDialog.show();
+        }
 
-
-                    fechaNacimiento = year1 + BARRA + mesFormateado + BARRA + diaFormateado;
-                    hayFecha = true;
-
-                },
-                year,
-                month,
-                dayOfMonth
-        );
-
-        datePickerDialog.setButton(DatePickerDialog.BUTTON_POSITIVE, getString(R.string.aceptar), datePickerDialog);
-        datePickerDialog.setButton(DatePickerDialog.BUTTON_NEGATIVE, getString(R.string.cancelar), datePickerDialog);
-
-        datePickerDialog.show();
     }
 
     @Override
