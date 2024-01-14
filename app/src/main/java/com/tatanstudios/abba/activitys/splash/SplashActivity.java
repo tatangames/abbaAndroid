@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -53,15 +54,15 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(() -> {
 
             // inicio automatico con token que iria en el SPLASH
-            if(tokenManager.getToken().getId() != null){
+            if(!TextUtils.isEmpty(tokenManager.getToken().getId())){
 
                 // Siguiente Actvity
                 Intent intent = new Intent(this, PrincipalActivity.class);
                 startActivity(intent);
 
                 // Animación personalizada de entrada
-                //overridePendingTransition(R.anim.slide_in_right_activity, R.anim.slide_out_left_activity);
-                //finish();
+                overridePendingTransition(R.anim.slide_in_right_activity, R.anim.slide_out_left_activity);
+                finish();
 
             }else {
                 Intent intentLogin = new Intent(this, LoginActivity.class);

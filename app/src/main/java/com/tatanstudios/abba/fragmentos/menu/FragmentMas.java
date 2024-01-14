@@ -2,6 +2,10 @@ package com.tatanstudios.abba.fragmentos.menu;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -11,11 +15,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.ViewTreeObserver;
+import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -27,6 +37,7 @@ import com.developer.kalert.KAlertDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.tatanstudios.abba.R;
 import com.tatanstudios.abba.activitys.login.LoginActivity;
+import com.tatanstudios.abba.activitys.perfil.ActualizarPasswordActivity;
 import com.tatanstudios.abba.activitys.perfil.EditarPerfilActivity;
 import com.tatanstudios.abba.activitys.perfil.VerNotificacionesActivity;
 import com.tatanstudios.abba.activitys.splash.SplashActivity;
@@ -82,7 +93,7 @@ public class FragmentMas extends Fragment {
         recyclerMas = vista.findViewById(R.id.recyclerMas);
 
         tokenManager = TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE));
-        service = RetrofitBuilder.createServiceNoAuth(ApiService.class);
+        service = RetrofitBuilder.createServiceAutentificacion(ApiService.class, tokenManager);
         progressBar = new ProgressBar(getContext(), null, android.R.attr.progressBarStyleLarge);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 100);
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
@@ -94,14 +105,14 @@ public class FragmentMas extends Fragment {
 
         bloqueoPorTema = true;
 
-        informacionListado();
+        apiInformacionListado();
 
         return vista;
     }
 
 
 
-    private void informacionListado(){
+    private void apiInformacionListado(){
 
         String iduser = tokenManager.getToken().getId();
 
@@ -121,7 +132,7 @@ public class FragmentMas extends Fragment {
                                            letra = apiRespuesta.getLetra();
                                            nombreUsuario = apiRespuesta.getNombre();
 
-                                            llenarLista();
+                                           llenarLista();
                                         }
                                         else{
                                             mensajeSinConexion();
@@ -134,9 +145,9 @@ public class FragmentMas extends Fragment {
                                     mensajeSinConexion();
                                 })
         );
-
-
     }
+
+
 
 
     private void llenarLista(){
@@ -203,7 +214,8 @@ public class FragmentMas extends Fragment {
     }
 
     private void modificarPassword(){
-
+        Intent intentLogin = new Intent(getContext(), ActualizarPasswordActivity.class);
+        startActivity(intentLogin);
     }
 
     private void verInsignias(){
@@ -231,19 +243,49 @@ public class FragmentMas extends Fragment {
                 switchCompat.setChecked(true);
             }
 
-            switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
-                    switchCompat.setEnabled(false);
-                    bloqueoPorTema = false;
+            switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(final CompoundButton buttonView, boolean isChecked) {
+                    // Verifica si el cambio es causado por una animación
+                    if (buttonView.isPressed()) {
+                        // Crea una animación
+                        ObjectAnimator animator = ObjectAnimator.ofFloat(buttonView, "translationX", 0f);
+                        animator.setDuration(500); // Duración de la animación en milisegundos
 
-                    if (isChecked) {
-                        tokenManager.guardarEstiloTema(1);
-                        mListener.onFragmentInteraction(1);
-                    } else {
-                        tokenManager.guardarEstiloTema(0);
-                        mListener.onFragmentInteraction(0);
+                        // Agrega un oyente para detectar el final de la animación
+                        animator.addListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+
+                                switchCompat.setEnabled(false);
+                                bloqueoPorTema = false;
+
+
+                                // Aquí puedes ejecutar el código después de que termina la animación
+                                if (buttonView.isChecked()) {
+                                    // El SwitchCompat está en la posición ON
+                                    // Tu código aquí
+                                    tokenManager.guardarEstiloTema(1);
+                                    mListener.onFragmentInteraction(1);
+                                } else {
+                                    // El SwitchCompat está en la posición OFF
+                                    // Tu código aquí
+                                    tokenManager.guardarEstiloTema(0);
+                                    mListener.onFragmentInteraction(0);
+                                }
+
+                                bottomSheetDialog.cancel();
+                            }
+                        });
+
+                        // Inicia la animación
+                        animator.start();
                     }
+                }
             });
+
+
 
             // Configura un oyente para saber cuándo se cierra el BottomSheetDialog
             bottomSheetDialog.setOnDismissListener(dialog -> {
@@ -255,6 +297,8 @@ public class FragmentMas extends Fragment {
     }
 
 
+
+
     private void verNotificaciones(){
         Intent intentLogin = new Intent(getContext(), VerNotificacionesActivity.class);
         startActivity(intentLogin);
@@ -263,9 +307,19 @@ public class FragmentMas extends Fragment {
 
     public void editarPerfil(){
         Intent intentLogin = new Intent(getContext(), EditarPerfilActivity.class);
-        startActivity(intentLogin);
+        someActivityResultLauncher.launch(intentLogin);
     }
 
+
+
+
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    apiInformacionListado();
+                }
+            });
 
     boolean seguroCerrarSesion = true;
 

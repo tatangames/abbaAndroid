@@ -1,8 +1,7 @@
-package com.tatanstudios.abba.activitys.login;
+package com.tatanstudios.abba.activitys.perfil;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.OnBackPressedDispatcher;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -11,10 +10,8 @@ import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -22,13 +19,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.developer.kalert.KAlertDialog;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tatanstudios.abba.R;
-import com.tatanstudios.abba.extras.OnFragmentInteractionTema;
+import com.tatanstudios.abba.activitys.login.LoginActivity;
 import com.tatanstudios.abba.network.ApiService;
 import com.tatanstudios.abba.network.RetrofitBuilder;
 import com.tatanstudios.abba.network.TokenManager;
@@ -40,7 +35,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class ReseteoPasswordActivity extends AppCompatActivity {
+public class ActualizarPasswordActivity extends AppCompatActivity {
 
 
     private ApiService service;
@@ -59,25 +54,29 @@ public class ReseteoPasswordActivity extends AppCompatActivity {
 
     private int colorBlanco, colorBlack = 0;
 
-
     private boolean temaActual; // false: light  true: dark;
 
     private boolean boolDialogEnviar;
 
+    private TextView txtToolbar;
 
+    private OnBackPressedDispatcher onBackPressedDispatcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reseteo_password);
+        setContentView(R.layout.activity_actualizar_password);
 
         imgFlechaAtras = findViewById(R.id.imgFlechaAtras);
         btnEnviar = findViewById(R.id.btnEnviar);
+        txtToolbar = findViewById(R.id.txtToolbar);
 
         inputContrasena = findViewById(R.id.inputContrasena);
 
         edtContrasena = findViewById(R.id.edtContrasena);
         rootRelative = findViewById(R.id.rootRelative);
+
+        txtToolbar.setText(getString(R.string.editar));
 
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
         service = RetrofitBuilder.createServiceAutentificacion(ApiService.class, tokenManager);
@@ -93,6 +92,9 @@ public class ReseteoPasswordActivity extends AppCompatActivity {
         // Aplicar el ColorFilter al Drawable del ProgressBar
         progressBar.getIndeterminateDrawable().setColorFilter(colorProgress, PorterDuff.Mode.SRC_IN);
         progressBar.setVisibility(View.GONE);
+
+        // Obtén una instancia de OnBackPressedDispatcher.
+        onBackPressedDispatcher = getOnBackPressedDispatcher();
 
         colorBlanco = ContextCompat.getColor(this, R.color.white);
         colorBlack = ContextCompat.getColor(this, R.color.black);
@@ -159,17 +161,9 @@ public class ReseteoPasswordActivity extends AppCompatActivity {
             }
         });
 
-        // Registrar un callback para gestionar los eventos de pulsación del botón de retroceso
-        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
-            @Override
-            public void handleOnBackPressed() {
-                vistaAtras();
-            }
-        };
 
-        // Agregar el callback al BackPressedDispatcher
-        getOnBackPressedDispatcher().addCallback(this, callback);
     }
+
 
     private void activarBoton(){
 
@@ -207,7 +201,7 @@ public class ReseteoPasswordActivity extends AppCompatActivity {
             String txtPassword = Objects.requireNonNull(edtContrasena.getText()).toString();
 
             compositeDisposable.add(
-                    service.actualizarPasswordReseteo(txtPassword)
+                    service.actualizarPassword(txtPassword)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(apiRespuesta -> {
@@ -218,8 +212,8 @@ public class ReseteoPasswordActivity extends AppCompatActivity {
                                         if(apiRespuesta != null) {
 
                                             if(apiRespuesta.getSuccess() == 1) {
-                                              // actualizado
-                                                vistaAtras();
+                                                // actualizado
+                                                vistaAtrasActualizado();
                                             }
                                             else{
                                                 mensajeSinConexion();
@@ -259,9 +253,12 @@ public class ReseteoPasswordActivity extends AppCompatActivity {
 
 
     private void vistaAtras(){
-        Intent data = new Intent(this, LoginActivity.class);
-        startActivity(data);
-        finish();
+        onBackPressedDispatcher.onBackPressed();
+    }
+
+    private void vistaAtrasActualizado(){
+        Toasty.success(this, getString(R.string.actualizado), Toasty.LENGTH_SHORT).show();
+        onBackPressedDispatcher.onBackPressed();
     }
 
 
@@ -292,5 +289,7 @@ public class ReseteoPasswordActivity extends AppCompatActivity {
             inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
+
+
 
 }

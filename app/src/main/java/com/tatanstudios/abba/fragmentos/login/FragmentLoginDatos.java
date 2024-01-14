@@ -274,6 +274,7 @@ public class FragmentLoginDatos extends Fragment {
 
                                         if(apiRespuesta.getSuccess() == 1) {
 
+                                            tokenManager.guardarClienteTOKEN(apiRespuesta);
                                             tokenManager.guardarClienteID(apiRespuesta);
                                             redireccionVistaPrincipal();
                                         }

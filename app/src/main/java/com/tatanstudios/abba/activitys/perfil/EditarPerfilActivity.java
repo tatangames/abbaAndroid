@@ -4,13 +4,16 @@ import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Patterns;
+import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -100,8 +103,8 @@ public class EditarPerfilActivity extends AppCompatActivity {
         int colorProgress = ContextCompat.getColor(this, R.color.colorProgress);
 
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+        service = RetrofitBuilder.createServiceAutentificacion(ApiService.class, tokenManager);
 
-        service = RetrofitBuilder.createServiceNoAuth(ApiService.class);
         progressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleLarge);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 100);
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
@@ -190,8 +193,6 @@ public class EditarPerfilActivity extends AppCompatActivity {
                 verificarEntradas();
             }
         });
-
-
 
         solicitarPerfil();
     }
@@ -321,8 +322,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
                                         }
                                         else if(apiRespuesta.getSuccess() == 2){
 
-                                            Toasty.success(this, getString(R.string.actualizado)).show();
-                                            volverAtras();
+                                            volverAtrasActualizado();
                                         }
                                         else{
                                             mensajeSinConexion();
@@ -337,24 +337,36 @@ public class EditarPerfilActivity extends AppCompatActivity {
         );
     }
 
+    private void volverAtrasActualizado(){
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_OK, returnIntent);
 
-
-    private void correoYaRegistrado(String correo){
-       /* KAlertDialog pDialog = new KAlertDialog(this, KAlertDialog.WARNING_TYPE);
-        pDialog.setTitleText(getString(R.string.correo_no_disponible));
-        pDialog.setContentText(correo);
-        pDialog.setConfirmText(getString(R.string.aceptar));
-        pDialog.setContentTextSize(16);
-        pDialog.setCancelable(false);
-        pDialog.setCanceledOnTouchOutside(false);
-        pDialog.confirmButtonColor(R.drawable.dialogo_theme_success)
-                .setConfirmClickListener(KAlertDialog::dismissWithAnimation);
-        pDialog.show();*/
+        Toasty.success(this, getString(R.string.actualizado)).show();
+        onBackPressedDispatcher.onBackPressed();
     }
 
 
+    private void correoYaRegistrado(String correo){
 
+        KAlertDialog pDialog = new KAlertDialog(this, KAlertDialog.NORMAL_TYPE, false);
 
+        pDialog.setTitleText(getString(R.string.correo_ya_registrado));
+        pDialog.setTitleTextGravity(Gravity.CENTER);
+        pDialog.setTitleTextSize(19);
+
+        pDialog.setContentText(correo);
+        pDialog.setContentTextAlignment(View.TEXT_ALIGNMENT_VIEW_START, Gravity.START);
+        pDialog.setContentTextSize(17);
+
+        pDialog.setCancelable(false);
+        pDialog.setCanceledOnTouchOutside(false);
+        pDialog.confirmButtonColor(R.drawable.kalert_dialog_corners_confirmar);
+        pDialog.setConfirmClickListener(getString(R.string.aceptar), sDialog -> {
+            sDialog.dismissWithAnimation();
+        });
+
+        pDialog.show();
+    }
 
     void mensajeSinConexion(){
         progressBar.setVisibility(View.GONE);
@@ -364,11 +376,6 @@ public class EditarPerfilActivity extends AppCompatActivity {
     private void volverAtras(){
         onBackPressedDispatcher.onBackPressed();
     }
-
-
-
-
-
 
     @Override
     public void onDestroy(){

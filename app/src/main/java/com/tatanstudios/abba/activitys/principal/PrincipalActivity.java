@@ -20,6 +20,8 @@ import com.tatanstudios.abba.fragmentos.menu.FragmentMas;
 import com.tatanstudios.abba.fragmentos.menu.FragmentPlanes;
 import com.tatanstudios.abba.network.TokenManager;
 
+import es.dmoral.toasty.Toasty;
+
 public class PrincipalActivity extends AppCompatActivity  implements InterfaceActualizarTema {
 
 
@@ -30,7 +32,12 @@ public class PrincipalActivity extends AppCompatActivity  implements InterfaceAc
     private MenuItem menuPlanes;
     private MenuItem menuMas;
 
-    private TokenManager tokenManager;
+
+    private FragmentInicio primerFragment;
+    private FragmentBiblia segundoFragment;
+    private FragmentPlanes tercerFragment;
+    private FragmentMas cuartoFragment;
+    private Fragment fragmentActivo;
 
 
 
@@ -39,10 +46,10 @@ public class PrincipalActivity extends AppCompatActivity  implements InterfaceAc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
-
-        tokenManager = TokenManager.getInstance(this.getSharedPreferences("prefs", MODE_PRIVATE));
-
-
+        primerFragment = new FragmentInicio();
+        segundoFragment = new FragmentBiblia();
+        tercerFragment = new FragmentPlanes();
+        cuartoFragment = new FragmentMas();
 
         bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setBackground(null);
@@ -54,8 +61,10 @@ public class PrincipalActivity extends AppCompatActivity  implements InterfaceAc
         menuPlanes = menu.findItem(R.id.menu_planes);
         menuMas = menu.findItem(R.id.menu_mas);
 
+        // Configura el primer fragmento como el fragmento activo inicial
+        fragmentActivo = primerFragment;
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new FragmentInicio()).commit();
+       // getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new FragmentInicio()).commit();
 
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -63,35 +72,43 @@ public class PrincipalActivity extends AppCompatActivity  implements InterfaceAc
             int itemId = item.getItemId();
             if (itemId == R.id.menu_inicio) {
                 cambioMenuInicio();
-                loadFragment(new FragmentInicio());
+                //loadFragment(new FragmentInicio());
+                cambiarFragmento(primerFragment);
             } else if (itemId == R.id.menu_biblia) {
                 cambioMenuBiblia();
-                loadFragment(new FragmentBiblia());
+                cambiarFragmento(segundoFragment);
+                //loadFragment(new FragmentBiblia());
             } else if (itemId == R.id.menu_planes) {
                 cambioMenuPlanes();
-                loadFragment(new FragmentPlanes());
+                cambiarFragmento(tercerFragment);
+                //loadFragment(new FragmentPlanes());
 
             }
             else if (itemId == R.id.menu_mas) {
                 cambioMenuMas();
-                loadFragment(new FragmentMas());
+                cambiarFragmento(cuartoFragment);
+                //loadFragment(new FragmentMas());
             }
 
             return true;
         });
+
+        // Agrega el primer fragmento al contenedor
+        getSupportFragmentManager().beginTransaction().add(R.id.main_container, primerFragment).commit();
     }
 
-    private void cambioIdioma(){
 
-        /*String[] supportedLanguages = {"en", "es"};  // Idiomas soportados en tu aplicación
-        String defaultLanguage = "en";  // Idioma por defecto
-
-        String preferredLanguage = LanguageUtils.getPreferredLanguage(supportedLanguages, defaultLanguage);
-
-        // Cambiar la configuración del idioma de la aplicación
-        LocaleManager.setLocale(this, preferredLanguage);*/
+    private void cambiarFragmento(Fragment nuevoFragmento) {
+        if (nuevoFragmento != fragmentActivo) {
+            getSupportFragmentManager().beginTransaction().hide(fragmentActivo).show(nuevoFragmento).commit();
+            fragmentActivo = nuevoFragmento;
+        }
     }
 
+
+    private void recargarFragmentAjustes(){
+        loadFragment(new FragmentMas());
+    }
 
 
     private void loadFragment(Fragment fragment) {
@@ -102,6 +119,7 @@ public class PrincipalActivity extends AppCompatActivity  implements InterfaceAc
 
 
     private void cambioMenuInicio(){
+
         menuInicio.setIcon(R.drawable.vector_casa_lleno);
 
         menuBiblia.setIcon(R.drawable.vector_biblia_linea);
@@ -143,5 +161,12 @@ public class PrincipalActivity extends AppCompatActivity  implements InterfaceAc
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
+        recargarFragmentAjustes();
     }
+
+
+
+
+
+
 }

@@ -311,8 +311,8 @@ public class FragmentCodigoPassword extends Fragment {
                                         if(apiRespuesta.getSuccess() == 1) {
                                             // verificado
 
-                                            String idUser = apiRespuesta.getId();
-                                            vistaCambiarPassword(idUser);
+                                            tokenManager.guardarClienteTOKEN(apiRespuesta);
+                                            vistaCambiarPassword();
 
                                         }
                                         else if(apiRespuesta.getSuccess() == 2){
@@ -331,10 +331,9 @@ public class FragmentCodigoPassword extends Fragment {
         );
     }
 
-    private void vistaCambiarPassword(String idUser){
+    private void vistaCambiarPassword(){
 
         Intent reseteo = new Intent(getContext(), ReseteoPasswordActivity.class);
-        reseteo.putExtra("ID", idUser);
         startActivity(reseteo);
         getActivity().finish();
     }

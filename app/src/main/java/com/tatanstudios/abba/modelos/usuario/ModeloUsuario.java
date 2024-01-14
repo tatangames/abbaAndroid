@@ -9,6 +9,9 @@ public class ModeloUsuario {
 
     @SerializedName("id")
     public String id;
+
+    @SerializedName("token")
+    public String token;
     @SerializedName("refran")
     public String refran;
 
@@ -29,6 +32,15 @@ public class ModeloUsuario {
 
     @SerializedName("fecha_nac_raw")
     public String fechaNacimientoRaw;
+
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public int tema;
     public int idioma; // 1: espanol, 2: ingles

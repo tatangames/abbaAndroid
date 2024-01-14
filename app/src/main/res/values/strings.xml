@@ -107,11 +107,6 @@
     <string name="nueva_contrasena">Nueva contraseña</string>
 
 
-
-
-
-
-
     <string-array name="generos_array">
         <item>Seleccionar Género</item>
         <item>Masculino</item>

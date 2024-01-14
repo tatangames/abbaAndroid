@@ -67,11 +67,18 @@ public interface ApiService {
                                                       @Field("correo") String correo);
 
 
-    // actualizar una nueva contrasena
+    // actualizar una nueva contrasena, con usuario se obtiene usuario
     @POST("app/actualizar/nueva/contrasena/reseteo")
     @FormUrlEncoded
-    Observable<ModeloUsuario> actualizarPasswordReseteo(@Field("id") String idusuario,
-                                                    @Field("password") String password);
+    Observable<ModeloUsuario> actualizarPasswordReseteo(@Field("password") String password);
+
+
+    // actualizar contraseana en editar perfil
+
+    @POST("app/actualizar/contrasena/")
+    @FormUrlEncoded
+    Observable<ModeloUsuario> actualizarPassword(@Field("password") String password);
+
 
 
 

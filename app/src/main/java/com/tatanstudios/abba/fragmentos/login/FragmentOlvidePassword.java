@@ -164,7 +164,7 @@ public class FragmentOlvidePassword extends Fragment {
             pDialog.setTitleTextGravity(Gravity.CENTER);
             pDialog.setTitleTextSize(19);
 
-            pDialog.setContentText(txtCorreo);
+            pDialog.setContentText(""+txtCorreo);
             pDialog.setContentTextAlignment(View.TEXT_ALIGNMENT_VIEW_START, Gravity.START);
             pDialog.setContentTextSize(17);
 

@@ -717,7 +717,9 @@ public class FragmentRegistro extends Fragment {
 
                                         else if(apiRespuesta.getSuccess() == 2){
 
+                                            tokenManager.guardarClienteTOKEN(apiRespuesta);
                                             tokenManager.guardarClienteID(apiRespuesta);
+
                                             finalizar();
 
                                         }else{
