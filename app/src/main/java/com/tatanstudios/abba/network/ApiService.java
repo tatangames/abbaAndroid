@@ -1,6 +1,9 @@
 package com.tatanstudios.abba.network;
 
 import com.tatanstudios.abba.modelos.perfil.ModeloAjustes;
+import com.tatanstudios.abba.modelos.planes.ModeloPlanes;
+import com.tatanstudios.abba.modelos.planes.ModeloPlanesContenedor;
+import com.tatanstudios.abba.modelos.planes.ModeloPlanesTitulo;
 import com.tatanstudios.abba.modelos.usuario.ModeloUsuario;
 
 import io.reactivex.Observable;
@@ -77,10 +80,16 @@ public interface ApiService {
 
     @POST("app/actualizar/contrasena/")
     @FormUrlEncoded
-    Observable<ModeloUsuario> actualizarPassword(@Field("password") String password);
+    Observable<ModeloUsuario> actualizarPassword(@Field("iduser") String iduser,
+                                                 @Field("password") String password);
 
 
 
+    // buscar planes que
+    @POST("app/buscar/planes/nuevos")
+    @FormUrlEncoded
+    Observable<ModeloPlanesContenedor> buscarPlanesNuevos(@Field("iduser") String iduser,
+                                                          @Field("idiomaplan") int idiomaplan);
 
 
 

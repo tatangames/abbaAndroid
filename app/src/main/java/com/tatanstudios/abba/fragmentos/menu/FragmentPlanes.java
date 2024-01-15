@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tatanstudios.abba.R;
 import com.tatanstudios.abba.adaptadores.planes.AdapterBotoneraPlanes;
+import com.tatanstudios.abba.fragmentos.planes.FragmentBuscarPlanes;
 import com.tatanstudios.abba.modelos.planes.ModeloBotoneraPlanes;
 
 import java.util.ArrayList;
@@ -41,7 +42,6 @@ public class FragmentPlanes extends Fragment {
         modeloDatos();
 
 
-
         return vista;
     }
 
@@ -59,7 +59,12 @@ public class FragmentPlanes extends Fragment {
 
     public void tipoPlan(int identificador){
 
-        Toasty.info(getContext(), "id: " + identificador, Toasty.LENGTH_SHORT).show();
+        if(identificador == 2){ // NUEVOS PLANES
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer, new FragmentBuscarPlanes())
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 
 }

@@ -194,9 +194,10 @@ public class ActualizarPasswordActivity extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
 
             String txtPassword = Objects.requireNonNull(edtContrasena.getText()).toString();
+            String iduser = tokenManager.getToken().getId();
 
             compositeDisposable.add(
-                    service.actualizarPassword(txtPassword)
+                    service.actualizarPassword(iduser, txtPassword)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(apiRespuesta -> {

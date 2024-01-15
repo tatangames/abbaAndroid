@@ -80,9 +80,8 @@ public class FragmentLoginDatos extends Fragment {
         rootRelative = vista.findViewById(R.id.rootRelative);
         txtOlvide = vista.findViewById(R.id.btnOlvide);
 
-        service = RetrofitBuilder.createServiceNoAuth(ApiService.class);
         tokenManager = TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE));
-
+        service = RetrofitBuilder.createServiceNoAuth(ApiService.class);
 
 
         int colorProgress = ContextCompat.getColor(requireContext(), R.color.colorProgress);
