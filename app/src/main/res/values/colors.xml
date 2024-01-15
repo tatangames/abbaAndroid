@@ -59,6 +59,15 @@
     <!-- ICONOS DE RECYCLER VIEW, FRAGMENT AJUSTES -->
     <color name="colorIconoVector">#000000</color>
 
+
+
+
+    <color name="colorTextViewLightDark">#000000</color> <!-- todos los textview -->
+    <color name="colorFlechaLeftTemaLightDark">#000000</color> <!-- flecha left en algunos fragment por Tema -->
+    <color name="colorLineaDiviTemaLightDark">#7b7b7d</color> <!-- lineas divisoras por Tema -->
+    <color name="colorTextoGrayDark">#7b7b7d</color> <!-- textos en pantalla cambiar idioma -->
+
+
 </resources>
 
 

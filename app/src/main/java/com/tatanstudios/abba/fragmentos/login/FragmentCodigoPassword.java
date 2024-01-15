@@ -222,7 +222,7 @@ public class FragmentCodigoPassword extends Fragment {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        int idioma = tokenManager.getToken().getIdioma();
+        int idioma = tokenManager.getToken().getIdiomaApp();
 
         compositeDisposable.add(
                 service.solicitarCodigoPassword(correo, idioma)

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
     <string name="app_name">Abba Internacional</string>
     <string name="version_app">V. 1.0.0</string>
 
@@ -105,6 +104,23 @@
     <string name="codigo_enviado">Código enviado</string>
     <string name="codigo_incorrecto">Código incorrecto</string>
     <string name="nueva_contrasena">Nueva contraseña</string>
+    <string name="lenguaje">Lenguaje</string>
+    <string name="esta_config_afecta_app">Esta configuración afecta al idioma de toda la interfaz de la aplicación</string>
+    <string name="esta_config_afecta_planes">Esta configuración afecta al idioma que usas para leer los planes o la Biblia</string>
+    <string name="interfaz_de_la_aplicacion">Interfaz de la aplicación.</string>
+    <string name="textos_planes_biblia">Texto Planes y Biblia.</string>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <string-array name="generos_array">

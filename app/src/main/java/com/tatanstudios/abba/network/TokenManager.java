@@ -39,10 +39,13 @@ public class TokenManager {
         editor.putInt("TEMA", code).commit();
     }
 
-    public void guardarIdioma(int code) {
-        editor.putInt("IDIOMA", code).commit();
+    public void guardarIdiomaApp(int code) {
+        editor.putInt("IDIOMAAPP", code).commit();
     }
 
+    public void guardarIdiomaTexto(int code) {
+        editor.putInt("IDIOMATEXTO", code).commit();
+    }
 
 
 
@@ -61,7 +64,8 @@ public class TokenManager {
         ModeloUsuario token = new ModeloUsuario();
         token.setId(prefs.getString("ID", ""));
         token.setTema(prefs.getInt("TEMA", 0));
-        token.setIdioma(prefs.getInt("IDIOMA", 0));
+        token.setIdiomaApp(prefs.getInt("IDIOMAAPP", 0));
+        token.setIdiomaTextos(prefs.getInt("IDIOMATEXTO", 0));
         token.setToken(prefs.getString("TOKEN", ""));
         return token;
     }

@@ -38,6 +38,7 @@ import com.developer.kalert.KAlertDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.tatanstudios.abba.R;
 import com.tatanstudios.abba.activitys.login.LoginActivity;
+import com.tatanstudios.abba.activitys.perfil.ActualizarIdiomasActivity;
 import com.tatanstudios.abba.activitys.perfil.ActualizarPasswordActivity;
 import com.tatanstudios.abba.activitys.perfil.EditarPerfilActivity;
 import com.tatanstudios.abba.activitys.perfil.VerNotificacionesActivity;
@@ -203,7 +204,7 @@ public class FragmentMas extends Fragment {
                     break;
 
                     case 4:
-                    cambiarIdiomaModal();
+                    vistaCambiarIdioma();
                     break;
 
                 case 5:
@@ -231,6 +232,10 @@ public class FragmentMas extends Fragment {
     }
 
 
+    private void vistaCambiarIdioma(){
+        Intent intentLan = new Intent(getContext(), ActualizarIdiomasActivity.class);
+        startActivity(intentLan);
+    }
 
 
 
@@ -388,11 +393,11 @@ public class FragmentMas extends Fragment {
             RadioButton radioEspanol = bottomSheetDialogIdioma.findViewById(R.id.radio_button_spanish);
 
 
-            if(tokenManager.getToken().getIdioma() == 0){ // espanol
+            if(tokenManager.getToken().getIdiomaApp() == 0){ // espanol
                 radioEspanol.setChecked(true);
                 radioIngles.setChecked(false);
             }
-            else if(tokenManager.getToken().getIdioma() == 1){ // ingles
+            else if(tokenManager.getToken().getIdiomaApp() == 1){ // ingles
                 radioIngles.setChecked(true);
                 radioEspanol.setChecked(false);
             }else{
@@ -407,7 +412,7 @@ public class FragmentMas extends Fragment {
                     if(unaVezRadioIdioma){
                       unaVezRadioIdioma = false;
                         radioEspanol.setEnabled(false);
-                        tokenManager.guardarIdioma(APP_INGLES);
+                        tokenManager.guardarIdiomaApp(APP_INGLES);
                         changeLanguage();
                     }
 
@@ -420,7 +425,7 @@ public class FragmentMas extends Fragment {
                     if(unaVezRadioIdioma){
                         unaVezRadioIdioma = false;
                         radioEspanol.setEnabled(false);
-                        tokenManager.guardarIdioma(APP_ESPANOL);
+                        tokenManager.guardarIdiomaApp(APP_ESPANOL);
                         changeLanguage();
 
                     }

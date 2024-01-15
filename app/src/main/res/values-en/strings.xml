@@ -104,6 +104,14 @@
     <string name="codigo_enviado">Code sent</string>
     <string name="codigo_incorrecto">Incorrect code</string>
     <string name="nueva_contrasena">New Password</string>
+    <string name="lenguaje">Language</string>
+    <string name="esta_config_afecta_app">This setting affects the language of the entire application interface</string>
+    <string name="esta_config_afecta_planes">This setting affects the language you use to read the Plans or the Bible</string>
+    <string name="interfaz_de_la_aplicacion">Application interface.</string>
+    <string name="textos_planes_biblia">Text Plans and Bible.</string>
+
+
+
 
 
 

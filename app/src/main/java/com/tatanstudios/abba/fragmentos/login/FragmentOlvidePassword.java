@@ -191,7 +191,7 @@ public class FragmentOlvidePassword extends Fragment {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        int idioma = tokenManager.getToken().getIdioma();
+        int idioma = tokenManager.getToken().getIdiomaApp();
 
         String txtCorreo = Objects.requireNonNull(edtCorreo.getText()).toString();
 

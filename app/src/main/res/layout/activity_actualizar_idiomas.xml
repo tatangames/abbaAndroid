@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootRelative"
+    style="@style/BACKGROUND_WHITE_DARK_TEMA"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+
+        <!-- Imagen a la izquierda -->
+        <ImageView
+            android:id="@+id/imgFlechaAtras"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/logo"
+            android:src="@drawable/ic_arrow_left_tema"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Texto centrado -->
+        <TextView
+            android:id="@+id/txtToolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:layout_toEndOf="@id/imgFlechaAtras"
+            android:fontFamily="@font/aktivgroteskcorp_bold"
+            android:text="@string/idioma"
+            android:textColor="@color/colorTextViewLightDark"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgFlechaAtras"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="#CCCCCC"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtToolbar" />
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view">
+
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="16dp"
+               android:layout_marginEnd="8dp"
+               android:layout_marginTop="15dp"
+               android:orientation="vertical">
+
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   style="@style/TEXTVIEW_WHITE_DARK_TEMA"
+                   android:textSize="16sp"
+                   android:fontFamily="@font/roboto_medium"
+                   android:text="@string/interfaz_de_la_aplicacion"/>
+
+               <androidx.constraintlayout.widget.ConstraintLayout
+                   android:layout_marginTop="8dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+
+                   <TextView
+                       android:id="@+id/txtIdiomaApp"
+                       style="@style/TEXTVIEW_WHITE_DARK_TEMA"
+                       android:layout_width="0dp"
+                       android:layout_height="wrap_content"
+                       android:drawableEnd="@drawable/ic_editnota_tema"
+                       android:fontFamily="@font/roboto_bold"
+                       android:drawablePadding="8dp"
+                       android:textSize="27sp"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toTopOf="parent" />
+
+               </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+               <TextView
+                   android:id="@+id/textoConfigApp"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/colorTextoGrayDark"
+                   android:textSize="14sp"
+                   android:layout_marginTop="15dp"
+                   android:gravity="left"
+                   android:fontFamily="@font/roboto_regular"
+                   android:text="@string/esta_config_afecta_app"/>
+
+
+
+               <View
+                   android:id="@+id/view2"
+                   android:layout_width="match_parent"
+                   android:layout_height="1dp"
+                   android:layout_marginTop="10dp"
+                   android:background="#CCCCCC"
+                   app:layout_constraintTop_toBottomOf="@+id/txtToolbar" />
+
+
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   style="@style/TEXTVIEW_WHITE_DARK_TEMA"
+                   android:textSize="16sp"
+                   android:layout_marginTop="25dp"
+                   android:fontFamily="@font/roboto_medium"
+                   android:text="@string/textos_planes_biblia"/>
+
+               <androidx.constraintlayout.widget.ConstraintLayout
+                   android:layout_width="match_parent"
+                   android:layout_marginTop="8dp"
+                   android:layout_height="wrap_content">
+
+                   <TextView
+                       android:id="@+id/txtIdiomaPlanesBiblia"
+                       style="@style/TEXTVIEW_WHITE_DARK_TEMA"
+                       android:layout_width="0dp"
+                       android:layout_height="wrap_content"
+                       android:drawableEnd="@drawable/ic_editnota_tema"
+                       android:fontFamily="@font/roboto_bold"
+                       android:drawablePadding="8dp"
+                       android:textSize="27sp"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toTopOf="parent" />
+
+               </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+               <TextView
+                   android:id="@+id/textoConfigApp2"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/colorTextoGrayDark"
+                   android:textSize="14sp"
+                   android:layout_marginTop="15dp"
+                   android:gravity="left"
+                   android:fontFamily="@font/roboto_regular"
+                   android:text="@string/esta_config_afecta_planes"/>
+
+
+
+
+
+
+           </LinearLayout>
+
+
+
+        </ScrollView>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+    </RelativeLayout>
+
+

@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/toolbar_flecha_txt" />
+        <include layout="@layout/toolbar_flecha_txt_v2" />
 
 
         <ScrollView
@@ -126,7 +126,6 @@
                     android:drawableStart="@drawable/ic_calendario"
                     android:drawablePadding="5dp"
                     android:textSize="20sp"/>
-
 
 
                 <com.google.android.material.textfield.TextInputLayout

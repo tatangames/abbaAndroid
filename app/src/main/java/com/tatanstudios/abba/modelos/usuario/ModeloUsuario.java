@@ -34,24 +34,33 @@ public class ModeloUsuario {
     public String fechaNacimientoRaw;
 
 
+    public int tema;
+    public int idiomaApp; // 1: espanol, 2: ingles
+    public int idiomaTextos; // 1 espanol, 2: ingles
+
+
+    public int getIdiomaApp() {
+        return idiomaApp;
+    }
+
+    public void setIdiomaApp(int idiomaApp) {
+        this.idiomaApp = idiomaApp;
+    }
+
+    public int getIdiomaTextos() {
+        return idiomaTextos;
+    }
+
+    public void setIdiomaTextos(int idiomaTextos) {
+        this.idiomaTextos = idiomaTextos;
+    }
+
     public String getToken() {
         return token;
     }
 
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public int tema;
-    public int idioma; // 1: espanol, 2: ingles
-
-
-    public int getIdioma() {
-        return idioma;
-    }
-
-    public void setIdioma(int idioma) {
-        this.idioma = idioma;
     }
 
     public int getTema() {

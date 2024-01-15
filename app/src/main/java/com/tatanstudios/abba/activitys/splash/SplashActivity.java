@@ -41,10 +41,10 @@ public class SplashActivity extends AppCompatActivity {
 
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
 
-        if(tokenManager.getToken().getIdioma() == 0){
+        if(tokenManager.getToken().getIdiomaApp() == 0){
             LocaleManagerExtras.setLocale(this, APP_ESPANOL);
         }
-        else if(tokenManager.getToken().getIdioma() == 1){
+        else if(tokenManager.getToken().getIdiomaApp() == 1){
             LocaleManagerExtras.setLocale(this, APP_INGLES);
         }
         else{
