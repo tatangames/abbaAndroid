@@ -109,13 +109,8 @@ public class ActualizarPasswordActivity extends AppCompatActivity {
 
         btnEnviar.setEnabled(false);
 
-        if(temaActual){ // dark
-            btnEnviar.setBackgroundTintList(colorStateTintGrey);
-            btnEnviar.setTextColor(colorBlanco);
-        }else{
-            btnEnviar.setBackgroundTintList(colorStateTintGrey);
-            btnEnviar.setTextColor(colorBlanco);
-        }
+        btnEnviar.setBackgroundTintList(colorStateTintGrey);
+        btnEnviar.setTextColor(colorBlanco);
 
 
         // volver atras

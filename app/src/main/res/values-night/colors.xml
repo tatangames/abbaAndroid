@@ -66,6 +66,7 @@
     <color name="colorFlechaLeftTemaLightDark">#FFFFFF</color> <!-- flecha left en algunos fragment por Tema -->
     <color name="colorLineaDiviTemaLightDark">#FFFFFF</color> <!-- usado para lineas divisoras por Tema -->
     <color name="colorTextoGrayDark">#7b7b7d</color> <!-- textos en pantalla cambiar idioma -->
+    <color name="colorFondosTemaLightDark">#000000</color> <!-- utilizado en fondos como relative layout -->
 
 
 

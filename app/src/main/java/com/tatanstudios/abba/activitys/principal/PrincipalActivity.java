@@ -175,6 +175,8 @@ public class PrincipalActivity extends AppCompatActivity  implements InterfaceAc
         }
 
         boolRecargarFragmentInicio = true;
+        boolRecargarFragmentBiblia = true;
+        boolRecargarFragmentPlanes = true;
         recargarFragmentAjustes();
     }
 
@@ -267,7 +269,7 @@ public class PrincipalActivity extends AppCompatActivity  implements InterfaceAc
         }
 
         // Crea una nueva instancia del fragmento
-        fragmentBiblia = new FragmentInicio();
+        fragmentBiblia = new FragmentBiblia();
 
         // Añade el fragmento al contenedor
         fragmentTransaction.add(R.id.main_container, fragmentBiblia);
@@ -304,7 +306,7 @@ public class PrincipalActivity extends AppCompatActivity  implements InterfaceAc
         }
 
         // Crea una nueva instancia del fragmento
-        fragmentPlanes = new FragmentInicio();
+        fragmentPlanes = new FragmentPlanes();
 
         // Añade el fragmento al contenedor
         fragmentTransaction.add(R.id.main_container, fragmentPlanes);
