@@ -60,6 +60,8 @@ public class VerPlanParaSeleccionarActivity extends AppCompatActivity {
 
     private OnBackPressedDispatcher onBackPressedDispatcher;
 
+    private final int ID_INTENT_RETORNO_10 = 10;
+
     RequestOptions opcionesGlide = new RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .skipMemoryCache(true)
@@ -110,8 +112,6 @@ public class VerPlanParaSeleccionarActivity extends AppCompatActivity {
         if (getIntent().getExtras() != null) {
             Bundle bundle = getIntent().getExtras();
             idPlan = bundle.getInt("ID");
-
-            // Ahora puedes utilizar el valor como desees
         }
 
         btnComenzar.setOnClickListener(v ->{
@@ -129,7 +129,6 @@ public class VerPlanParaSeleccionarActivity extends AppCompatActivity {
 
         int idiomaPlan = tokenManager.getToken().getIdiomaTextos();
 
-
         compositeDisposable.add(
                 service.informacionPlanSeleccionado(idPlan, idiomaPlan)
                         .subscribeOn(Schedulers.io())
@@ -143,10 +142,6 @@ public class VerPlanParaSeleccionarActivity extends AppCompatActivity {
 
                                         if(apiRespuesta.getSuccess() == 1) {
                                             setearCampos(apiRespuesta);
-                                        }
-                                        else if(apiRespuesta.getSuccess() == 2){
-
-                                            volverAtrasActualizado();
                                         }
                                         else{
                                             mensajeSinConexion();
@@ -162,9 +157,47 @@ public class VerPlanParaSeleccionarActivity extends AppCompatActivity {
     }
 
 
+
     private void apiSeleccionarPlan(){
+        volverAtrasActualizado();
+    }
 
+    private void apiSeleccionarPlan2(){
 
+        progressBar.setVisibility(View.VISIBLE);
+
+        String iduser = tokenManager.getToken().getId();
+
+        compositeDisposable.add(
+                service.seleccionarPlanNuevo(idPlan, iduser)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .retry()
+                        .subscribe(apiRespuesta -> {
+
+                                    progressBar.setVisibility(View.GONE);
+
+                                    if(apiRespuesta != null) {
+
+                                        if(apiRespuesta.getSuccess() == 1) {
+                                           // plan ya estaba seleccionado.
+                                            volverAtrasActualizado();
+                                        }
+                                        else if(apiRespuesta.getSuccess() == 2){
+                                            // plan seleccionado
+                                            volverAtrasActualizado();
+                                        }
+                                        else{
+                                            mensajeSinConexion();
+                                        }
+                                    }else{
+                                        mensajeSinConexion();
+                                    }
+                                },
+                                throwable -> {
+                                    mensajeSinConexion();
+                                })
+        );
     }
 
 
@@ -232,13 +265,10 @@ public class VerPlanParaSeleccionarActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    private void volverAtras(){
-        onBackPressedDispatcher.onBackPressed();
-    }
 
     private void volverAtrasActualizado(){
         Intent returnIntent = new Intent();
-        setResult(Activity.RESULT_OK, returnIntent);
+        setResult(ID_INTENT_RETORNO_10, returnIntent);
 
         Toasty.success(this, getString(R.string.plan_agregado)).show();
         onBackPressedDispatcher.onBackPressed();

@@ -2,6 +2,7 @@ package com.tatanstudios.abba.fragmentos.planes;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -47,6 +50,8 @@ public class FragmentBuscarPlanes extends Fragment {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     private ArrayList<ModeloVistasBuscarPlanes> elementos;
+    private final int ID_INTENT_RETORNO_10 = 10;
+    private final int ID_INTENT_RETORNO_11 = 11;
 
 
     @Override
@@ -69,12 +74,12 @@ public class FragmentBuscarPlanes extends Fragment {
         // Aplicar el ColorFilter al Drawable del ProgressBar
         progressBar.getIndeterminateDrawable().setColorFilter(colorProgress, PorterDuff.Mode.SRC_IN);
 
-        buscarPlanesNuevos();
+        apiBuscarPlanesNuevos();
         return vista;
     }
 
 
-    private void buscarPlanesNuevos(){
+    private void apiBuscarPlanesNuevos(){
 
         String iduser = tokenManager.getToken().getId();
         int idiomaPlan = tokenManager.getToken().getIdiomaTextos();
@@ -88,6 +93,7 @@ public class FragmentBuscarPlanes extends Fragment {
                         .subscribe(apiRespuesta -> {
 
                                     progressBar.setVisibility(View.GONE);
+                                    recyclerView.setVisibility(View.VISIBLE);
 
                                     if(apiRespuesta != null) {
 
@@ -95,7 +101,6 @@ public class FragmentBuscarPlanes extends Fragment {
 
                                             for (ModeloPlanesTitulo arrayTitulo : apiRespuesta.getModeloPlanesTitulos()) {
                                                 elementos.add(new ModeloVistasBuscarPlanes( ModeloVistasBuscarPlanes.TIPO_TITULO, new ModeloPlanesTitulo(arrayTitulo.getId(), arrayTitulo.getTitulo()), null));
-
 
                                                 for (ModeloPlanes arrayPlanes : arrayTitulo.getModeloPlanes()){
 
@@ -142,19 +147,39 @@ public class FragmentBuscarPlanes extends Fragment {
     }
 
 
-    public void verTodoPlanesContenedor(int id){
-
-        Intent intent = new Intent(getActivity(), PlanesContenedorActivity.class);
-        startActivity(intent);
-
-    }
 
 
     public void verPlanSeleccionado(int id){
         Intent intent = new Intent(getActivity(), VerPlanParaSeleccionarActivity.class);
         intent.putExtra("ID", id);
-        startActivity(intent);
+        someActivityResultLauncher.launch(intent);
     }
+
+    public void verTodoPlanesContenedor(int id){
+        Intent intent = new Intent(getActivity(), PlanesContenedorActivity.class);
+        intent.putExtra("ID", id);
+        someActivityResultLauncher.launch(intent);
+    }
+
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+
+                // DE ACTIVITY VerPlanParaSeleccionar.class
+                if(result.getResultCode() == ID_INTENT_RETORNO_10){
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
+                    apiBuscarPlanesNuevos();
+                }
+
+                // DE ACTIVITY PlanesContenedorActivity.class
+                else if(result.getResultCode() == ID_INTENT_RETORNO_11){
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
+                    apiBuscarPlanesNuevos();
+                }
+            });
+
 
     @Override
     public void onDestroy(){

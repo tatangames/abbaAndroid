@@ -100,5 +100,20 @@ public interface ApiService {
 
 
 
+    // devuelve lista de planes que no he seleccionado aun, por id contenedor
+    @POST("app/plan/listado/planes/contenedor")
+    @FormUrlEncoded
+    Observable<ModeloPlanesContenedor> listadoPlanesContenedor(@Field("idiomaplan") int idiomaplan,
+                                                     @Field("iduser") String iduser,
+                                                     @Field("idcontenedor") int idcontenedor);
+
+    // iniciar plan nuevo
+    @POST("app/plan/nuevo/seleccionar")
+    @FormUrlEncoded
+    Observable<ModeloUsuario> seleccionarPlanNuevo(@Field("idplan") int idplan,
+                                                               @Field("iduser") String iduser);
+
+
+
 
 }
