@@ -2,6 +2,7 @@ package com.tatanstudios.abba.fragmentos.planes;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,10 +19,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tatanstudios.abba.R;
-import com.tatanstudios.abba.adaptadores.mas.AdaptadorFragmentMas;
+import com.tatanstudios.abba.activitys.planes.PlanesContenedorActivity;
+import com.tatanstudios.abba.activitys.planes.VerPlanParaSeleccionarActivity;
 import com.tatanstudios.abba.adaptadores.planes.AdaptadorBuscarNuevosPlanes;
-import com.tatanstudios.abba.modelos.mas.ModeloFraMasPerfil;
-import com.tatanstudios.abba.modelos.mas.ModeloFragmentMas;
 import com.tatanstudios.abba.modelos.planes.ModeloPlanes;
 import com.tatanstudios.abba.modelos.planes.ModeloPlanesTitulo;
 import com.tatanstudios.abba.modelos.planes.planesmodelo.ModeloVistasBuscarPlanes;
@@ -139,21 +139,21 @@ public class FragmentBuscarPlanes extends Fragment {
     private void mensajeSinConexion(){
         progressBar.setVisibility(View.GONE);
         Toasty.error(getActivity(), getString(R.string.error_intentar_de_nuevo)).show();
+    }
 
 
-        /*
+    public void verTodoPlanesContenedor(int id){
 
-         for (ModeloPlanesTitulo arrayTitulo : apiRespuesta.getModeloPlanesTitulos()) {
-                                                Log.i("TITULO", arrayTitulo.getTitulo());
+        Intent intent = new Intent(getActivity(), PlanesContenedorActivity.class);
+        startActivity(intent);
 
-                                                for (ModeloPlanes arrayPlanes : arrayTitulo.getModeloPlanes()){
+    }
 
-                                                    Log.i("PLANES", arrayPlanes.getTitulo());
-                                                }
 
-                                            }
-        *
-        * */
+    public void verPlanSeleccionado(int id){
+        Intent intent = new Intent(getActivity(), VerPlanParaSeleccionarActivity.class);
+        intent.putExtra("ID", id);
+        startActivity(intent);
     }
 
     @Override

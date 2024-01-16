@@ -123,8 +123,11 @@
     </style>
 
 
-
-
+    <!-- PARA UN SHAPPEABLE IMAGEVIEW TENGA ESQUINA REDONDEADAS -->
+    <style name="radius">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
 
 
 

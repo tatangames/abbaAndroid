@@ -67,6 +67,9 @@
     <color name="colorLineaDiviTemaLightDark">#7b7b7d</color> <!-- lineas divisoras por Tema -->
     <color name="colorTextoGrayDark">#7b7b7d</color> <!-- textos en pantalla cambiar idioma -->
     <color name="colorFondosTemaLightDark">#FFFFFF</color> <!-- utilizado en fondos como relative layout -->
+    <color name="colorBotonTemaPlanes">#7b7b7d</color> <!-- Boton que aparece en listado de planes -->
+    <color name="colorTextoLightDark">#000000</color> <!-- textos black y Light -->
+
 
 </resources>
 

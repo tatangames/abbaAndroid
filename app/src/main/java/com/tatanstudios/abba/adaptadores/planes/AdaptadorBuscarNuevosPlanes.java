@@ -2,9 +2,11 @@ package com.tatanstudios.abba.adaptadores.planes;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -12,9 +14,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.tatanstudios.abba.R;
 import com.tatanstudios.abba.fragmentos.menu.FragmentMas;
 import com.tatanstudios.abba.fragmentos.planes.FragmentBuscarPlanes;
@@ -24,6 +28,7 @@ import com.tatanstudios.abba.modelos.mas.ModeloFragmentMas;
 import com.tatanstudios.abba.modelos.planes.ModeloPlanes;
 import com.tatanstudios.abba.modelos.planes.ModeloPlanesTitulo;
 import com.tatanstudios.abba.modelos.planes.planesmodelo.ModeloVistasBuscarPlanes;
+import com.tatanstudios.abba.network.RetrofitBuilder;
 
 import java.util.ArrayList;
 
@@ -35,8 +40,6 @@ public class AdaptadorBuscarNuevosPlanes extends RecyclerView.Adapter<RecyclerVi
     public ArrayList<ModeloVistasBuscarPlanes> modeloVistasBuscarPlanes;
     private FragmentBuscarPlanes fragmentBuscarPlanes;
 
-    private ColorStateList colorStateListBlack, colorStateListWhite;
-
     RequestOptions opcionesGlide = new RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .skipMemoryCache(true)
@@ -47,12 +50,6 @@ public class AdaptadorBuscarNuevosPlanes extends RecyclerView.Adapter<RecyclerVi
         this.context = context;
         this.fragmentBuscarPlanes = fragmentBuscarPlanes;
         this.modeloVistasBuscarPlanes = modeloVistasBuscarPlanes;
-
-        int colorWhite = context.getColor(R.color.white);
-        colorStateListWhite = ColorStateList.valueOf(colorWhite);
-
-        int colorBlack = context.getColor(R.color.black);
-        colorStateListBlack = ColorStateList.valueOf(colorBlack);
     }
 
     @NonNull
@@ -84,9 +81,8 @@ public class AdaptadorBuscarNuevosPlanes extends RecyclerView.Adapter<RecyclerVi
 
             ((HolderVistaTitulo) holder).txtTitulo.setText(m.getTitulo());
 
-            holder.itemView.setOnClickListener(view -> {
-                // Acciones cuando se toca la vista de un ítem
-                //fragmentMas.editarPerfil();
+            ((HolderVistaTitulo) holder).imgFlechaDerecha.setOnClickListener(view -> {
+                fragmentBuscarPlanes.verTodoPlanesContenedor(m.getId());
             });
 
         }
@@ -94,13 +90,38 @@ public class AdaptadorBuscarNuevosPlanes extends RecyclerView.Adapter<RecyclerVi
 
             ModeloPlanes m = modelo.getModeloPlanes();
 
-            ((HolderVistaPlanes) holder).textViewTitulo.setText(m.getTitulo());
+            if(m.getSubtitulo() != null && !TextUtils.isEmpty(m.getSubtitulo())){
+                ((HolderVistaPlanes) holder).txtSubTitulo.setText(m.getSubtitulo());
+                ((HolderVistaPlanes) holder).txtSubTitulo.setVisibility(View.VISIBLE);
+            }else{
+                ((HolderVistaPlanes) holder).txtSubTitulo.setVisibility(View.INVISIBLE);
+            }
+
+            ((HolderVistaPlanes) holder).txtTitulo.setText(m.getTitulo());
+            ((HolderVistaPlanes) holder).btnVer.setText(context.getString(R.string.ver));
+
+            if(m.getBarraProgreso() == 1){
+                ((HolderVistaPlanes) holder).txtTitulo.setVisibility(View.VISIBLE);
+            }else{
+                ((HolderVistaPlanes) holder).txtTitulo.setVisibility(View.GONE);
+            }
+
+            if(m.getImagen() != null && !TextUtils.isEmpty(m.getImagen())){
+                Glide.with(context)
+                        .load(RetrofitBuilder.urlImagenes + m.getImagen())
+                        .apply(opcionesGlide)
+                        .into(((HolderVistaPlanes) holder).imgPlan);
+            }else{
+                int resourceId = R.drawable.camaradefecto;
+                Glide.with(context)
+                        .load(resourceId)
+                        .apply(opcionesGlide)
+                        .into(((HolderVistaPlanes) holder).imgPlan);
+            }
 
 
-
-            holder.itemView.setOnClickListener(view -> {
-                // Acciones cuando se toca la vista de un ítem normal
-                //handleItemClick(modelo);
+            holder.itemView.setOnClickListener(v -> {
+                fragmentBuscarPlanes.verPlanSeleccionado(m.getId());
             });
 
 
@@ -130,18 +151,19 @@ public class AdaptadorBuscarNuevosPlanes extends RecyclerView.Adapter<RecyclerVi
     private static class HolderVistaPlanes extends RecyclerView.ViewHolder {
         // Definir los elementos de la interfaz gráfica según el layout de la línea de separación
 
-        private ImageView imageView;
-        private TextView textViewTitulo;
-        private ProgressBar progressBar;
+        private ShapeableImageView imgPlan;
+        private TextView txtTitulo;
+        private TextView txtSubTitulo;
+        private TextView btnVer;
 
         public HolderVistaPlanes(@NonNull View itemView) {
             super(itemView);
             // Inicializar elementos de la interfaz gráfica aquí
 
-            imageView = itemView.findViewById(R.id.imageView);
-            textViewTitulo = itemView.findViewById(R.id.textViewTitulo);
-            progressBar = itemView.findViewById(R.id.progressBar);
-
+            imgPlan = itemView.findViewById(R.id.imageView);
+            txtTitulo = itemView.findViewById(R.id.txtTitulo);
+            txtSubTitulo = itemView.findViewById(R.id.txtSubtitulo);
+            btnVer = itemView.findViewById(R.id.txtVer);
 
         }
     }

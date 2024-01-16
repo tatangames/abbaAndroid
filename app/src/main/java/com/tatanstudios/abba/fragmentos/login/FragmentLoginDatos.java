@@ -107,15 +107,6 @@ public class FragmentLoginDatos extends Fragment {
 
         btnLogin.setEnabled(false);
 
-        if(temaActual){ // dark
-            btnLogin.setBackgroundTintList(colorStateTintGrey);
-            btnLogin.setTextColor(colorBlanco);
-        }else{
-            btnLogin.setBackgroundTintList(colorStateTintGrey);
-            btnLogin.setTextColor(colorBlanco);
-        }
-
-
 
         // volver atras
         imgFlechaAtras.setOnClickListener(v -> {

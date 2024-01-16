@@ -81,7 +81,7 @@ public class AdapterBotoneraPlanes extends RecyclerView.Adapter<AdapterBotoneraP
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private Button btnPlanes;
+        private TextView btnPlanes;
 
         public MyViewHolder(View itemView){
             super(itemView);

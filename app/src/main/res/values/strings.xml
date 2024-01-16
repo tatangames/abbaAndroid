@@ -110,12 +110,9 @@
     <string name="interfaz_de_la_aplicacion">Interfaz de la aplicación.</string>
     <string name="textos_planes_biblia">Texto Planes y Biblia.</string>
     <string name="ver">Ver</string>
-
-
-
-
-
-
+    <string name="iniciar">Iniciar</string>
+    <string name="plan_agregado">Plan agregado</string>
+    <string name="informacion_plan">Información Plan</string>
 
 
 

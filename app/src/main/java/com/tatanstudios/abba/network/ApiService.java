@@ -92,6 +92,13 @@ public interface ApiService {
                                                           @Field("idiomaplan") int idiomaplan);
 
 
+    // ver informacion de un plan para poder seleccionarlo
+    @POST("app/plan/seleccionado/informacion")
+    @FormUrlEncoded
+    Observable<ModeloPlanes> informacionPlanSeleccionado(@Field("idplan") int idplan,
+                                                          @Field("idiomaplan") int idiomaplan);
+
+
 
 
 }

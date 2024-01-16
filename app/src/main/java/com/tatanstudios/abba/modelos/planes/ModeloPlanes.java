@@ -7,6 +7,9 @@ import java.util.List;
 public class ModeloPlanes {
 
     @SerializedName("success")
+    public Integer success;
+
+    @SerializedName("id")
     public Integer id;
 
     @SerializedName("imagen")
@@ -28,6 +31,10 @@ public class ModeloPlanes {
         this.barraProgreso = barraProgreso;
         this.titulo = titulo;
         this.subtitulo = subtitulo;
+    }
+
+    public Integer getSuccess() {
+        return success;
     }
 
     public String getTitulo() {

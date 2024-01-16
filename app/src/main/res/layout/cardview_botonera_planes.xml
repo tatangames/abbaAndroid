@@ -4,17 +4,21 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent">
 
-    <Button
+    <TextView
         android:id="@+id/btnItem"
         android:layout_width="wrap_content"
-        android:layout_height="33dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:text="Planes"
-        android:textSize="10sp"
-        android:textAllCaps="false"
-        android:background="@drawable/boton_redondeado_negro"
+        android:background="@drawable/boton_redondeado_v2"
+        android:gravity="center"
+        android:paddingStart="20dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="8dp"
+        android:text="@string/ver"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
