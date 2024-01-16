@@ -24,6 +24,9 @@ public class ModeloPlanes {
     @SerializedName("subtitulo")
     public String subtitulo;
 
+    @SerializedName("descripcion")
+    public String descripcion;
+
 
     public ModeloPlanes(Integer id, String imagen, Integer barraProgreso, String titulo, String subtitulo) {
         this.id = id;
@@ -31,6 +34,11 @@ public class ModeloPlanes {
         this.barraProgreso = barraProgreso;
         this.titulo = titulo;
         this.subtitulo = subtitulo;
+    }
+
+
+    public String getDescripcion() {
+        return descripcion;
     }
 
     public Integer getSuccess() {

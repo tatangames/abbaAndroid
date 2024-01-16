@@ -155,9 +155,10 @@ public class FragmentBuscarPlanes extends Fragment {
         someActivityResultLauncher.launch(intent);
     }
 
-    public void verTodoPlanesContenedor(int id){
+    public void verTodoPlanesContenedor(int id, String titulo){
         Intent intent = new Intent(getActivity(), PlanesContenedorActivity.class);
         intent.putExtra("ID", id);
+        intent.putExtra("TITULO", titulo);
         someActivityResultLauncher.launch(intent);
     }
 

@@ -34,7 +34,7 @@
         android:textColor="@color/colorTextoGrayDark"
         android:textSize="14sp"
         android:fontFamily="@font/roboto_regular"
-        app:layout_constraintEnd_toStartOf="@+id/btnVer"
+        app:layout_constraintEnd_toStartOf="@+id/txtVer"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -2,6 +2,7 @@ package com.tatanstudios.abba.adaptadores.planes;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.tatanstudios.abba.R;
 import com.tatanstudios.abba.activitys.planes.PlanesContenedorActivity;
 import com.tatanstudios.abba.extras.IOnRecyclerViewClickListener;
 import com.tatanstudios.abba.modelos.planes.ModeloPlanes;
+import com.tatanstudios.abba.network.RetrofitBuilder;
 
 import java.util.List;
 
@@ -24,6 +30,12 @@ public class AdaptadorPlanesContenedor extends RecyclerView.Adapter<AdaptadorPla
     private Context context;
     private List<ModeloPlanes> modeloPlanes;
     private PlanesContenedorActivity planesContenedorActivity;
+
+    RequestOptions opcionesGlide = new RequestOptions()
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+            .placeholder(R.drawable.camaradefecto)
+            .priority(Priority.NORMAL);
 
     public AdaptadorPlanesContenedor(){}
 
@@ -47,22 +59,34 @@ public class AdaptadorPlanesContenedor extends RecyclerView.Adapter<AdaptadorPla
 
         ModeloPlanes m = modeloPlanes.get(position);
 
-        /*holder.btnPlanes.setText(modeloBotoneraPlanes.get(position).getTexto());
+        if(m.getTitulo() != null && !TextUtils.isEmpty(m.getTitulo())){
+            holder.txtTitulo.setText(m.getTitulo());
+        }else{
+            holder.txtTitulo.setText("");
+        }
 
-        holder.btnPlanes.setBackgroundTintList(colorStateGrey);
-        holder.btnPlanes.setTextColor(colorStateWhite);
+        if(m.getSubtitulo() != null && !TextUtils.isEmpty(m.getSubtitulo())){
+            holder.txtSubTitulo.setText(m.getSubtitulo());
+        }else{
+            holder.txtSubTitulo.setText("");
+        }
 
-        holder.btnPlanes.setOnClickListener(v ->{
+        if(m.getImagen() != null && !TextUtils.isEmpty(m.getImagen())){
+            Glide.with(context)
+                    .load(RetrofitBuilder.urlImagenes + m.getImagen())
+                    .apply(opcionesGlide)
+                    .into(holder.imgPlan);
+        }else{
+            int resourceId = R.drawable.camaradefecto;
+            Glide.with(context)
+                    .load(resourceId)
+                    .apply(opcionesGlide)
+                    .into(holder.imgPlan);
+        }
 
-            int id = modeloBotoneraPlanes.get(position).getId();
-            fragmentPlanes.tipoPlan(id);
-        });*/
-
+        // ver plan seleccionado
         holder.itemView.setOnClickListener(v -> {
-            // Acción a realizar cuando se hace clic en el layout del elemento
-
             planesContenedorActivity.informacionPlan(m.getId());
-            // Puedes usar clickedPosition para realizar acciones específicas según la posición clicada
         });
     }
 

@@ -82,7 +82,7 @@ public class AdaptadorBuscarNuevosPlanes extends RecyclerView.Adapter<RecyclerVi
             ((HolderVistaTitulo) holder).txtTitulo.setText(m.getTitulo());
 
             ((HolderVistaTitulo) holder).imgFlechaDerecha.setOnClickListener(view -> {
-                fragmentBuscarPlanes.verTodoPlanesContenedor(m.getId());
+                fragmentBuscarPlanes.verTodoPlanesContenedor(m.getId(), m.getTitulo());
             });
 
         }

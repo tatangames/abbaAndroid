@@ -45,8 +45,6 @@ public class PlanesContenedorActivity extends AppCompatActivity {
 
     private TokenManager tokenManager;
 
-
-
     private ProgressBar progressBar;
 
     private TextView txtToolbar, txtSinPlanes;
@@ -61,6 +59,8 @@ public class PlanesContenedorActivity extends AppCompatActivity {
 
     private OnBackPressedDispatcher onBackPressedDispatcher;
 
+    private String tituloPrincipal = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +72,7 @@ public class PlanesContenedorActivity extends AppCompatActivity {
         txtSinPlanes = findViewById(R.id.txtSinPlanes);
         rootRelative = findViewById(R.id.rootRelative);
 
-        txtToolbar.setText(getString(R.string.planes));
+
 
         int colorProgress = ContextCompat.getColor(this, R.color.colorProgress);
 
@@ -91,6 +91,8 @@ public class PlanesContenedorActivity extends AppCompatActivity {
         if (getIntent().getExtras() != null) {
             Bundle bundle = getIntent().getExtras();
             idcontenedor = bundle.getInt("ID");
+            tituloPrincipal = bundle.getString("TITULO");
+            txtToolbar.setText(tituloPrincipal);
         }
 
         imgFlechaAtras.setOnClickListener(v -> {

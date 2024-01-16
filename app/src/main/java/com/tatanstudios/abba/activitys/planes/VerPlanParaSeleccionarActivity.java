@@ -40,7 +40,7 @@ public class VerPlanParaSeleccionarActivity extends AppCompatActivity {
 
     private ImageView imgFlechaAtras;
     private ShapeableImageView imgPlan;
-    private TextView txtTitulo, txtSubtitulo, txtToolbar;
+    private TextView txtTitulo, txtSubtitulo, txtToolbar, txtDescripcion;
     private Button btnComenzar;
 
     private RelativeLayout rootRelative;
@@ -50,7 +50,7 @@ public class VerPlanParaSeleccionarActivity extends AppCompatActivity {
 
     private TokenManager tokenManager;
 
-    private ColorStateList colorStateTintGrey, colorStateTintWhite, colorStateTintBlack;
+    private ColorStateList colorStateTintWhite, colorStateTintBlack;
 
     private int colorBlanco, colorBlack = 0;
 
@@ -82,6 +82,8 @@ public class VerPlanParaSeleccionarActivity extends AppCompatActivity {
         imgFlechaAtras = findViewById(R.id.imgFlechaAtras);
         txtToolbar = findViewById(R.id.txtToolbar);
         nestedScrollView = findViewById(R.id.nested);
+        txtDescripcion = findViewById(R.id.txtDescripcion);
+
 
         txtToolbar.setText(getString(R.string.informacion_plan));
 
@@ -98,16 +100,22 @@ public class VerPlanParaSeleccionarActivity extends AppCompatActivity {
         progressBar.getIndeterminateDrawable().setColorFilter(colorProgress, PorterDuff.Mode.SRC_IN);
         onBackPressedDispatcher = getOnBackPressedDispatcher();
 
-        int colorGris = ContextCompat.getColor(this, R.color.colorGrisBtnDisable);
         colorBlanco = ContextCompat.getColor(this, R.color.white);
         colorBlack = ContextCompat.getColor(this, R.color.black);
 
-        colorStateTintGrey = ColorStateList.valueOf(colorGris);
         colorStateTintWhite = ColorStateList.valueOf(colorBlanco);
         colorStateTintBlack = ColorStateList.valueOf(colorBlack);
 
-        btnComenzar.setBackgroundTintList(colorStateTintBlack);
-        btnComenzar.setTextColor(colorBlanco);
+        if(isDarkModeEnabled()){
+            btnComenzar.setBackgroundTintList(colorStateTintWhite);
+            btnComenzar.setTextColor(colorBlack);
+        }else{
+            btnComenzar.setBackgroundTintList(colorStateTintBlack);
+            btnComenzar.setTextColor(colorBlanco);
+        }
+
+
+
 
         if (getIntent().getExtras() != null) {
             Bundle bundle = getIntent().getExtras();
@@ -157,12 +165,7 @@ public class VerPlanParaSeleccionarActivity extends AppCompatActivity {
     }
 
 
-
     private void apiSeleccionarPlan(){
-        volverAtrasActualizado();
-    }
-
-    private void apiSeleccionarPlan2(){
 
         progressBar.setVisibility(View.VISIBLE);
 
@@ -217,6 +220,11 @@ public class VerPlanParaSeleccionarActivity extends AppCompatActivity {
             txtSubtitulo.setText(api.getSubtitulo());
         }else{
             txtSubtitulo.setVisibility(View.GONE);
+        }
+
+        if(api.getDescripcion() != null && !TextUtils.isEmpty(api.getDescripcion())){
+            txtDescripcion.setText(api.getDescripcion());
+            txtDescripcion.setVisibility(View.VISIBLE);
         }
 
         nestedScrollView.setVisibility(View.VISIBLE);
