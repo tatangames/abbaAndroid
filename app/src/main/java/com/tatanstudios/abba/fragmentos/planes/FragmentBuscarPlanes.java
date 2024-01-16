@@ -2,11 +2,9 @@ package com.tatanstudios.abba.fragmentos.planes;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tatanstudios.abba.R;
 import com.tatanstudios.abba.activitys.planes.PlanesContenedorActivity;
 import com.tatanstudios.abba.activitys.planes.VerPlanParaSeleccionarActivity;
-import com.tatanstudios.abba.adaptadores.planes.AdaptadorBuscarNuevosPlanes;
+import com.tatanstudios.abba.adaptadores.planes.buscarplanes.AdaptadorBuscarNuevosPlanes;
 import com.tatanstudios.abba.modelos.planes.ModeloPlanes;
 import com.tatanstudios.abba.modelos.planes.ModeloPlanesTitulo;
 import com.tatanstudios.abba.modelos.planes.planesmodelo.ModeloVistasBuscarPlanes;

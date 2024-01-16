@@ -1,7 +1,6 @@
-package com.tatanstudios.abba.adaptadores.planes;
+package com.tatanstudios.abba.adaptadores.planes.buscarplanes;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;

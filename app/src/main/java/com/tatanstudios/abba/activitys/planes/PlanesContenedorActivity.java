@@ -4,14 +4,11 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.activity.OnBackPressedDispatcher;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -22,12 +19,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tatanstudios.abba.R;
-import com.tatanstudios.abba.adaptadores.mas.AdaptadorFragmentMas;
-import com.tatanstudios.abba.adaptadores.planes.AdaptadorPlanesContenedor;
+import com.tatanstudios.abba.adaptadores.planes.buscarplanes.AdaptadorPlanesContenedor;
 import com.tatanstudios.abba.network.ApiService;
 import com.tatanstudios.abba.network.RetrofitBuilder;
 import com.tatanstudios.abba.network.TokenManager;
-import androidx.activity.OnBackPressedDispatcher;
 
 import es.dmoral.toasty.Toasty;
 import io.reactivex.android.schedulers.AndroidSchedulers;

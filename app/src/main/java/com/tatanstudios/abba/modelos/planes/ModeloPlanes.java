@@ -15,6 +15,9 @@ public class ModeloPlanes {
     @SerializedName("imagen")
     public String imagen;
 
+    @SerializedName("imagenportada")
+    public String imagenportada;
+
     @SerializedName("barra_progreso")
     public Integer barraProgreso;
 
@@ -36,6 +39,10 @@ public class ModeloPlanes {
         this.subtitulo = subtitulo;
     }
 
+
+    public String getImagenportada() {
+        return imagenportada;
+    }
 
     public String getDescripcion() {
         return descripcion;
