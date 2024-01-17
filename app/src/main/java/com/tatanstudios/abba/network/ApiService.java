@@ -1,5 +1,6 @@
 package com.tatanstudios.abba.network;
 
+import com.tatanstudios.abba.modelos.misplanes.ModeloMisPlanesContenedor;
 import com.tatanstudios.abba.modelos.perfil.ModeloAjustes;
 import com.tatanstudios.abba.modelos.planes.ModeloPlanes;
 import com.tatanstudios.abba.modelos.planes.ModeloPlanesContenedor;
@@ -119,6 +120,17 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<ModeloPlanesContenedor> listadoMisPlanes(@Field("iduser") String iduser,
                                                    @Field("idiomaplan") int idiomaplan);
+
+
+    // bloque de un Plan
+    @POST("app/plan/misplanes/informacion/bloque")
+    @FormUrlEncoded
+    Observable<ModeloMisPlanesContenedor> informacionPlanBloque(@Field("iduser") String iduser,
+                                                                @Field("idiomaplan") int idiomaplan,
+                                                                @Field("idplan") int idplan);
+
+
+
 
 
 }

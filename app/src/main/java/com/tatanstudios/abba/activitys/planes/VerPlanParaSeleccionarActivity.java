@@ -36,8 +36,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class VerPlanParaSeleccionarActivity extends AppCompatActivity {
 
-    private ImageView imgFlechaAtras;
-    private ShapeableImageView imgPlan;
+    private ImageView imgFlechaAtras, imgPlan;
     private TextView txtTitulo, txtSubtitulo, txtToolbar, txtDescripcion;
     private Button btnComenzar;
 

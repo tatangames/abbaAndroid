@@ -116,11 +116,6 @@
     <string name="no_hay_planes_disponibles">No hay Planes disponibles</string>
 
 
-
-
-
-
-
     <string-array name="generos_array">
         <item>Seleccionar Género</item>
         <item>Masculino</item>

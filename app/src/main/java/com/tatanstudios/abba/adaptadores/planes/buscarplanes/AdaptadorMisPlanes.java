@@ -92,7 +92,7 @@ public class AdaptadorMisPlanes extends RecyclerView.Adapter<RecyclerView.ViewHo
             ((HolderVistaPlanesContinuar) holder).txtTitulo.setText(m.getTitulo());
 
             holder.itemView.setOnClickListener(v -> {
-                //fragmentBuscarPlanes.verPlanSeleccionado(m.getId());
+                fragmentMisPlanes.verBloquePlanes(m.getId());
             });
 
         }
@@ -124,14 +124,9 @@ public class AdaptadorMisPlanes extends RecyclerView.Adapter<RecyclerView.ViewHo
                 ((HolderVistaPlanes) holder).progressBar.setVisibility(View.GONE);
             }
 
-
-
             holder.itemView.setOnClickListener(v -> {
-                //fragmentBuscarPlanes.verPlanSeleccionado(m.getId());
+                fragmentMisPlanes.verBloquePlanes(m.getId());
             });
-
-
-
         }
     }
 

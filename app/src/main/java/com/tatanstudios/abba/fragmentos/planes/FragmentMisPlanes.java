@@ -2,6 +2,7 @@ package com.tatanstudios.abba.fragmentos.planes;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -18,6 +21,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tatanstudios.abba.R;
+import com.tatanstudios.abba.activitys.planes.PlanesBloquesActivity;
+import com.tatanstudios.abba.activitys.planes.PlanesContenedorActivity;
 import com.tatanstudios.abba.adaptadores.planes.buscarplanes.AdaptadorBuscarNuevosPlanes;
 import com.tatanstudios.abba.adaptadores.planes.buscarplanes.AdaptadorMisPlanes;
 import com.tatanstudios.abba.modelos.planes.ModeloPlanes;
@@ -49,6 +54,8 @@ public class FragmentMisPlanes extends Fragment {
     private ArrayList<ModeloVistasMisPlanes> elementos;
 
     private TextView txtSinPlanes;
+
+    private final int ID_INTENT_RETORNO_10 = 10;
 
 
     @Override
@@ -103,7 +110,7 @@ public class FragmentMisPlanes extends Fragment {
 
                                                     for (ModeloPlanes arrayPlanes : apiRespuesta.getModeloPlanesContinuar()) {
                                                         elementos.add(new ModeloVistasMisPlanes( ModeloVistasMisPlanes.TIPO_CONTINUAR, new ModeloPlanes(
-                                                                arrayPlanes.getId(),
+                                                                arrayPlanes.getIdplan(),
                                                                 arrayPlanes.getImagenportada(),
                                                                 arrayPlanes.getBarraProgreso(),
                                                                 arrayPlanes.getTitulo(),
@@ -114,7 +121,7 @@ public class FragmentMisPlanes extends Fragment {
 
                                                 for (ModeloPlanes arrayPlanes : apiRespuesta.getModeloPlanes()) {
                                                     elementos.add(new ModeloVistasMisPlanes( ModeloVistasMisPlanes.TIPO_PLANES, new ModeloPlanes(
-                                                            arrayPlanes.getId(),
+                                                            arrayPlanes.getIdplan(),
                                                             arrayPlanes.getImagen(),
                                                             arrayPlanes.getBarraProgreso(),
                                                             arrayPlanes.getTitulo(),
@@ -152,6 +159,27 @@ public class FragmentMisPlanes extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
     }
+
+
+    public void verBloquePlanes(int id){
+
+        Intent intent = new Intent(getActivity(), PlanesBloquesActivity.class);
+        intent.putExtra("ID", id);
+        someActivityResultLauncher.launch(intent);
+    }
+
+
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+
+                // DE ACTIVITY PlanesBloquesActivity.class
+                //
+                if(result.getResultCode() == ID_INTENT_RETORNO_10){
+
+                }
+
+            });
 
 
 

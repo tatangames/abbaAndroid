@@ -30,6 +30,10 @@ public class ModeloPlanes {
     @SerializedName("descripcion")
     public String descripcion;
 
+    @SerializedName("idplan")
+    public int idplan;
+
+
 
     public ModeloPlanes(Integer id, String imagen, Integer barraProgreso, String titulo, String subtitulo) {
         this.id = id;
@@ -39,7 +43,9 @@ public class ModeloPlanes {
         this.subtitulo = subtitulo;
     }
 
-
+    public int getIdplan() {
+        return idplan;
+    }
 
     public String getImagenportada() {
         return imagenportada;
