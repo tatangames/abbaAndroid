@@ -40,6 +40,7 @@ public class ModeloPlanes {
     }
 
 
+
     public String getImagenportada() {
         return imagenportada;
     }

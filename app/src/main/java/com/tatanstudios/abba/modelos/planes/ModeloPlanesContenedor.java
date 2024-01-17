@@ -18,6 +18,22 @@ public class ModeloPlanesContenedor {
     @SerializedName("listaplanes")
     public List<ModeloPlanes> modeloPlanes;
 
+
+    @SerializedName("listacontinuar")
+    public List<ModeloPlanes> modeloPlanesContinuar;
+
+    @SerializedName("haycontinuar")
+    public int haycontinuar;
+
+
+    public List<ModeloPlanes> getModeloPlanesContinuar() {
+        return modeloPlanesContinuar;
+    }
+
+    public int getHaycontinuar() {
+        return haycontinuar;
+    }
+
     public int getSuccess() {
         return success;
     }

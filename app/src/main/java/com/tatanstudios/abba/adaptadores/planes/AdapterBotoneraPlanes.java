@@ -33,18 +33,24 @@ public class AdapterBotoneraPlanes extends RecyclerView.Adapter<AdapterBotoneraP
 
     public AdapterBotoneraPlanes(){}
 
-    private ColorStateList colorStateGrey, colorStateWhite;
+    private int botonSeleccionado = 0;
 
-    public AdapterBotoneraPlanes(Context context, List<ModeloBotoneraPlanes> modeloBotoneraPlanes, FragmentPlanes fragmentPlanes) {
+    private ColorStateList colorStateGrey, colorStateWhite, colorStateBlack;
+
+    private int tema;
+
+    public AdapterBotoneraPlanes(Context context, List<ModeloBotoneraPlanes> modeloBotoneraPlanes, FragmentPlanes fragmentPlanes, int tema) {
         this.context = context;
         this.modeloBotoneraPlanes = modeloBotoneraPlanes;
         this.fragmentPlanes = fragmentPlanes;
 
         int colorGris = ContextCompat.getColor(context, R.color.colorGrisBtnDisable);
         int colorBlanco = ContextCompat.getColor(context, R.color.white);
+        int colorNegro = ContextCompat.getColor(context, R.color.black);
 
         colorStateGrey = ColorStateList.valueOf(colorGris);
         colorStateWhite = ColorStateList.valueOf(colorBlanco);
+        colorStateBlack = ColorStateList.valueOf(colorNegro);
     }
 
     @NonNull
@@ -60,10 +66,36 @@ public class AdapterBotoneraPlanes extends RecyclerView.Adapter<AdapterBotoneraP
 
         holder.btnPlanes.setText(modeloBotoneraPlanes.get(position).getTexto());
 
-        holder.btnPlanes.setBackgroundTintList(colorStateGrey);
-        holder.btnPlanes.setTextColor(colorStateWhite);
+        if (position == botonSeleccionado) {
+            // boton seleccionado
+
+            if(tema == 1){ // dark
+                holder.btnPlanes.setBackgroundTintList(colorStateWhite);
+                holder.btnPlanes.setTextColor(colorStateBlack);
+            }else{
+                holder.btnPlanes.setBackgroundTintList(colorStateBlack);
+                holder.btnPlanes.setTextColor(colorStateWhite);
+            }
+
+
+        } else {
+            // boton no seleccionado
+
+            if(tema == 1){ // dark
+                holder.btnPlanes.setBackgroundTintList(colorStateGrey);
+                holder.btnPlanes.setTextColor(colorStateWhite);
+            }else{
+                holder.btnPlanes.setBackgroundTintList(colorStateGrey);
+                holder.btnPlanes.setTextColor(colorStateWhite);
+            }
+        }
+
+
 
         holder.btnPlanes.setOnClickListener(v ->{
+
+            botonSeleccionado = position;
+            notifyDataSetChanged();
 
             int id = modeloBotoneraPlanes.get(position).getId();
             fragmentPlanes.tipoPlan(id);
@@ -88,8 +120,6 @@ public class AdapterBotoneraPlanes extends RecyclerView.Adapter<AdapterBotoneraP
 
             btnPlanes = itemView.findViewById(R.id.btnItem);
         }
-
-
     }
 
 }

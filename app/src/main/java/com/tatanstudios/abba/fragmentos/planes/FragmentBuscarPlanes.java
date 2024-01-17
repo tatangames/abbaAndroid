@@ -109,10 +109,11 @@ public class FragmentBuscarPlanes extends Fragment {
                                                             arrayPlanes.getTitulo(),
                                                             arrayPlanes.getSubtitulo()
                                                     )));
-
-                                                    completarAdapter();
                                                 }
                                             }
+
+                                            completarAdapter();
+
                                         }
                                         else{
                                             mensajeSinConexion();

@@ -58,7 +58,7 @@
 
     <!-- ICONOS DE RECYCLER VIEW, FRAGMENT AJUSTES -->
     <color name="colorIconoVector">#000000</color>
-
+    <color name="colorProgressBarPlanes">#7b7b7d</color>
 
 
 

@@ -1,12 +1,10 @@
 package com.tatanstudios.abba.adaptadores.planes.buscarplanes;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -20,24 +18,23 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.tatanstudios.abba.R;
-import com.tatanstudios.abba.fragmentos.menu.FragmentMas;
 import com.tatanstudios.abba.fragmentos.planes.FragmentBuscarPlanes;
-import com.tatanstudios.abba.modelos.mas.ModeloFraMasConfig;
-import com.tatanstudios.abba.modelos.mas.ModeloFraMasPerfil;
+import com.tatanstudios.abba.fragmentos.planes.FragmentMisPlanes;
 import com.tatanstudios.abba.modelos.mas.ModeloFragmentMas;
 import com.tatanstudios.abba.modelos.planes.ModeloPlanes;
 import com.tatanstudios.abba.modelos.planes.ModeloPlanesTitulo;
+import com.tatanstudios.abba.modelos.planes.misplanes.ModeloVistasMisPlanes;
 import com.tatanstudios.abba.modelos.planes.planesmodelo.ModeloVistasBuscarPlanes;
 import com.tatanstudios.abba.network.RetrofitBuilder;
 
 import java.util.ArrayList;
 
-public class AdaptadorBuscarNuevosPlanes extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
+public class AdaptadorMisPlanes extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
 
     private Context context;
-    public ArrayList<ModeloVistasBuscarPlanes> modeloVistasBuscarPlanes;
-    private FragmentBuscarPlanes fragmentBuscarPlanes;
+    public ArrayList<ModeloVistasMisPlanes> modeloVistasMisPlanes;
+    private FragmentMisPlanes fragmentMisPlanes;
 
     RequestOptions opcionesGlide = new RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -45,10 +42,10 @@ public class AdaptadorBuscarNuevosPlanes extends RecyclerView.Adapter<RecyclerVi
             .placeholder(R.drawable.camaradefecto)
             .priority(Priority.NORMAL);
 
-    public AdaptadorBuscarNuevosPlanes(Context context, ArrayList<ModeloVistasBuscarPlanes> modeloVistasBuscarPlanes, FragmentBuscarPlanes fragmentBuscarPlanes){
+    public AdaptadorMisPlanes(Context context, ArrayList<ModeloVistasMisPlanes> modeloVistasMisPlanes, FragmentMisPlanes fragmentMisPlanes){
         this.context = context;
-        this.fragmentBuscarPlanes = fragmentBuscarPlanes;
-        this.modeloVistasBuscarPlanes = modeloVistasBuscarPlanes;
+        this.fragmentMisPlanes = fragmentMisPlanes;
+        this.modeloVistasMisPlanes = modeloVistasMisPlanes;
     }
 
     @NonNull
@@ -57,12 +54,12 @@ public class AdaptadorBuscarNuevosPlanes extends RecyclerView.Adapter<RecyclerVi
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
-        if (viewType == ModeloVistasBuscarPlanes.TIPO_TITULO) {
-            View view = inflater.inflate(R.layout.cardview_titulo_buscar_planes, parent, false);
-            return new HolderVistaTitulo(view);
+        if (viewType == ModeloVistasMisPlanes.TIPO_CONTINUAR) {
+            View view = inflater.inflate(R.layout.cardview_mis_planes_continuar, parent, false);
+            return new HolderVistaPlanesContinuar(view);
 
         } else if (viewType == ModeloVistasBuscarPlanes.TIPO_PLANES) {
-            View view = inflater.inflate(R.layout.cardview_buscar_planes, parent, false);
+            View view = inflater.inflate(R.layout.cardview_mis_planes, parent, false);
             return new HolderVistaPlanes(view);
         }
 
@@ -72,16 +69,30 @@ public class AdaptadorBuscarNuevosPlanes extends RecyclerView.Adapter<RecyclerVi
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        ModeloVistasBuscarPlanes modelo = modeloVistasBuscarPlanes.get(position);
+        ModeloVistasMisPlanes modelo = modeloVistasMisPlanes.get(position);
 
-        if (holder instanceof HolderVistaTitulo) {
+        if (holder instanceof HolderVistaPlanesContinuar) {
             // Configurar el ViewHolder para un ítem normal
-            ModeloPlanesTitulo m = modelo.getModeloPlanesTitulo();
+            ModeloPlanes m = modelo.getModeloPlanes();
 
-            ((HolderVistaTitulo) holder).txtTitulo.setText(m.getTitulo());
+            // La imagen es la portada, pero se obtiene por imagen
+            if(m.getImagen() != null && !TextUtils.isEmpty(m.getImagen())){
+                Glide.with(context)
+                        .load(RetrofitBuilder.urlImagenes + m.getImagen())
+                        .apply(opcionesGlide)
+                        .into(((HolderVistaPlanesContinuar) holder).imgPlan);
+            }else{
+                int resourceId = R.drawable.camaradefecto;
+                Glide.with(context)
+                        .load(resourceId)
+                        .apply(opcionesGlide)
+                        .into(((HolderVistaPlanesContinuar) holder).imgPlan);
+            }
 
-            ((HolderVistaTitulo) holder).imgFlechaDerecha.setOnClickListener(view -> {
-                fragmentBuscarPlanes.verTodoPlanesContenedor(m.getId(), m.getTitulo());
+            ((HolderVistaPlanesContinuar) holder).txtTitulo.setText(m.getTitulo());
+
+            holder.itemView.setOnClickListener(v -> {
+                //fragmentBuscarPlanes.verPlanSeleccionado(m.getId());
             });
 
         }
@@ -104,35 +115,39 @@ public class AdaptadorBuscarNuevosPlanes extends RecyclerView.Adapter<RecyclerVi
             }
 
 
-            if(m.getSubtitulo() != null && !TextUtils.isEmpty(m.getSubtitulo())){
-                ((HolderVistaPlanes) holder).txtSubTitulo.setText(m.getSubtitulo());
-                ((HolderVistaPlanes) holder).txtSubTitulo.setVisibility(View.VISIBLE);
+            ((HolderVistaPlanes) holder).txtTitulo.setText(m.getTitulo());
+
+            // FALTA AJUSTARLA
+            if(m.getBarraProgreso() == 1){
+                ((HolderVistaPlanes) holder).progressBar.setVisibility(View.VISIBLE);
             }else{
-                ((HolderVistaPlanes) holder).txtSubTitulo.setVisibility(View.INVISIBLE);
+                ((HolderVistaPlanes) holder).progressBar.setVisibility(View.GONE);
             }
 
-            ((HolderVistaPlanes) holder).txtTitulo.setText(m.getTitulo());
-            ((HolderVistaPlanes) holder).btnVer.setText(context.getString(R.string.ver));
+
 
             holder.itemView.setOnClickListener(v -> {
-                fragmentBuscarPlanes.verPlanSeleccionado(m.getId());
+                //fragmentBuscarPlanes.verPlanSeleccionado(m.getId());
             });
+
+
+
         }
     }
 
 
 
     // HOLDER PARA VISTA TITULO
-    private static class HolderVistaTitulo extends RecyclerView.ViewHolder{
+    private static class HolderVistaPlanesContinuar extends RecyclerView.ViewHolder{
 
+        private ShapeableImageView imgPlan;
         private TextView txtTitulo;
-        private ImageView imgFlechaDerecha;
 
-        public HolderVistaTitulo(@NonNull View itemView) {
+        public HolderVistaPlanesContinuar(@NonNull View itemView) {
             super(itemView);
 
-            txtTitulo = itemView.findViewById(R.id.textViewTitulo);
-            imgFlechaDerecha = itemView.findViewById(R.id.flechaVerTodos);
+            imgPlan = itemView.findViewById(R.id.imageView);
+            txtTitulo = itemView.findViewById(R.id.txtTitulo);
 
         }
     }
@@ -144,8 +159,7 @@ public class AdaptadorBuscarNuevosPlanes extends RecyclerView.Adapter<RecyclerVi
 
         private ShapeableImageView imgPlan;
         private TextView txtTitulo;
-        private TextView txtSubTitulo;
-        private TextView btnVer;
+        private ProgressBar progressBar;
 
         public HolderVistaPlanes(@NonNull View itemView) {
             super(itemView);
@@ -153,27 +167,23 @@ public class AdaptadorBuscarNuevosPlanes extends RecyclerView.Adapter<RecyclerVi
 
             imgPlan = itemView.findViewById(R.id.imageView);
             txtTitulo = itemView.findViewById(R.id.txtTitulo);
-            txtSubTitulo = itemView.findViewById(R.id.txtSubtitulo);
-            btnVer = itemView.findViewById(R.id.txtVer);
+            progressBar = itemView.findViewById(R.id.progressBar);
 
         }
     }
 
     @Override
     public int getItemCount() {
-        if(modeloVistasBuscarPlanes != null){
-            return modeloVistasBuscarPlanes.size();
+        if(modeloVistasMisPlanes != null){
+            return modeloVistasMisPlanes.size();
         }else{
             return 0;
         }
     }
 
     public int getItemViewType(int position) {
-        return modeloVistasBuscarPlanes.get(position).getTipoVista();
+        return modeloVistasMisPlanes.get(position).getTipoVista();
     }
-
-
-
 
 
 

@@ -114,6 +114,11 @@ public interface ApiService {
                                                                @Field("iduser") String iduser);
 
 
+    // listado de mis planes seleccionado
+    @POST("app/plan/listado/misplanes")
+    @FormUrlEncoded
+    Observable<ModeloPlanesContenedor> listadoMisPlanes(@Field("iduser") String iduser,
+                                                   @Field("idiomaplan") int idiomaplan);
 
 
 }
