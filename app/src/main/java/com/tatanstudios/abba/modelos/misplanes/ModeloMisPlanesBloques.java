@@ -29,6 +29,18 @@ public class ModeloMisPlanesBloques {
     public List<ModeloMisPlanesBloqueDetalle> modeloMisPlanesBloqueDetalles;
 
 
+    private boolean estaPresionado;
+
+
+    public boolean getEstaPresionado() {
+        return estaPresionado;
+    }
+
+    public void setEstaPresionado(boolean estaPresionado) {
+        this.estaPresionado = estaPresionado;
+    }
+
+
     public int getId() {
         return id;
     }

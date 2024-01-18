@@ -13,10 +13,23 @@ public class ModeloMisPlanesContenedor {
     @SerializedName("portada")
     private String imagenPortada;
 
+    @SerializedName("haydiaactual")
+    private int hayDiaActual;
+
+    @SerializedName("idultimobloque")
+    private int idUltimoBloque;
 
     @SerializedName("listado")
     public List<ModeloMisPlanesBloques> modeloMisPlanesBloques;
 
+
+    public int getHayDiaActual() {
+        return hayDiaActual;
+    }
+
+    public int getIdUltimoBloque() {
+        return idUltimoBloque;
+    }
 
     public int getSuccess() {
         return success;

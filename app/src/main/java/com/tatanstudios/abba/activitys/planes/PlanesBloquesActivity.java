@@ -73,8 +73,6 @@ public class PlanesBloquesActivity extends AppCompatActivity {
     private AdaptadorBloqueHorizontal adapterHorizontal;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,6 +130,7 @@ public class PlanesBloquesActivity extends AppCompatActivity {
 
         int idiomaPlan = tokenManager.getToken().getIdiomaTextos();
         String iduser = tokenManager.getToken().getId();
+        int tema = tokenManager.getToken().getTema();
 
         compositeDisposable.add(
                 service.informacionPlanBloque(iduser, idiomaPlan, idPlan)
@@ -145,8 +144,11 @@ public class PlanesBloquesActivity extends AppCompatActivity {
 
                                         if(apiRespuesta.getSuccess() == 1) {
 
+                                            int hayDiaActual = apiRespuesta.getHayDiaActual();
+                                            int idUltimoBloque = apiRespuesta.getIdUltimoBloque();
 
-                                            adapterHorizontal = new AdaptadorBloqueHorizontal(this, apiRespuesta.getModeloMisPlanesBloques());
+                                            adapterHorizontal = new AdaptadorBloqueHorizontal(this, apiRespuesta.getModeloMisPlanesBloques(), recyclerViewHorizontal, tema,
+                                                    hayDiaActual, idUltimoBloque, this);
                                             recyclerViewHorizontal.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
                                             recyclerViewHorizontal.setAdapter(adapterHorizontal);
 
@@ -164,6 +166,7 @@ public class PlanesBloquesActivity extends AppCompatActivity {
                                 })
         );
     }
+
 
 
     RequestOptions opcionesGlide = new RequestOptions()
@@ -216,6 +219,10 @@ public class PlanesBloquesActivity extends AppCompatActivity {
         /*adapterVertical = new AdaptadorVertical(obtenerItemsVertical());
         recyclerViewVertical.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerViewVertical.setAdapter(adapterVertical);*/
+    }
+
+    public void calcular(){
+        adapterHorizontal.notifyDataSetChanged();
     }
 
 
