@@ -18,10 +18,6 @@ public class ModeloMisPlanesContenedor {
     public List<ModeloMisPlanesBloques> modeloMisPlanesBloques;
 
 
-
-
-
-
     public int getSuccess() {
         return success;
     }

@@ -16,16 +16,16 @@ public class ModeloVistasPlanesbloques {
 
     public ModeloMisPlanesPortada modeloMisPlanesPortada;
     public ModeloMisPlanesReHorizontal modeloMisPlanesReHorizontal;
-    public ModeloMisPlanesReVertical modeloMisPlanesReVertical;
+  //  public ModeloMisPlanesReVertical modeloMisPlanesReVertical;
 
     public ModeloVistasPlanesbloques(int tipoVista, ModeloMisPlanesPortada modeloMisPlanesPortada,
-                                     ModeloMisPlanesReHorizontal modeloMisPlanesReHorizontal,
-                                     ModeloMisPlanesReVertical modeloMisPlanesReVertical
+                                     ModeloMisPlanesReHorizontal modeloMisPlanesReHorizontal
+
     ) {
         this.tipoVista = tipoVista;
         this.modeloMisPlanesPortada = modeloMisPlanesPortada;
         this.modeloMisPlanesReHorizontal = modeloMisPlanesReHorizontal;
-        this.modeloMisPlanesReVertical = modeloMisPlanesReVertical;
+
     }
 
     public int getTipoVista() {
@@ -40,9 +40,9 @@ public class ModeloVistasPlanesbloques {
         return modeloMisPlanesReHorizontal;
     }
 
-    public ModeloMisPlanesReVertical getModeloMisPlanesReVertical() {
+   /* public ModeloMisPlanesReVertical getModeloMisPlanesReVertical() {
         return modeloMisPlanesReVertical;
-    }
+    }*/
 
     public void setTipoVista(int tipoVista) {
         this.tipoVista = tipoVista;
