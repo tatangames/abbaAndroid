@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tatanstudios.abba.R;
 import com.tatanstudios.abba.activitys.planes.PlanesBloquesActivity;
+import com.tatanstudios.abba.modelos.misplanes.ModeloMisPlanesBloqueDetalle;
 import com.tatanstudios.abba.modelos.misplanes.ModeloMisPlanesBloques;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class AdaptadorBloqueHorizontal extends RecyclerView.Adapter<AdaptadorBlo
 
     private PlanesBloquesActivity planesBloquesActivity;
 
-    private boolean primerDrawableGris, primerBloqueDrawable = true;
+    private boolean primerBloqueDrawable = true;
 
     public AdaptadorBloqueHorizontal(Context context, List<ModeloMisPlanesBloques>
             modeloMisPlanesBloques, RecyclerView recyclerView, int tema, int hayDiaActual, int idUltimoBloque,
@@ -78,7 +79,9 @@ public class AdaptadorBloqueHorizontal extends RecyclerView.Adapter<AdaptadorBlo
                     // TEMA DARK
 
 
-
+                    holder.constraintLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.caja_dark_white_on));
+                    holder.txtFecha.setBackground(ContextCompat.getDrawable(context, R.drawable.caja_redondeado_gris));
+                    holder.txtFecha.setTextColor(colorStateWhite);
 
 
                 }else{
@@ -88,8 +91,6 @@ public class AdaptadorBloqueHorizontal extends RecyclerView.Adapter<AdaptadorBlo
                     holder.constraintLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.caja_light_negro_on));
                     holder.txtFecha.setBackground(ContextCompat.getDrawable(context, R.drawable.caja_redondeado_gris));
                     holder.txtFecha.setTextColor(colorStateWhite);
-
-
 
                 }
 
@@ -107,12 +108,22 @@ public class AdaptadorBloqueHorizontal extends RecyclerView.Adapter<AdaptadorBlo
                                 holder.constraintLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.caja_dark_white_on));
                                 holder.txtFecha.setBackground(ContextCompat.getDrawable(context, R.drawable.caja_redondeado_gris));
                                 holder.txtFecha.setTextColor(colorStateWhite);
+
+                                planesBloquesActivity.llenarDatosAdapterVertical(modeloMisPlanesBloques.get(position).getModeloMisPlanesBloqueDetalles());
+
+                            }else{
+                                holder.constraintLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.caja_dark_gris_off));
+                                holder.txtFecha.setTextColor(colorStateWhite);
+                                holder.txtFecha.setBackground(ContextCompat.getDrawable(context, R.drawable.caja_redondeado_vacia));
                             }
 
                         }else{
                             holder.constraintLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.caja_dark_gris_off));
                             holder.txtFecha.setTextColor(colorStateWhite);
+                            holder.txtFecha.setBackground(ContextCompat.getDrawable(context, R.drawable.caja_redondeado_vacia));
                         }
+
+
                     }else{
                         if(idUltimoBloque == m.getId()){
                             if(primerBloqueDrawable){
@@ -120,10 +131,18 @@ public class AdaptadorBloqueHorizontal extends RecyclerView.Adapter<AdaptadorBlo
                                 holder.constraintLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.caja_dark_white_on));
                                 holder.txtFecha.setBackground(ContextCompat.getDrawable(context, R.drawable.caja_redondeado_gris));
                                 holder.txtFecha.setTextColor(colorStateWhite);
+
+                                planesBloquesActivity.llenarDatosAdapterVertical(modeloMisPlanesBloques.get(position).getModeloMisPlanesBloqueDetalles());
+
+                            }else{
+                                holder.constraintLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.caja_dark_gris_off));
+                                holder.txtFecha.setTextColor(colorStateWhite);
+                                holder.txtFecha.setBackground(ContextCompat.getDrawable(context, R.drawable.caja_redondeado_vacia));
                             }
                         }else{
                             holder.constraintLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.caja_dark_gris_off));
                             holder.txtFecha.setTextColor(colorStateWhite);
+                            holder.txtFecha.setBackground(ContextCompat.getDrawable(context, R.drawable.caja_redondeado_vacia));
                         }
                     }
 
@@ -139,6 +158,9 @@ public class AdaptadorBloqueHorizontal extends RecyclerView.Adapter<AdaptadorBlo
                                 holder.constraintLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.caja_light_negro_on));
                                 holder.txtFecha.setBackground(ContextCompat.getDrawable(context, R.drawable.caja_redondeado_gris));
                                 holder.txtFecha.setTextColor(colorStateWhite);
+
+                                planesBloquesActivity.llenarDatosAdapterVertical(modeloMisPlanesBloques.get(position).getModeloMisPlanesBloqueDetalles());
+
                             }else{
                                 holder.constraintLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.caja_light_gris_off));
                                 holder.txtFecha.setTextColor(colorStateBlack);
@@ -157,6 +179,9 @@ public class AdaptadorBloqueHorizontal extends RecyclerView.Adapter<AdaptadorBlo
                                 holder.constraintLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.caja_light_negro_on));
                                 holder.txtFecha.setBackground(ContextCompat.getDrawable(context, R.drawable.caja_redondeado_gris));
                                 holder.txtFecha.setTextColor(colorStateWhite);
+
+                                planesBloquesActivity.llenarDatosAdapterVertical(modeloMisPlanesBloques.get(position).getModeloMisPlanesBloqueDetalles());
+
                             }else{
                                 holder.constraintLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.caja_light_gris_off));
                                 holder.txtFecha.setTextColor(colorStateBlack);
@@ -172,22 +197,18 @@ public class AdaptadorBloqueHorizontal extends RecyclerView.Adapter<AdaptadorBlo
             }
 
 
-
         holder.txtContador.setText(String.valueOf(m.getContador()));
         holder.txtFecha.setText(m.getAbreviatura());
-
         holder.itemView.setOnClickListener(v -> {
 
             for (ModeloMisPlanesBloques modelo : modeloMisPlanesBloques) {
                 modelo.setEstaPresionado(false);
             }
 
+            planesBloquesActivity.llenarDatosAdapterVertical(modeloMisPlanesBloques.get(position).getModeloMisPlanesBloqueDetalles());
             m.setEstaPresionado(true);
-
             notifyDataSetChanged();
         });
-
-
     }
 
     @Override

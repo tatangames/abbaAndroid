@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -23,23 +24,12 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.tatanstudios.abba.R;
 import com.tatanstudios.abba.adaptadores.planes.bloques.AdaptadorBloqueHorizontal;
-import com.tatanstudios.abba.adaptadores.planes.bloques.AdaptadorPlanBloque;
-import com.tatanstudios.abba.adaptadores.planes.bloques.AdaptadorVertical;
-import com.tatanstudios.abba.adaptadores.planes.buscarplanes.AdaptadorBuscarNuevosPlanes;
-import com.tatanstudios.abba.adaptadores.planes.buscarplanes.AdaptadorPlanesContenedor;
-import com.tatanstudios.abba.fragmentos.planes.bloques.ItemModel;
-import com.tatanstudios.abba.fragmentos.planes.bloques.SubItemModel;
-import com.tatanstudios.abba.modelos.misplanes.ModeloMisPlanesBloques;
-import com.tatanstudios.abba.modelos.misplanes.ModeloMisPlanesContenedor;
-import com.tatanstudios.abba.modelos.misplanes.ModeloMisPlanesPortada;
-import com.tatanstudios.abba.modelos.misplanes.ModeloMisPlanesReHorizontal;
-import com.tatanstudios.abba.modelos.misplanes.ModeloMisPlanesReVertical;
-import com.tatanstudios.abba.modelos.misplanes.ModeloVistasPlanesbloques;
+import com.tatanstudios.abba.adaptadores.planes.bloques.AdaptadorBloqueVertical;
+import com.tatanstudios.abba.modelos.misplanes.ModeloMisPlanesBloqueDetalle;
 import com.tatanstudios.abba.network.ApiService;
 import com.tatanstudios.abba.network.RetrofitBuilder;
 import com.tatanstudios.abba.network.TokenManager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
@@ -71,7 +61,9 @@ public class PlanesBloquesActivity extends AppCompatActivity {
     private final int ID_INTENT_RETORNO_10 = 10;
 
     private AdaptadorBloqueHorizontal adapterHorizontal;
+    private AdaptadorBloqueVertical adapterVertical;
 
+    int tema = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +98,8 @@ public class PlanesBloquesActivity extends AppCompatActivity {
 
         onBackPressedDispatcher = getOnBackPressedDispatcher();
 
+        tema = tokenManager.getToken().getTema();
+
         imgFlechaAtras.setOnClickListener(v -> {
             volverAtrasActualizar();
         });
@@ -130,7 +124,6 @@ public class PlanesBloquesActivity extends AppCompatActivity {
 
         int idiomaPlan = tokenManager.getToken().getIdiomaTextos();
         String iduser = tokenManager.getToken().getId();
-        int tema = tokenManager.getToken().getTema();
 
         compositeDisposable.add(
                 service.informacionPlanBloque(iduser, idiomaPlan, idPlan)
@@ -190,80 +183,19 @@ public class PlanesBloquesActivity extends AppCompatActivity {
                     .apply(opcionesGlide)
                     .into(imgPortada);
         }
-
-
-
-
-
-
-
-
-
-
-        /*adapter = new AdaptadorPlanBloque(this, new ArrayList<>());
-
-        // Configura el RecyclerView con el adaptador
-        recyclerViewHorizontal.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewHorizontal.setAdapter(adapter);
-
-        List<ItemModel> datos = obtenerDatosDeEjemplo();
-
-        adapter.actualizarDatos(datos);
-
-
-        setearAdapterVertical();*/
     }
 
     private void setearAdapterVertical(){
 
-        /*adapterVertical = new AdaptadorVertical(obtenerItemsVertical());
+
+    }
+
+    public void llenarDatosAdapterVertical(List<ModeloMisPlanesBloqueDetalle> modeloMisPlanesBloqueDetalles){
+
+        adapterVertical = new AdaptadorBloqueVertical(this, modeloMisPlanesBloqueDetalles, this, tema);
         recyclerViewVertical.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recyclerViewVertical.setAdapter(adapterVertical);*/
+        recyclerViewVertical.setAdapter(adapterVertical);
     }
-
-    public void calcular(){
-        adapterHorizontal.notifyDataSetChanged();
-    }
-
-
-    // Método de ejemplo para obtener datos
-   /* private List<ItemModel> obtenerDatosDeEjemplo() {
-        // Retorna una lista de ItemModel con datos de ejemplo
-        // Puedes personalizar esto según tus necesidades reales
-        // Aquí estoy creando un ItemModel de tipo imagen y otro de tipo RecyclerView
-        List<ItemModel> datos = new ArrayList<>();
-        datos.add(new ItemModel(ItemModel.TIPO_IMAGEN,  R.drawable.edificios, null));
-        datos.add(new ItemModel(ItemModel.TIPO_RECYCLER, 0, obtenerSubItemsDeEjemplo()));
-        return datos;
-    }*/
-
-    // Método de ejemplo para obtener subítems
-    /*private List<SubItemModel> obtenerSubItemsDeEjemplo() {
-        // Retorna una lista de SubItemModel con datos de ejemplo
-        // Puedes personalizar esto según tus necesidades reales
-        List<SubItemModel> subItems = new ArrayList<>();
-        subItems.add(new SubItemModel("Subítem 1"));
-        subItems.add(new SubItemModel("Subítem 2"));
-        // Agrega más subítems según sea necesario
-        return subItems;
-    }*/
-
-
-
-   /* private List<ModeloMisPlanesReVertical> obtenerItemsVertical() {
-
-        List<ModeloMisPlanesReVertical> subItems = new ArrayList<>();
-        subItems.add(new ModeloMisPlanesReVertical(1, 0, "Items 1"));
-        subItems.add(new ModeloMisPlanesReVertical(2, 0, "Items 2"));
-        subItems.add(new ModeloMisPlanesReVertical(1, 0, "Items 1"));
-        subItems.add(new ModeloMisPlanesReVertical(2, 0, "Items 2"));
-        subItems.add(new ModeloMisPlanesReVertical(1, 0, "Items 1"));
-        subItems.add(new ModeloMisPlanesReVertical(2, 0, "Items 2"));
-        subItems.add(new ModeloMisPlanesReVertical(1, 0, "Items 1"));
-        subItems.add(new ModeloMisPlanesReVertical(2, 0, "Items 2"));
-        // Agrega más subítems según sea necesario
-        return subItems;
-    }*/
 
 
 
