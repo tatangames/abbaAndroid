@@ -17,11 +17,18 @@ public class ModeloMisPlanesBloqueDetalle {
     private String titulo;
 
 
+
+
     public ModeloMisPlanesBloqueDetalle(int id, int completado, int posicion, String titulo) {
         this.id = id;
         this.completado = completado;
         this.posicion = posicion;
         this.titulo = titulo;
+    }
+
+
+    public void setCompletado(int completado) {
+        this.completado = completado;
     }
 
     public int getId() {

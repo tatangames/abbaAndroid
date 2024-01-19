@@ -65,6 +65,8 @@ public class PlanesBloquesActivity extends AppCompatActivity {
 
     int tema = 0;
 
+    private boolean puedeActualizarCheck;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,6 +101,7 @@ public class PlanesBloquesActivity extends AppCompatActivity {
         onBackPressedDispatcher = getOnBackPressedDispatcher();
 
         tema = tokenManager.getToken().getTema();
+        puedeActualizarCheck = true;
 
         imgFlechaAtras.setOnClickListener(v -> {
             volverAtrasActualizar();
@@ -185,10 +188,7 @@ public class PlanesBloquesActivity extends AppCompatActivity {
         }
     }
 
-    private void setearAdapterVertical(){
 
-
-    }
 
     public void llenarDatosAdapterVertical(List<ModeloMisPlanesBloqueDetalle> modeloMisPlanesBloqueDetalles){
 
@@ -199,7 +199,30 @@ public class PlanesBloquesActivity extends AppCompatActivity {
 
 
 
+    public void actualizarCheck(int blockDeta, int valor){
 
+        if(puedeActualizarCheck){
+            puedeActualizarCheck = false;
+
+            String iduser = tokenManager.getToken().getId();
+
+            // NO TENDRA RETRY
+            compositeDisposable.add(
+                    service.actualizarPlanBloqueDetalle(iduser, blockDeta, valor)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(apiRespuesta -> {
+
+                                        puedeActualizarCheck = true;
+
+                                    },
+                                    throwable -> {
+                                        puedeActualizarCheck = true;
+                                        mensajeSinConexion();
+                                    })
+            );
+        }
+    }
 
 
 

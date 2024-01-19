@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -65,8 +66,6 @@ public class AdaptadorBloqueVertical extends RecyclerView.Adapter<AdaptadorBloqu
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ModeloMisPlanesBloqueDetalle m = modeloMisPlanesBloqueDetalles.get(position);
 
-
-
         if(tema){ // DARK
             holder.txtTitulo.setTextColor(colorStateWhite);
             int colorTint = ContextCompat.getColor(context, R.color.white);
@@ -77,10 +76,23 @@ public class AdaptadorBloqueVertical extends RecyclerView.Adapter<AdaptadorBloqu
             CompoundButtonCompat.setButtonTintList(holder.idCheck, ColorStateList.valueOf(colorTint));
         }
 
+        if(m.getCompletado() == 1){
+            holder.idCheck.setChecked(true);
+        }else{
+            holder.idCheck.setChecked(false);
+        }
 
         holder.txtTitulo.setText(m.getTitulo());
-        holder.itemView.setOnClickListener(v -> {
+        holder.idCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
+                int valor = 0;
+                if(isChecked){ valor = 1; }
+                m.setCompletado(valor);
+
+                planesBloquesActivity.actualizarCheck(m.getId(), valor);
+            }
         });
     }
 

@@ -129,6 +129,14 @@ public interface ApiService {
                                                                 @Field("idiomaplan") int idiomaplan,
                                                                 @Field("idplan") int idplan);
 
+    // guardar check o actualizar bloque detalle plan
+    @POST("app/plan/misplanes/actualizar/check")
+    @FormUrlEncoded
+    Observable<ModeloUsuario> actualizarPlanBloqueDetalle(@Field("iduser") String iduser,
+                                                                @Field("idblockdeta") int idBlockDeta,
+                                                                @Field("valor") int valor);
+
+
 
 
 
