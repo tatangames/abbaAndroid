@@ -1,9 +1,15 @@
 package com.tatanstudios.abba.fragmentos.planes.cuestionario;
 
 import static android.content.Context.MODE_PRIVATE;
+import static android.text.Html.FROM_HTML_MODE_COMPACT;
 
+import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +21,9 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tatanstudios.abba.R;
-import com.tatanstudios.abba.modelos.planes.ModeloPlanes;
-import com.tatanstudios.abba.modelos.planes.misplanes.ModeloVistasMisPlanes;
+import androidx.core.text.HtmlCompat;
 import com.tatanstudios.abba.network.ApiService;
 import com.tatanstudios.abba.network.RetrofitBuilder;
 import com.tatanstudios.abba.network.TokenManager;
@@ -32,6 +38,8 @@ public class FragmentCuestionarioPlanBloque extends Fragment {
 
     private ProgressBar progressBar;
     private TokenManager tokenManager;
+
+    private FloatingActionButton fabButton;
 
     private ApiService service;
     private RelativeLayout rootRelative;
@@ -53,10 +61,11 @@ public class FragmentCuestionarioPlanBloque extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View vista = inflater.inflate(R.layout.fragment_cuestionario_plan_bloque, container, false);
+        View vista = inflater.inflate(R.layout.fragment_cuestionario_plan_bloque_contenedor, container, false);
 
         rootRelative = vista.findViewById(R.id.rootRelative);
-        txtHtml = vista.findViewById(R.id.txtSinPlanes);
+        txtHtml = vista.findViewById(R.id.txtCuestionario);
+        //fabButton = vista.findViewById(R.id.fabButton);
 
         tokenManager = TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE));
         service = RetrofitBuilder.createServiceAutentificacion(ApiService.class, tokenManager);
@@ -71,6 +80,9 @@ public class FragmentCuestionarioPlanBloque extends Fragment {
         rootRelative.addView(progressBar, params);
         // Aplicar el ColorFilter al Drawable del ProgressBar
         progressBar.getIndeterminateDrawable().setColorFilter(colorProgress, PorterDuff.Mode.SRC_IN);
+
+
+       // fabButton.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.white)));
 
 
         apiBuscarCuestionario();
@@ -98,7 +110,10 @@ public class FragmentCuestionarioPlanBloque extends Fragment {
                                         if(apiRespuesta.getSuccess() == 1) {
 
 
-
+                                            setearTexto(apiRespuesta.getTitulo());
+                                        }
+                                        else if(apiRespuesta.getSuccess() == 2) {
+                                            // BLOQUE NO TIENE CUESTIONARIO
 
                                         }
                                         else{
@@ -115,6 +130,14 @@ public class FragmentCuestionarioPlanBloque extends Fragment {
     }
 
 
+    private void setearTexto(String texto){
+
+        if(texto != null){
+            if(!TextUtils.isEmpty(texto)){
+                txtHtml.setText(HtmlCompat.fromHtml(texto, HtmlCompat.FROM_HTML_MODE_LEGACY));
+            }
+        }
+    }
 
 
     private void mensajeSinConexion(){

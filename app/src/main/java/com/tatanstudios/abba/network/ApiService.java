@@ -5,6 +5,7 @@ import com.tatanstudios.abba.modelos.perfil.ModeloAjustes;
 import com.tatanstudios.abba.modelos.planes.ModeloPlanes;
 import com.tatanstudios.abba.modelos.planes.ModeloPlanesContenedor;
 import com.tatanstudios.abba.modelos.planes.ModeloPlanesTitulo;
+import com.tatanstudios.abba.modelos.planes.cuestionario.ModeloCuestionario;
 import com.tatanstudios.abba.modelos.usuario.ModeloUsuario;
 
 import io.reactivex.Observable;
@@ -140,9 +141,9 @@ public interface ApiService {
     // buscar informacion del cuestionario de cada bloque detalle
     @POST("app/plan/misplanes/cuestionario/bloque")
     @FormUrlEncoded
-    Observable<ModeloUsuario> informacionCuestionarioBloqueDetalle(@Field("iduser") String iduser,
-                                                                   @Field("idblockdeta") int idBlockDeta,
-                                                                   @Field("idioma") int idioma);
+    Observable<ModeloCuestionario> informacionCuestionarioBloqueDetalle(@Field("iduser") String iduser,
+                                                                        @Field("idblockdeta") int idBlockDeta,
+                                                                        @Field("idioma") int idioma);
 
 
 

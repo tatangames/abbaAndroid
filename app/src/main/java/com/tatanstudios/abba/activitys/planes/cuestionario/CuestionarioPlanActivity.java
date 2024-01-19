@@ -22,7 +22,6 @@ public class CuestionarioPlanActivity extends AppCompatActivity {
 
     private int tabStrokeColor, tabTextColor, colorPrimary;
 
-    private int numberOfItemsToShow;
 
     private int idBloqueDeta = 0;
     private int idTienePreguntas = 0;
@@ -38,13 +37,11 @@ public class CuestionarioPlanActivity extends AppCompatActivity {
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
 
 
-
         if (getIntent().getExtras() != null) {
             Bundle bundle = getIntent().getExtras();
             idBloqueDeta = bundle.getInt("IDBLOQUE");
             idTienePreguntas = bundle.getInt("PREGUNTAS");
         }
-
 
 
         int cantidadFragment = 1;
