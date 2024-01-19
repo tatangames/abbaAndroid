@@ -78,10 +78,6 @@ public class AdaptadorPlanBloque extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private void configurarRecyclerView(RecyclerView recyclerView, List<SubItemModel> subItems) {
 
-        Log.i("PORTADA", "entra");
-        for (SubItemModel m : subItems){
-            Log.i("PORTADA", "es: " + m.getSubItemTexto());
-        }
 
         RecyclerView.Adapter adaptadorInterno = new AdaptadorHorizontal(subItems);
         recyclerView.setAdapter(adaptadorInterno);

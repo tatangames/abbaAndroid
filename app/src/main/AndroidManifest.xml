@@ -17,6 +17,11 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activitys.planes.cuestionario.CuestionarioPlanActivity"
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activitys.planes.PlanesBloquesActivity"
             android:configChanges="uiMode"
             android:exported="false"

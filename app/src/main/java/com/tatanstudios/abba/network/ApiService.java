@@ -137,7 +137,12 @@ public interface ApiService {
                                                                 @Field("valor") int valor);
 
 
-
+    // buscar informacion del cuestionario de cada bloque detalle
+    @POST("app/plan/misplanes/cuestionario/bloque")
+    @FormUrlEncoded
+    Observable<ModeloUsuario> informacionCuestionarioBloqueDetalle(@Field("iduser") String iduser,
+                                                                   @Field("idblockdeta") int idBlockDeta,
+                                                                   @Field("idioma") int idioma);
 
 
 

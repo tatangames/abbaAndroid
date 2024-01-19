@@ -44,7 +44,6 @@ public class FragmentMisPlanes extends Fragment {
 
 
     private ProgressBar progressBar;
-
     private TokenManager tokenManager;
     private RecyclerView recyclerView;
     private ApiService service;

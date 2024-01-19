@@ -2,6 +2,8 @@ package com.tatanstudios.abba.activitys.planes;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.OnBackPressedDispatcher;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +25,7 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.tatanstudios.abba.R;
+import com.tatanstudios.abba.activitys.planes.cuestionario.CuestionarioPlanActivity;
 import com.tatanstudios.abba.adaptadores.planes.bloques.AdaptadorBloqueHorizontal;
 import com.tatanstudios.abba.adaptadores.planes.bloques.AdaptadorBloqueVertical;
 import com.tatanstudios.abba.modelos.misplanes.ModeloMisPlanesBloqueDetalle;
@@ -59,7 +62,7 @@ public class PlanesBloquesActivity extends AppCompatActivity {
     private OnBackPressedDispatcher onBackPressedDispatcher;
 
     private final int ID_INTENT_RETORNO_10 = 10;
-
+    private final int ID_INTENT_RETORNO_11 = 11;
     private AdaptadorBloqueHorizontal adapterHorizontal;
     private AdaptadorBloqueVertical adapterVertical;
 
@@ -190,7 +193,8 @@ public class PlanesBloquesActivity extends AppCompatActivity {
 
 
 
-    public void llenarDatosAdapterVertical(List<ModeloMisPlanesBloqueDetalle> modeloMisPlanesBloqueDetalles){
+    public void llenarDatosAdapterVertical(List<
+            ModeloMisPlanesBloqueDetalle> modeloMisPlanesBloqueDetalles){
 
         adapterVertical = new AdaptadorBloqueVertical(this, modeloMisPlanesBloqueDetalles, this, tema);
         recyclerViewVertical.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -225,8 +229,25 @@ public class PlanesBloquesActivity extends AppCompatActivity {
     }
 
 
+    public void redireccionarCuestionario(int idBlockDeta, int tienePreguntas){
 
+        Intent intent = new Intent(this, CuestionarioPlanActivity.class);
+        intent.putExtra("IDBLOQUE", idBlockDeta);
+        intent.putExtra("PREGUNTAS", tienePreguntas);
+        someActivityResultLauncher.launch(intent);
+    }
 
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+
+                // DE ACTIVITY CuestionarioPlanActivity
+                //
+                if(result.getResultCode() == ID_INTENT_RETORNO_11){
+
+                }
+
+            });
 
 
     private void volverAtrasActualizar(){

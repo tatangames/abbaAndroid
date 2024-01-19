@@ -16,16 +16,21 @@ public class ModeloMisPlanesBloqueDetalle {
     @SerializedName("titulo")
     private String titulo;
 
+    @SerializedName("tiene_preguntas")
+    private int tienePreguntas;
 
 
-
-    public ModeloMisPlanesBloqueDetalle(int id, int completado, int posicion, String titulo) {
+    public ModeloMisPlanesBloqueDetalle(int id, int completado, int posicion, String titulo, int tienePreguntas) {
         this.id = id;
         this.completado = completado;
         this.posicion = posicion;
         this.titulo = titulo;
+        this.tienePreguntas = tienePreguntas;
     }
 
+    public int getTienePreguntas() {
+        return tienePreguntas;
+    }
 
     public void setCompletado(int completado) {
         this.completado = completado;

@@ -94,6 +94,12 @@ public class AdaptadorBloqueVertical extends RecyclerView.Adapter<AdaptadorBloqu
                 planesBloquesActivity.actualizarCheck(m.getId(), valor);
             }
         });
+
+        holder.txtTitulo.setOnClickListener(v -> {
+            int idBlockDeta = m.getId();
+            int tienePreguntas = m.getTienePreguntas();
+            planesBloquesActivity.redireccionarCuestionario(idBlockDeta, tienePreguntas);
+        });
     }
 
     @Override

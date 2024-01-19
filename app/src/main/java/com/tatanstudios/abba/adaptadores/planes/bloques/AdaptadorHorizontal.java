@@ -40,15 +40,12 @@ public class AdaptadorHorizontal extends RecyclerView.Adapter<AdaptadorHorizonta
         holder.txtContador.setText("10");
         holder.txtFecha.setText("enero");
 
-        holder.itemView.setOnClickListener(v -> {
-            Log.i("PORTADA", "tocadp");
-        });
+
     }
 
     @Override
     public int getItemCount() {
 
-        Log.i("PORTADA", "conteo: " + subItems.size());
 
         return subItems.size();
     }
