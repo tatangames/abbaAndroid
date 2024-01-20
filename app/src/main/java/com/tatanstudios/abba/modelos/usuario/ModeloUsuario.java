@@ -34,10 +34,20 @@ public class ModeloUsuario {
     public String fechaNacimientoRaw;
 
 
-    public int tema;
-    public int idiomaApp; // 1: espanol, 2: ingles
-    public int idiomaTextos; // 1 espanol, 2: ingles
+    private int tema;
+    private int idiomaApp; // 1: espanol, 2: ingles
+    private int idiomaTextos; // 1 espanol, 2: ingles
 
+    private int tipoLetra;
+
+
+    public int getTipoLetra() {
+        return tipoLetra;
+    }
+
+    public void setTipoLetra(int tipoLetra) {
+        this.tipoLetra = tipoLetra;
+    }
 
     public int getIdiomaApp() {
         return idiomaApp;

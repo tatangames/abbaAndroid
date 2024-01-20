@@ -47,6 +47,9 @@ public class TokenManager {
         editor.putInt("IDIOMATEXTO", code).commit();
     }
 
+    public void guardarTipoLetraTexto(int code) {
+        editor.putInt("TIPOTEXTO", code).commit();
+    }
 
 
 
@@ -67,6 +70,7 @@ public class TokenManager {
         token.setIdiomaApp(prefs.getInt("IDIOMAAPP", 0));
         token.setIdiomaTextos(prefs.getInt("IDIOMATEXTO", 0));
         token.setToken(prefs.getString("TOKEN", ""));
+        token.setTipoLetra(prefs.getInt("TIPOTEXTO", 0));
         return token;
     }
 
