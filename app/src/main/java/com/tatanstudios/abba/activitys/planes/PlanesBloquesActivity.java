@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -70,6 +71,8 @@ public class PlanesBloquesActivity extends AppCompatActivity {
 
     private boolean puedeActualizarCheck;
 
+    private LinearLayout linearContenedor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +84,7 @@ public class PlanesBloquesActivity extends AppCompatActivity {
         rootRelative = findViewById(R.id.rootRelative);
         recyclerViewVertical = findViewById(R.id.recyclerViewVertical);
         imgPortada = findViewById(R.id.imgPortada);
+        linearContenedor = findViewById(R.id.linearContenedor);
 
         if (getIntent().getExtras() != null) {
             Bundle bundle = getIntent().getExtras();
@@ -152,6 +156,8 @@ public class PlanesBloquesActivity extends AppCompatActivity {
                                             recyclerViewHorizontal.setAdapter(adapterHorizontal);
 
                                             setearAdapter(apiRespuesta.getImagenPortada());
+
+                                            linearContenedor.setVisibility(View.VISIBLE);
                                         }
                                         else{
                                             mensajeSinConexion();

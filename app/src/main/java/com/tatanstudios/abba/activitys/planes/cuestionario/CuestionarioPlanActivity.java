@@ -77,7 +77,7 @@ public class CuestionarioPlanActivity extends AppCompatActivity {
                     if (position == 0) {
                         tab.setText(getString(R.string.devocional));
                     } else {
-                        tab.setText(getString(R.string.interactivo));
+                        tab.setText(getString(R.string.meditacion));
                     }
                 }
         ).attach();

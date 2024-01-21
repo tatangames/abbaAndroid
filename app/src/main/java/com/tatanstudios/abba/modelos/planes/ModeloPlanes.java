@@ -18,8 +18,7 @@ public class ModeloPlanes {
     @SerializedName("imagenportada")
     public String imagenportada;
 
-    @SerializedName("barra_progreso")
-    public Integer barraProgreso;
+
 
     @SerializedName("titulo")
     public String titulo;
@@ -35,10 +34,9 @@ public class ModeloPlanes {
 
 
 
-    public ModeloPlanes(Integer id, String imagen, Integer barraProgreso, String titulo, String subtitulo) {
+    public ModeloPlanes(Integer id, String imagen, String titulo, String subtitulo) {
         this.id = id;
         this.imagen = imagen;
-        this.barraProgreso = barraProgreso;
         this.titulo = titulo;
         this.subtitulo = subtitulo;
     }
@@ -75,7 +73,4 @@ public class ModeloPlanes {
         return imagen;
     }
 
-    public Integer getBarraProgreso() {
-        return barraProgreso;
-    }
 }

@@ -39,7 +39,15 @@ public class ModeloUsuario {
     private int idiomaTextos; // 1 espanol, 2: ingles
 
     private int tipoLetra;
+    private int idiomaCel;
 
+    public int getIdiomaCel() {
+        return idiomaCel;
+    }
+
+    public void setIdiomaCel(int idiomaCel) {
+        this.idiomaCel = idiomaCel;
+    }
 
     public int getTipoLetra() {
         return tipoLetra;

@@ -3,6 +3,7 @@ package com.tatanstudios.abba.activitys.planes;
 import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.text.HtmlCompat;
 import androidx.core.widget.NestedScrollView;
 
 import android.content.Intent;
@@ -220,7 +221,7 @@ public class VerPlanParaSeleccionarActivity extends AppCompatActivity {
         }
 
         if(api.getDescripcion() != null && !TextUtils.isEmpty(api.getDescripcion())){
-            txtDescripcion.setText(api.getDescripcion());
+            txtDescripcion.setText(HtmlCompat.fromHtml(api.getDescripcion(), HtmlCompat.FROM_HTML_MODE_LEGACY));
             txtDescripcion.setVisibility(View.VISIBLE);
         }
 

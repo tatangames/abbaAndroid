@@ -32,7 +32,7 @@ public class MiPagerCuestionarioAdapter extends FragmentStateAdapter {
                 case 0:
                     return FragmentCuestionarioPlanBloque.newInstance(idBloqueDeta);
                 case 1:
-                    return new FragmentPreguntasPlanBloque();
+                    return FragmentPreguntasPlanBloque.newInstance(idBloqueDeta);
                 default:
                     return null;
             }

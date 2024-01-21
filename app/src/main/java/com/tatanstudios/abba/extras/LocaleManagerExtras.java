@@ -3,6 +3,7 @@ package com.tatanstudios.abba.extras;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.LocaleList;
 
 import java.util.Locale;
 
@@ -17,6 +18,16 @@ public class LocaleManagerExtras {
         configuration.setLocale(locale);
 
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+    }
+
+
+    public static String obtenerIdioma(Context context) {
+        Configuration configuration = context.getResources().getConfiguration();
+        LocaleList locales = configuration.getLocales();
+        if (locales.size() > 0) {
+            return locales.get(0).getLanguage();
+        }
+        return "";
     }
 
 }

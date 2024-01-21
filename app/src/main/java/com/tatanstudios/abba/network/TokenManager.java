@@ -52,6 +52,12 @@ public class TokenManager {
     }
 
 
+    // si el idioma ya fue cambiado, para no preguntar idioma del telefono
+    public void guardarIdiomaTelefono(int code) {
+        editor.putInt("IDIOMACEL", code).commit();
+    }
+
+
 
     // borrar datos guardados
     public void deletePreferences(){
@@ -59,8 +65,6 @@ public class TokenManager {
         editor.remove("TEMA").commit();
         editor.remove("TOKEN").commit();
     }
-
-
 
 
     public ModeloUsuario getToken(){
@@ -71,6 +75,8 @@ public class TokenManager {
         token.setIdiomaTextos(prefs.getInt("IDIOMATEXTO", 0));
         token.setToken(prefs.getString("TOKEN", ""));
         token.setTipoLetra(prefs.getInt("TIPOTEXTO", 0));
+        token.setIdiomaCel(prefs.getInt("IDIOMACEL", 0));
+
         return token;
     }
 

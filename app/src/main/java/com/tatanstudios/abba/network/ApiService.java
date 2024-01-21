@@ -1,6 +1,7 @@
 package com.tatanstudios.abba.network;
 
 import com.tatanstudios.abba.modelos.misplanes.ModeloMisPlanesContenedor;
+import com.tatanstudios.abba.modelos.misplanes.preguntas.ModeloPreguntasContenedor;
 import com.tatanstudios.abba.modelos.perfil.ModeloAjustes;
 import com.tatanstudios.abba.modelos.planes.ModeloPlanes;
 import com.tatanstudios.abba.modelos.planes.ModeloPlanesContenedor;
@@ -8,8 +9,11 @@ import com.tatanstudios.abba.modelos.planes.ModeloPlanesTitulo;
 import com.tatanstudios.abba.modelos.planes.cuestionario.ModeloCuestionario;
 import com.tatanstudios.abba.modelos.usuario.ModeloUsuario;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
@@ -144,6 +148,26 @@ public interface ApiService {
     Observable<ModeloCuestionario> informacionCuestionarioBloqueDetalle(@Field("iduser") String iduser,
                                                                         @Field("idblockdeta") int idBlockDeta,
                                                                         @Field("idioma") int idioma);
+
+    // informacion de todas las preguntas de un bloque detalle
+    @POST("app/plan/misplanes/preguntas/bloque")
+    @FormUrlEncoded
+    Observable<ModeloPreguntasContenedor> informacionPreguntasBloqueDetalle(@Field("iduser") String iduser,
+                                                                            @Field("idblockdeta") int idBlockDeta,
+                                                                            @Field("idioma") int idioma);
+
+    // guardar las preguntas
+    @POST("app/plan/misplanes/preguntas/usuario/guardar")
+    @FormUrlEncoded
+    Observable<ModeloPreguntasContenedor> guardarPreguntasUsuarioPlanes(@Field("iduser") String iduser,
+                                                                        @FieldMap Map<String, String> listado);
+
+
+    // actualizar las preguntas
+    @POST("app/plan/misplanes/preguntas/usuario/actualizar")
+    @FormUrlEncoded
+    Observable<ModeloPreguntasContenedor> actualizarPreguntasUsuarioPlanes(@Field("iduser") String iduser,
+                                                                           @FieldMap Map<String, String> listado);
 
 
 

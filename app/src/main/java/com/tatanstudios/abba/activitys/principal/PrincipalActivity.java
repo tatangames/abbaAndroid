@@ -71,8 +71,8 @@ public class PrincipalActivity extends AppCompatActivity  implements InterfaceAc
         boolRecargarFragmentPlanes = false;
 
         fm.beginTransaction().add(R.id.main_container, fragmentAjustes, "4").hide(fragmentAjustes).commit();
-        fm.beginTransaction().add(R.id.main_container, fragmentPlanes, "3").hide(fragmentPlanes).commit();
-        fm.beginTransaction().add(R.id.main_container, fragmentBiblia, "2").hide(fragmentBiblia).commit();
+        fm.beginTransaction().add(R.id.main_container, fragmentBiblia, "3").hide(fragmentBiblia).commit();
+        fm.beginTransaction().add(R.id.main_container, fragmentPlanes, "2").hide(fragmentPlanes).commit();
         fm.beginTransaction().add(R.id.main_container,fragmentInicio, "1").commit();
 
         bottomNavigationView.setOnItemSelectedListener(item -> {

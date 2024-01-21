@@ -94,6 +94,7 @@ public class FragmentMisPlanes extends Fragment {
                 service.listadoMisPlanes(iduser, idiomaPlan)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
+                        .retry()
                         .subscribe(apiRespuesta -> {
 
                                     progressBar.setVisibility(View.GONE);
@@ -111,7 +112,6 @@ public class FragmentMisPlanes extends Fragment {
                                                         elementos.add(new ModeloVistasMisPlanes( ModeloVistasMisPlanes.TIPO_CONTINUAR, new ModeloPlanes(
                                                                 arrayPlanes.getIdplan(),
                                                                 arrayPlanes.getImagenportada(),
-                                                                arrayPlanes.getBarraProgreso(),
                                                                 arrayPlanes.getTitulo(),
                                                                 arrayPlanes.getSubtitulo())
                                                         ));
@@ -122,7 +122,6 @@ public class FragmentMisPlanes extends Fragment {
                                                     elementos.add(new ModeloVistasMisPlanes( ModeloVistasMisPlanes.TIPO_PLANES, new ModeloPlanes(
                                                             arrayPlanes.getIdplan(),
                                                             arrayPlanes.getImagen(),
-                                                            arrayPlanes.getBarraProgreso(),
                                                             arrayPlanes.getTitulo(),
                                                             arrayPlanes.getSubtitulo())
                                                     ));

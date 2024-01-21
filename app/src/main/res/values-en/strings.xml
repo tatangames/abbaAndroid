@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Abba Internacional</string>
+    <string name="app_name">Abba App</string>
     <string name="version_app">V. 1.0.0</string>
 
     <string name="abba_app">Abba App</string>
@@ -118,9 +118,13 @@
     <string name="interactivo">Interactive</string>
     <string name="opciones">Options</string>
     <string name="fuente">Source</string>
-
-
-
+    <string name="meditacion">Meditation</string>
+    <string name="no_hay_devocionales_disponibles">No hay Devocionales disponibles</string>
+    <string name="no_hay_devocionales_seleccionados">No Devotional selected</string>
+    <string name="guardar">Save</string>
+    <string name="campo_requerido">Required field</string>
+    <string name="completar_campos">Complete fields</string>
+    <string name="meditacion_no_disponible">Meditación no disponible</string>
 
 
 

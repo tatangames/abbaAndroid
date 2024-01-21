@@ -140,6 +140,7 @@ public class PlanesContenedorActivity extends AppCompatActivity {
                                                 recyclerView.setVisibility(View.GONE);
                                                 txtSinPlanes.setVisibility(View.VISIBLE);
                                             }
+
                                         }
                                         else{
                                             mensajeSinConexion();

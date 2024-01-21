@@ -70,7 +70,7 @@
     <color name="colorBotonTemaPlanes">#7b7b7d</color> <!-- Boton que aparece en listado de planes -->
     <color name="colorTextoLightDark">#000000</color> <!-- textos black y Light -->
     <color name="colorBordeCheckbox">#000000</color>
-
+    <color name="colorCirculoBlockPregunta">#C6BDBD</color>
 
 
 </resources>

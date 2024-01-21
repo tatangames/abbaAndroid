@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -51,6 +52,8 @@ public class FragmentBuscarPlanes extends Fragment {
     private final int ID_INTENT_RETORNO_10 = 10;
     private final int ID_INTENT_RETORNO_11 = 11;
 
+    private TextView txtSinPlanes;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,7 +61,7 @@ public class FragmentBuscarPlanes extends Fragment {
 
         recyclerView = vista.findViewById(R.id.recyclerView);
         rootRelative = vista.findViewById(R.id.rootRelative);
-
+        txtSinPlanes = vista.findViewById(R.id.txtSinPlanes);
 
         tokenManager = TokenManager.getInstance(getActivity().getSharedPreferences("prefs", MODE_PRIVATE));
         service = RetrofitBuilder.createServiceAutentificacion(ApiService.class, tokenManager);
@@ -75,7 +78,6 @@ public class FragmentBuscarPlanes extends Fragment {
         apiBuscarPlanesNuevos();
         return vista;
     }
-
 
     private void apiBuscarPlanesNuevos(){
 
@@ -97,23 +99,29 @@ public class FragmentBuscarPlanes extends Fragment {
 
                                         if(apiRespuesta.getSuccess() == 1) {
 
-                                            for (ModeloPlanesTitulo arrayTitulo : apiRespuesta.getModeloPlanesTitulos()) {
-                                                elementos.add(new ModeloVistasBuscarPlanes( ModeloVistasBuscarPlanes.TIPO_TITULO, new ModeloPlanesTitulo(arrayTitulo.getId(), arrayTitulo.getTitulo()), null));
+                                            if(apiRespuesta.getHayinfo() == 1){
 
-                                                for (ModeloPlanes arrayPlanes : arrayTitulo.getModeloPlanes()){
+                                                for (ModeloPlanesTitulo arrayTitulo : apiRespuesta.getModeloPlanesTitulos()) {
+                                                    elementos.add(new ModeloVistasBuscarPlanes( ModeloVistasBuscarPlanes.TIPO_TITULO, new ModeloPlanesTitulo(arrayTitulo.getId(), arrayTitulo.getTitulo()), null));
 
-                                                    elementos.add(new ModeloVistasBuscarPlanes( ModeloVistasBuscarPlanes.TIPO_PLANES, null, new ModeloPlanes(
-                                                            arrayPlanes.getId(),
-                                                            arrayPlanes.getImagen(),
-                                                            arrayPlanes.getBarraProgreso(),
-                                                            arrayPlanes.getTitulo(),
-                                                            arrayPlanes.getSubtitulo()
-                                                    )));
+                                                    for (ModeloPlanes arrayPlanes : arrayTitulo.getModeloPlanes()){
+
+                                                        elementos.add(new ModeloVistasBuscarPlanes( ModeloVistasBuscarPlanes.TIPO_PLANES, null, new ModeloPlanes(
+                                                                arrayPlanes.getId(),
+                                                                arrayPlanes.getImagen(),
+                                                                arrayPlanes.getTitulo(),
+                                                                arrayPlanes.getSubtitulo()
+                                                        )));
+                                                    }
                                                 }
+
+                                                completarAdapter();
+
+
+                                            }else{
+                                                recyclerView.setVisibility(View.GONE);
+                                                txtSinPlanes.setVisibility(View.VISIBLE);
                                             }
-
-                                            completarAdapter();
-
                                         }
                                         else{
                                             mensajeSinConexion();

@@ -84,7 +84,7 @@ public class FragmentCuestionarioPlanBloque extends Fragment {
     private Typeface faceRobotoSerif;
     private Typeface faceRobotoSans;
 
-    private ColorStateList colorStateTintGrey, colorStateTintWhite, colorStateTintBlack;
+    private ColorStateList colorStateTintWhite, colorStateTintBlack;
     private int colorBlanco, colorBlack = 0;
 
     public static FragmentCuestionarioPlanBloque newInstance(int dato) {
@@ -139,10 +139,9 @@ public class FragmentCuestionarioPlanBloque extends Fragment {
            txtHtml.setTextColor(colorBlack);
         }
 
-        int colorGris = ContextCompat.getColor(requireContext(), R.color.colorGrisBtnDisable);
 
-        colorStateTintGrey = ColorStateList.valueOf(colorGris);
         colorStateTintWhite = ColorStateList.valueOf(colorBlanco);
+        colorStateTintBlack = ColorStateList.valueOf(colorBlack);
 
 
         switch (tipoLetra){
@@ -179,6 +178,7 @@ public class FragmentCuestionarioPlanBloque extends Fragment {
                 service.informacionCuestionarioBloqueDetalle(iduser, idBloqueDeta, idiomaPlan)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
+                        .retry()
                         .subscribe(apiRespuesta -> {
 
                                     progressBar.setVisibility(View.GONE);

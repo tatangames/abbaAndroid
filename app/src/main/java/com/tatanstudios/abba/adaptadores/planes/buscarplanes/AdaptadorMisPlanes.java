@@ -117,12 +117,7 @@ public class AdaptadorMisPlanes extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             ((HolderVistaPlanes) holder).txtTitulo.setText(m.getTitulo());
 
-            // FALTA AJUSTARLA
-            if(m.getBarraProgreso() == 1){
-                ((HolderVistaPlanes) holder).progressBar.setVisibility(View.VISIBLE);
-            }else{
-                ((HolderVistaPlanes) holder).progressBar.setVisibility(View.GONE);
-            }
+
 
             holder.itemView.setOnClickListener(v -> {
                 fragmentMisPlanes.verBloquePlanes(m.getId());
@@ -154,7 +149,6 @@ public class AdaptadorMisPlanes extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         private ShapeableImageView imgPlan;
         private TextView txtTitulo;
-        private ProgressBar progressBar;
 
         public HolderVistaPlanes(@NonNull View itemView) {
             super(itemView);
@@ -162,7 +156,6 @@ public class AdaptadorMisPlanes extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             imgPlan = itemView.findViewById(R.id.imageView);
             txtTitulo = itemView.findViewById(R.id.txtTitulo);
-            progressBar = itemView.findViewById(R.id.progressBar);
 
         }
     }

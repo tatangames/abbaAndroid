@@ -113,4 +113,6 @@ public class AdaptadorPlanBloque extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
 
+    
+
 }
