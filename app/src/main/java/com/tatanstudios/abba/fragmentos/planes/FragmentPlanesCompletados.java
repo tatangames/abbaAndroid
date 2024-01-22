@@ -2,6 +2,7 @@ package com.tatanstudios.abba.fragmentos.planes;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tatanstudios.abba.R;
+import com.tatanstudios.abba.activitys.planes.completado.PlanesBloquesVistaActivity;
 import com.tatanstudios.abba.adaptadores.planes.completado.AdaptadorPlanesCompletados;
 import com.tatanstudios.abba.modelos.planes.ModeloPlanes;
 import com.tatanstudios.abba.modelos.planes.completados.ModeloPlanesCompletosPaginateRequest;
@@ -44,6 +46,13 @@ public class FragmentPlanesCompletados extends Fragment {
 
     private TextView txtSinPlanes;
 
+    private int currentPage = 1;
+    private int lastPage = 1;
+    private boolean unaVezAdapter = true;
+
+    private AdaptadorPlanesCompletados adapter;
+
+    private boolean isLoading = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,119 +74,134 @@ public class FragmentPlanesCompletados extends Fragment {
         // Aplicar el ColorFilter al Drawable del ProgressBar
         progressBar.getIndeterminateDrawable().setColorFilter(colorProgress, PorterDuff.Mode.SRC_IN);
 
+        adapter = new AdaptadorPlanesCompletados();
+        recyclerView.setAdapter(adapter);
+
+
+        // Configura el LinearLayoutManager y el ScrollListener para manejar la paginación
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int visibleItemCount = layoutManager.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                if (!isLoadingg() && !isLastPage()) {
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                            && firstVisibleItemPosition >= 0
+                            && totalItemCount >= 0) {
+                        apiBuscarMisPlanesCompletados();
+                    }
+                }
+            }
+        });
+
         apiBuscarMisPlanesCompletados();
 
         return vista;
     }
 
-    private int currentPage = 1;
+
+    private boolean isLoadingg(){
+        if(isLoading){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+    private boolean isLastPage(){
+        if(currentPage == lastPage){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+
+
 
     private void apiBuscarMisPlanesCompletados(){
 
-        String iduser = tokenManager.getToken().getId();
-        int idiomaPlan = tokenManager.getToken().getIdiomaTextos();
+        if(!isLoading){
+            isLoading = true;
 
-        ModeloPlanesCompletosPaginateRequest paginationRequest = new ModeloPlanesCompletosPaginateRequest();
-        paginationRequest.setPage(currentPage);
-        paginationRequest.setLimit(10); // Por ejemplo, 10 elementos por página
-        paginationRequest.setIdiomaplan(idiomaPlan);
-        paginationRequest.setIduser(Integer.valueOf(iduser));
+            progressBar.setVisibility(View.VISIBLE);
 
-        compositeDisposable.add(
-                service.listadoMisPlanesCompletados(paginationRequest)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        apiRespuesta -> {
+            String iduser = tokenManager.getToken().getId();
+            int idiomaPlan = tokenManager.getToken().getIdiomaTextos();
 
+            ModeloPlanesCompletosPaginateRequest paginationRequest = new ModeloPlanesCompletosPaginateRequest();
+            paginationRequest.setPage(currentPage);
+            paginationRequest.setLimit(10); // Por ejemplo, 10 elementos por página
+            paginationRequest.setIdiomaplan(idiomaPlan);
+            paginationRequest.setIduser(Integer.valueOf(iduser));
 
-                            if(apiRespuesta.getSuccess() == 1){
+            compositeDisposable.add(
+                    service.listadoMisPlanesCompletados(paginationRequest)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(
+                                    apiRespuesta -> {
 
-                                if(apiRespuesta.getHayinfo() == 1){
-                                    List<ModeloPlanes> newData = apiRespuesta.getData().getData();
-
-                                    for (ModeloPlanes m : newData){
-
-                                    }
-                                }else{
-                                    recyclerView.setVisibility(View.GONE);
-                                    txtSinPlanes.setVisibility(View.VISIBLE);
-                                }
-
-                            }else{
-                                mensajeSinConexion();
-                            }
-
-                            //}
-                            //adapter.addData(newData);
-
-                            // Incrementar la página actual para la próxima carga
-                            currentPage++;
-                        },
-                        throwable -> {
-                            // Manejar errores de la petición
-                            // ...
-
-                            String errorMessage = throwable.getMessage();
-                            Log.e("PORTADA", "Error en la petición: " + errorMessage);
-                            Log.i("PORTADA", "que pedo");
-                        }
-                ));
+                                        progressBar.setVisibility(View.GONE);
 
 
-
-       /* compositeDisposable.add(
-                service.listadoMisPlanesCompletados(iduser, idiomaPlan)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .retry()
-                        .subscribe(apiRespuesta -> {
-
-                                    progressBar.setVisibility(View.GONE);
-                                    recyclerView.setVisibility(View.VISIBLE);
-
-                                    if(apiRespuesta != null) {
-
-                                        if(apiRespuesta.getSuccess() == 1) {
-
+                                        if(apiRespuesta.getSuccess() == 1){
 
                                             if(apiRespuesta.getHayinfo() == 1){
+                                                if (!apiRespuesta.getData().getData().isEmpty()) {
+                                                    List<ModeloPlanes> newData = apiRespuesta.getData().getData();
 
-                                                setearAdapter(apiRespuesta.getModeloPlanes());
+                                                    lastPage = apiRespuesta.getData().getLastPage();
+
+                                                    if(unaVezAdapter){
+                                                        unaVezAdapter = false;
+                                                        setearAdapter(newData);
+                                                    }
+                                                    else{
+                                                        adapter.addData(newData);
+                                                    }
+
+                                                    currentPage++;
+                                                    isLoading = false;
+                                                }
                                             }else{
                                                 recyclerView.setVisibility(View.GONE);
                                                 txtSinPlanes.setVisibility(View.VISIBLE);
                                             }
-                                        }
-                                        else{
+
+                                        }else{
                                             mensajeSinConexion();
+                                            isLoading = false;
                                         }
-                                    }else{
+                                    },
+                                    throwable -> {
                                         mensajeSinConexion();
+                                        isLoading = false;
+                                        //String errorMessage = throwable.getMessage();
                                     }
-                                },
-                                throwable -> {
-                                    mensajeSinConexion();
-                                })
-        );*/
+                            ));
+        }
     }
 
     private void setearAdapter(List<ModeloPlanes> modeloPlanes) {
-        AdaptadorPlanesCompletados adapter = new AdaptadorPlanesCompletados(getContext(), modeloPlanes, this);
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
-        layoutManager.setOrientation(RecyclerView.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new AdaptadorPlanesCompletados(getContext(), modeloPlanes, this);
         recyclerView.setAdapter(adapter);
     }
 
 
-    public void verBloquePlanes(int id){
+    public void verBloquePlanesVista(int id){
 
-        /*Intent intent = new Intent(getActivity(), PlanesBloquesActivity.class);
+        Intent intent = new Intent(getActivity(), PlanesBloquesVistaActivity.class);
         intent.putExtra("ID", id);
-        startActivity(intent);*/
+        startActivity(intent);
     }
 
 

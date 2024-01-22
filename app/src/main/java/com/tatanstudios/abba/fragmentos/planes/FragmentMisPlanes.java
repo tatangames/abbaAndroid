@@ -110,7 +110,7 @@ public class FragmentMisPlanes extends Fragment {
 
                                                     for (ModeloPlanes arrayPlanes : apiRespuesta.getModeloPlanesContinuar()) {
                                                         elementos.add(new ModeloVistasMisPlanes( ModeloVistasMisPlanes.TIPO_CONTINUAR, new ModeloPlanes(
-                                                                arrayPlanes.getIdplan(),
+                                                                arrayPlanes.getId_Planes(),
                                                                 arrayPlanes.getImagenportada(),
                                                                 arrayPlanes.getTitulo(),
                                                                 arrayPlanes.getSubtitulo())
@@ -120,7 +120,7 @@ public class FragmentMisPlanes extends Fragment {
 
                                                 for (ModeloPlanes arrayPlanes : apiRespuesta.getModeloPlanes()) {
                                                     elementos.add(new ModeloVistasMisPlanes( ModeloVistasMisPlanes.TIPO_PLANES, new ModeloPlanes(
-                                                            arrayPlanes.getIdplan(),
+                                                            arrayPlanes.getId_Planes(),
                                                             arrayPlanes.getImagen(),
                                                             arrayPlanes.getTitulo(),
                                                             arrayPlanes.getSubtitulo())

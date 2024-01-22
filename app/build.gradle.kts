@@ -62,7 +62,7 @@ dependencies {
     implementation("com.github.TutorialsAndroid:progressx:v6.0.19")
 
 
-    // confeti
+    // confetii
     implementation("nl.dionsegijn:konfetti:1.2.2")
 
     // manejador de imagenes

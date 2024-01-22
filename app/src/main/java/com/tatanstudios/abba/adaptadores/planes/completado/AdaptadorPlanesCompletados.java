@@ -37,6 +37,9 @@ public class AdaptadorPlanesCompletados extends RecyclerView.Adapter<AdaptadorPl
             .placeholder(R.drawable.camaradefecto)
             .priority(Priority.NORMAL);
 
+
+    public AdaptadorPlanesCompletados(){}
+
     public AdaptadorPlanesCompletados(Context context, List<ModeloPlanes> modeloPlanes, FragmentPlanesCompletados fragmentPlanesCompletados) {
         this.context = context;
         this.modeloPlanes = modeloPlanes;
@@ -56,7 +59,7 @@ public class AdaptadorPlanesCompletados extends RecyclerView.Adapter<AdaptadorPl
 
         ModeloPlanes m = modeloPlanes.get(position);
 
-        /*if(m.getImagen() != null && !TextUtils.isEmpty(m.getImagen())){
+        if(m.getImagen() != null && !TextUtils.isEmpty(m.getImagen())){
             Glide.with(context)
                     .load(RetrofitBuilder.urlImagenes + m.getImagen())
                     .apply(opcionesGlide)
@@ -67,19 +70,17 @@ public class AdaptadorPlanesCompletados extends RecyclerView.Adapter<AdaptadorPl
                     .load(resourceId)
                     .apply(opcionesGlide)
                     .into(holder.imgPlan);
-        }*/
+        }
 
-        /*if(m.getTitulo() != null && !TextUtils.isEmpty(m.getTitulo())){
+        if(m.getTitulo() != null && !TextUtils.isEmpty(m.getTitulo())){
             holder.txtTitulo.setText(m.getTitulo());
         }else{
             holder.txtTitulo.setText("");
-        }*/
+        }
 
-        holder.txtTitulo.setText(String.valueOf(m.getContador()));
-
-        // ver plan seleccionado
+        // visualizar
         holder.itemView.setOnClickListener(v -> {
-
+            fragmentPlanesCompletados.verBloquePlanesVista(m.getId_Planes());
         });
     }
 
@@ -103,6 +104,17 @@ public class AdaptadorPlanesCompletados extends RecyclerView.Adapter<AdaptadorPl
             imgPlan = itemView.findViewById(R.id.imageView);
             txtTitulo = itemView.findViewById(R.id.txtTitulo);
         }
+    }
+
+    public void addData(List<ModeloPlanes> newData) {
+        int startPosition = modeloPlanes.size();
+
+
+        // Agrega nuevos elementos a la lista existente
+        modeloPlanes.addAll(newData);
+
+        // Notifica al RecyclerView sobre los cambios en los datos
+        notifyItemRangeInserted(startPosition, newData.size());
     }
 
 }

@@ -35,6 +35,15 @@ public class ModeloPlanes {
     @SerializedName("contador")
     public int contador;
 
+
+    // porque tabla planes_usuarios tiene el campo id_planes
+    @SerializedName("id_planes")
+    public int id_Planes;
+
+    public int getId_Planes() {
+        return id_Planes;
+    }
+
     public int getContador() {
         return contador;
     }

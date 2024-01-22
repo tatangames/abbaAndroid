@@ -129,12 +129,6 @@
     <string name="no_hay_devocionales_completados">No hay Devocionales completados</string>
 
 
-
-
-
-
-
-
     <string-array name="generos_array">
         <item>Seleccionar Género</item>
         <item>Masculino</item>

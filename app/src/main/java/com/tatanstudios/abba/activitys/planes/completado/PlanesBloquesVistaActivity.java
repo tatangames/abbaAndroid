@@ -1,4 +1,4 @@
-package com.tatanstudios.abba.activitys.planes;
+package com.tatanstudios.abba.activitys.planes.completado;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.OnBackPressedDispatcher;
@@ -14,7 +14,6 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Size;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,6 +29,8 @@ import com.tatanstudios.abba.R;
 import com.tatanstudios.abba.activitys.planes.cuestionario.CuestionarioPlanActivity;
 import com.tatanstudios.abba.adaptadores.planes.bloques.AdaptadorBloqueHorizontal;
 import com.tatanstudios.abba.adaptadores.planes.bloques.AdaptadorBloqueVertical;
+import com.tatanstudios.abba.adaptadores.planes.completado.AdaptadorBloqueHorizontalVista;
+import com.tatanstudios.abba.adaptadores.planes.completado.AdaptadorBloqueVerticalVista;
 import com.tatanstudios.abba.modelos.misplanes.ModeloMisPlanesBloqueDetalle;
 import com.tatanstudios.abba.network.ApiService;
 import com.tatanstudios.abba.network.RetrofitBuilder;
@@ -44,7 +45,7 @@ import io.reactivex.schedulers.Schedulers;
 import nl.dionsegijn.konfetti.KonfettiView;
 import nl.dionsegijn.konfetti.models.Shape;
 
-public class PlanesBloquesActivity extends AppCompatActivity {
+public class PlanesBloquesVistaActivity extends AppCompatActivity {
 
 
     private int idPlan = 0;
@@ -65,25 +66,20 @@ public class PlanesBloquesActivity extends AppCompatActivity {
 
     private OnBackPressedDispatcher onBackPressedDispatcher;
 
-    private final int ID_INTENT_RETORNO_10 = 10;
-    private final int ID_INTENT_RETORNO_11 = 11;
-    private AdaptadorBloqueHorizontal adapterHorizontal;
-    private AdaptadorBloqueVertical adapterVertical;
+
+    private AdaptadorBloqueHorizontalVista adapterHorizontal;
+    private AdaptadorBloqueVerticalVista adapterVertical;
 
     int tema = 0;
 
-    private boolean puedeActualizarCheck, boolActualizarVistaAtras;
-
     private LinearLayout linearContenedor;
 
-    private KonfettiView konfettiView;
 
-    private boolean unaSolaVezConfeti;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_planes_bloques);
+        setContentView(R.layout.activity_planes_bloques_vista);
 
         recyclerViewHorizontal = findViewById(R.id.recyclerViewHorizontal);
         imgFlechaAtras = findViewById(R.id.imgFlechaAtras);
@@ -92,8 +88,6 @@ public class PlanesBloquesActivity extends AppCompatActivity {
         recyclerViewVertical = findViewById(R.id.recyclerViewVertical);
         imgPortada = findViewById(R.id.imgPortada);
         linearContenedor = findViewById(R.id.linearContenedor);
-        konfettiView = findViewById(R.id.konfettiView);
-
 
         if (getIntent().getExtras() != null) {
             Bundle bundle = getIntent().getExtras();
@@ -117,8 +111,6 @@ public class PlanesBloquesActivity extends AppCompatActivity {
         onBackPressedDispatcher = getOnBackPressedDispatcher();
 
         tema = tokenManager.getToken().getTema();
-        puedeActualizarCheck = true;
-        unaSolaVezConfeti = true;
 
         imgFlechaAtras.setOnClickListener(v -> {
             volverAtrasActualizar();
@@ -138,28 +130,29 @@ public class PlanesBloquesActivity extends AppCompatActivity {
     }
 
 
-
     private void apiBuscarPlanesbloques(){
 
         int idiomaPlan = tokenManager.getToken().getIdiomaTextos();
         String iduser = tokenManager.getToken().getId();
 
+        Log.i("PORTADA", "id: " + idPlan);
+
         compositeDisposable.add(
-                service.informacionPlanBloque(iduser, idiomaPlan, idPlan)
+                service.informacionPlanBloqueVista(iduser, idiomaPlan, idPlan)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .retry()
                         .subscribe(apiRespuesta -> {
 
+
                                     progressBar.setVisibility(View.GONE);
                                     if(apiRespuesta != null) {
 
                                         if(apiRespuesta.getSuccess() == 1) {
-
                                             int hayDiaActual = apiRespuesta.getHayDiaActual();
                                             int idUltimoBloque = apiRespuesta.getIdUltimoBloque();
 
-                                            adapterHorizontal = new AdaptadorBloqueHorizontal(this, apiRespuesta.getModeloMisPlanesBloques(), recyclerViewHorizontal, tema,
+                                            adapterHorizontal = new AdaptadorBloqueHorizontalVista(this, apiRespuesta.getModeloMisPlanesBloques(), recyclerViewHorizontal, tema,
                                                     hayDiaActual, idUltimoBloque, this);
                                             recyclerViewHorizontal.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
                                             recyclerViewHorizontal.setAdapter(adapterHorizontal);
@@ -167,8 +160,8 @@ public class PlanesBloquesActivity extends AppCompatActivity {
                                             setearAdapter(apiRespuesta.getImagenPortada());
 
                                             linearContenedor.setVisibility(View.VISIBLE);
-                                        }
-                                        else{
+                                        }else{
+
                                             mensajeSinConexion();
                                         }
                                     }else{
@@ -176,6 +169,7 @@ public class PlanesBloquesActivity extends AppCompatActivity {
                                     }
                                 },
                                 throwable -> {
+
                                     mensajeSinConexion();
                                 })
         );
@@ -211,70 +205,9 @@ public class PlanesBloquesActivity extends AppCompatActivity {
     public void llenarDatosAdapterVertical(List<
             ModeloMisPlanesBloqueDetalle> modeloMisPlanesBloqueDetalles){
 
-        adapterVertical = new AdaptadorBloqueVertical(this, modeloMisPlanesBloqueDetalles, this, tema);
+        adapterVertical = new AdaptadorBloqueVerticalVista(this, modeloMisPlanesBloqueDetalles, this, tema);
         recyclerViewVertical.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerViewVertical.setAdapter(adapterVertical);
-    }
-
-
-
-    public void actualizarCheck(int blockDeta, int valor){
-
-        if(puedeActualizarCheck){
-            puedeActualizarCheck = false;
-
-            String iduser = tokenManager.getToken().getId();
-
-            // NO TENDRA RETRY
-            compositeDisposable.add(
-                    service.actualizarPlanBloqueDetalle(iduser, blockDeta, valor, idPlan)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(apiRespuesta -> {
-
-                                    puedeActualizarCheck = true;
-
-                                    if(apiRespuesta != null) {
-
-                                        if (apiRespuesta.getSuccess() == 1) {
-
-                                            if(apiRespuesta.getPlanCompletado() == 1){
-                                                ejecutarConfeti();
-                                            }
-
-                                        }else{
-                                            mensajeSinConexion();
-                                        }
-                                    }else{
-                                        mensajeSinConexion();
-                                    }
-                                },
-                                throwable -> {
-                                    puedeActualizarCheck = true;
-                                    mensajeSinConexion();
-                                })
-            );
-        }
-    }
-
-    private void ejecutarConfeti(){
-
-        if(unaSolaVezConfeti){
-            unaSolaVezConfeti = false;
-
-            boolActualizarVistaAtras = true;
-            Toasty.success(this, getString(R.string.devocional_completado), Toasty.LENGTH_SHORT).show();
-
-            konfettiView.build()
-                    .addColors(getResources().getColor(R.color.color1), getResources().getColor(R.color.color2), getResources().getColor(R.color.color3))
-                    .setDirection(0.0, 359.0)
-                    .setSpeed(1f, 5f)
-                    .setFadeOutEnabled(true)
-                    .setTimeToLive(2000L)
-                    .addShapes(Shape.RECT, Shape.CIRCLE)
-                    .setPosition(-50f, konfettiView.getWidth() + 50f, -50f, -50f)
-                    .streamFor(300, 2000L);
-        }
     }
 
 
@@ -283,27 +216,10 @@ public class PlanesBloquesActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CuestionarioPlanActivity.class);
         intent.putExtra("IDBLOQUE", idBlockDeta);
         intent.putExtra("PREGUNTAS", tienePreguntas);
-        someActivityResultLauncher.launch(intent);
+        startActivity(intent);
     }
 
-    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-
-                // DE ACTIVITY CuestionarioPlanActivity
-                //
-                if(result.getResultCode() == ID_INTENT_RETORNO_11){
-
-                }
-
-            });
-
-
     private void volverAtrasActualizar(){
-        if(boolActualizarVistaAtras){
-            Intent returnIntent = new Intent();
-            setResult(ID_INTENT_RETORNO_10, returnIntent);
-        }
         finish();
     }
 
@@ -326,4 +242,5 @@ public class PlanesBloquesActivity extends AppCompatActivity {
         }
         super.onStop();
     }
+
 }

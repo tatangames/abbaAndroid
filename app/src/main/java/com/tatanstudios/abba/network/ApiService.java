@@ -137,6 +137,7 @@ public interface ApiService {
                                                                 @Field("idiomaplan") int idiomaplan,
                                                                 @Field("idplan") int idplan);
 
+
     // guardar check o actualizar bloque detalle plan
     @POST("app/plan/misplanes/actualizar/check")
     @FormUrlEncoded
@@ -187,6 +188,15 @@ public interface ApiService {
     @POST("app/plan/misplanes/completados")
     Observable<ModeloPlanesCompletosPaginateApi<ModeloPlanesCompletadoContenedor>> listadoMisPlanesCompletados(
             @Body ModeloPlanesCompletosPaginateRequest request);
+
+
+    @POST("app/plan/misplanes/info/bloque/vista")
+    @FormUrlEncoded
+    Observable<ModeloMisPlanesContenedor> informacionPlanBloqueVista(@Field("iduser") String iduser,
+                                                                @Field("idiomaplan") int idiomaplan,
+                                                                @Field("idplan") int idplan);
+
+
 
 
     //Observable<ModeloPlanesContenedor> listadoMisPlanesCompletados(@Body PaginationRequest request);
