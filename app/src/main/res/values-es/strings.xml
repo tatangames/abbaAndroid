@@ -125,8 +125,8 @@
     <string name="campo_requerido">Campo requerido</string>
     <string name="completar_campos">Completar campos</string>
     <string name="meditacion_no_disponible">Meditation not available</string>
-
-
+    <string name="devocional_completado">Devocional Completado</string>
+    <string name="no_hay_devocionales_completados">No hay Devocionales completados</string>
 
 
 

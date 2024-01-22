@@ -5,13 +5,16 @@ import com.tatanstudios.abba.modelos.misplanes.preguntas.ModeloPreguntasContened
 import com.tatanstudios.abba.modelos.perfil.ModeloAjustes;
 import com.tatanstudios.abba.modelos.planes.ModeloPlanes;
 import com.tatanstudios.abba.modelos.planes.ModeloPlanesContenedor;
-import com.tatanstudios.abba.modelos.planes.ModeloPlanesTitulo;
+import com.tatanstudios.abba.modelos.planes.completados.ModeloPlanesCompletosPaginateApi;
+import com.tatanstudios.abba.modelos.planes.completados.ModeloPlanesCompletadoContenedor;
+import com.tatanstudios.abba.modelos.planes.completados.ModeloPlanesCompletosPaginateRequest;
 import com.tatanstudios.abba.modelos.planes.cuestionario.ModeloCuestionario;
 import com.tatanstudios.abba.modelos.usuario.ModeloUsuario;
 
 import java.util.Map;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -139,7 +142,8 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<ModeloUsuario> actualizarPlanBloqueDetalle(@Field("iduser") String iduser,
                                                                 @Field("idblockdeta") int idBlockDeta,
-                                                                @Field("valor") int valor);
+                                                                @Field("valor") int valor,
+                                                                @Field("idplan") int idplan);
 
 
     // buscar informacion del cuestionario de cada bloque detalle
@@ -160,6 +164,7 @@ public interface ApiService {
     @POST("app/plan/misplanes/preguntas/usuario/guardar")
     @FormUrlEncoded
     Observable<ModeloPreguntasContenedor> guardarPreguntasUsuarioPlanes(@Field("iduser") String iduser,
+                                                                        @Field("idblockdeta") int idBlockDeta,
                                                                         @FieldMap Map<String, String> listado);
 
 
@@ -167,8 +172,22 @@ public interface ApiService {
     @POST("app/plan/misplanes/preguntas/usuario/actualizar")
     @FormUrlEncoded
     Observable<ModeloPreguntasContenedor> actualizarPreguntasUsuarioPlanes(@Field("iduser") String iduser,
+                                                                           @Field("idblockdeta") int idBlockDeta,
                                                                            @FieldMap Map<String, String> listado);
 
 
+    // listado de planes completados
+   /* @POST("app/plan/misplanes/completados")
+    @FormUrlEncoded
+    Observable<ModeloPlanesContenedor> listadoMisPlanesCompletados(@Field("iduser") String iduser,
+                                                                   @Field("idiomaplan") int idiomaplan);
+*/
 
+
+    @POST("app/plan/misplanes/completados")
+    Observable<ModeloPlanesCompletosPaginateApi<ModeloPlanesCompletadoContenedor>> listadoMisPlanesCompletados(
+            @Body ModeloPlanesCompletosPaginateRequest request);
+
+
+    //Observable<ModeloPlanesContenedor> listadoMisPlanesCompletados(@Body PaginationRequest request);
 }

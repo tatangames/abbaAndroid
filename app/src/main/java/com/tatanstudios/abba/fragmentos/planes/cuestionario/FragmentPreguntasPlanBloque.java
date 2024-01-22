@@ -254,7 +254,7 @@ public class FragmentPreguntasPlanBloque extends Fragment {
             String iduser = tokenManager.getToken().getId();
 
             compositeDisposable.add(
-                    service.guardarPreguntasUsuarioPlanes(iduser, hashMapPreguntas)
+                    service.guardarPreguntasUsuarioPlanes(iduser, idBloqueDeta, hashMapPreguntas)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread()) // NO RETRY
                             .subscribe(apiRespuesta -> {
@@ -321,7 +321,7 @@ public class FragmentPreguntasPlanBloque extends Fragment {
             String iduser = tokenManager.getToken().getId();
 
             compositeDisposable.add(
-                    service.actualizarPreguntasUsuarioPlanes(iduser, hashMapPreguntas)
+                    service.actualizarPreguntasUsuarioPlanes(iduser, idBloqueDeta, hashMapPreguntas)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread()) // NO RETRY
                             .subscribe(apiRespuesta -> {

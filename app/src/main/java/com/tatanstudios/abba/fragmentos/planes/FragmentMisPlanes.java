@@ -175,6 +175,8 @@ public class FragmentMisPlanes extends Fragment {
                 //
                 if(result.getResultCode() == ID_INTENT_RETORNO_10){
 
+                    progressBar.setVisibility(View.VISIBLE);
+                    apiBuscarMisPlanes();
                 }
 
             });

@@ -15,6 +15,7 @@ import com.tatanstudios.abba.R;
 import com.tatanstudios.abba.adaptadores.planes.AdapterBotoneraPlanes;
 import com.tatanstudios.abba.fragmentos.planes.FragmentBuscarPlanes;
 import com.tatanstudios.abba.fragmentos.planes.FragmentMisPlanes;
+import com.tatanstudios.abba.fragmentos.planes.FragmentPlanesCompletados;
 import com.tatanstudios.abba.modelos.planes.ModeloBotoneraPlanes;
 import com.tatanstudios.abba.network.TokenManager;
 
@@ -86,6 +87,12 @@ public class FragmentPlanes extends Fragment {
         else if(identificador == 2){ // NUEVOS PLANES
             getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragmentContainer, new FragmentBuscarPlanes())
+                    .addToBackStack(null)
+                    .commit();
+        }
+        else if(identificador == 3){ // PLANES COMPLETADOS
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer, new FragmentPlanesCompletados())
                     .addToBackStack(null)
                     .commit();
         }

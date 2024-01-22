@@ -62,7 +62,8 @@ dependencies {
     implementation("com.github.TutorialsAndroid:progressx:v6.0.19")
 
 
-//
+    // confeti
+    implementation("nl.dionsegijn:konfetti:1.2.2")
 
     // manejador de imagenes
     implementation("com.github.bumptech.glide:glide:4.13.2") // glide imagenes

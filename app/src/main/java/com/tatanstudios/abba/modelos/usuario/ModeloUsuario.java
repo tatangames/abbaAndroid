@@ -33,6 +33,13 @@ public class ModeloUsuario {
     @SerializedName("fecha_nac_raw")
     public String fechaNacimientoRaw;
 
+    @SerializedName("plancompletado")
+    public int planCompletado;
+
+
+    public int getPlanCompletado() {
+        return planCompletado;
+    }
 
     private int tema;
     private int idiomaApp; // 1: espanol, 2: ingles

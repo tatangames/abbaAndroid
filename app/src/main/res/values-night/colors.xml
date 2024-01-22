@@ -73,7 +73,9 @@
     <color name="colorBordeCheckbox">#FFFFFF</color>
     <color name="colorCirculoBlockPregunta">#FFFFFF</color>
 
-
+    <color name="color1">#FFC107</color>
+    <color name="color2">#FF4081</color>
+    <color name="color3">#2196F3</color>
 
 
 </resources>

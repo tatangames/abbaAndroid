@@ -14,6 +14,7 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Size;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,6 +41,8 @@ import es.dmoral.toasty.Toasty;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import nl.dionsegijn.konfetti.KonfettiView;
+import nl.dionsegijn.konfetti.models.Shape;
 
 public class PlanesBloquesActivity extends AppCompatActivity {
 
@@ -69,9 +72,13 @@ public class PlanesBloquesActivity extends AppCompatActivity {
 
     int tema = 0;
 
-    private boolean puedeActualizarCheck;
+    private boolean puedeActualizarCheck, boolActualizarVistaAtras;
 
     private LinearLayout linearContenedor;
+
+    private KonfettiView konfettiView;
+
+    private boolean unaSolaVezConfeti;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +92,8 @@ public class PlanesBloquesActivity extends AppCompatActivity {
         recyclerViewVertical = findViewById(R.id.recyclerViewVertical);
         imgPortada = findViewById(R.id.imgPortada);
         linearContenedor = findViewById(R.id.linearContenedor);
+        konfettiView = findViewById(R.id.konfettiView);
+
 
         if (getIntent().getExtras() != null) {
             Bundle bundle = getIntent().getExtras();
@@ -109,17 +118,17 @@ public class PlanesBloquesActivity extends AppCompatActivity {
 
         tema = tokenManager.getToken().getTema();
         puedeActualizarCheck = true;
+        unaSolaVezConfeti = true;
 
         imgFlechaAtras.setOnClickListener(v -> {
             volverAtrasActualizar();
         });
 
+
         OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                Intent returnIntent = new Intent();
-                setResult(ID_INTENT_RETORNO_10, returnIntent);
-                finish();
+                volverAtrasActualizar();
             }
         };
 
@@ -214,23 +223,61 @@ public class PlanesBloquesActivity extends AppCompatActivity {
         if(puedeActualizarCheck){
             puedeActualizarCheck = false;
 
+
+            Log.i("PORTADA", "idplan: " + idPlan);
+            Log.i("PORTADA", "blockdeta: " + blockDeta);
+
             String iduser = tokenManager.getToken().getId();
 
             // NO TENDRA RETRY
             compositeDisposable.add(
-                    service.actualizarPlanBloqueDetalle(iduser, blockDeta, valor)
+                    service.actualizarPlanBloqueDetalle(iduser, blockDeta, valor, idPlan)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(apiRespuesta -> {
 
-                                        puedeActualizarCheck = true;
+                                    puedeActualizarCheck = true;
 
-                                    },
-                                    throwable -> {
-                                        puedeActualizarCheck = true;
+                                    if(apiRespuesta != null) {
+
+                                        if (apiRespuesta.getSuccess() == 1) {
+
+                                            if(apiRespuesta.getPlanCompletado() == 1){
+                                                ejecutarConfeti();
+                                            }
+
+                                        }else{
+                                            mensajeSinConexion();
+                                        }
+                                    }else{
                                         mensajeSinConexion();
-                                    })
+                                    }
+                                },
+                                throwable -> {
+                                    puedeActualizarCheck = true;
+                                    mensajeSinConexion();
+                                })
             );
+        }
+    }
+
+    private void ejecutarConfeti(){
+
+        if(unaSolaVezConfeti){
+            unaSolaVezConfeti = false;
+
+            boolActualizarVistaAtras = true;
+            Toasty.success(this, getString(R.string.devocional_completado), Toasty.LENGTH_SHORT).show();
+
+            konfettiView.build()
+                    .addColors(getResources().getColor(R.color.color1), getResources().getColor(R.color.color2), getResources().getColor(R.color.color3))
+                    .setDirection(0.0, 359.0)
+                    .setSpeed(1f, 5f)
+                    .setFadeOutEnabled(true)
+                    .setTimeToLive(2000L)
+                    .addShapes(Shape.RECT, Shape.CIRCLE)
+                    .setPosition(-50f, konfettiView.getWidth() + 50f, -50f, -50f)
+                    .streamFor(300, 2000L);
         }
     }
 
@@ -257,8 +304,10 @@ public class PlanesBloquesActivity extends AppCompatActivity {
 
 
     private void volverAtrasActualizar(){
-        Intent returnIntent = new Intent();
-        setResult(ID_INTENT_RETORNO_10, returnIntent);
+        if(boolActualizarVistaAtras){
+            Intent returnIntent = new Intent();
+            setResult(ID_INTENT_RETORNO_10, returnIntent);
+        }
         finish();
     }
 

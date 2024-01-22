@@ -32,7 +32,12 @@ public class ModeloPlanes {
     @SerializedName("idplan")
     public int idplan;
 
+    @SerializedName("contador")
+    public int contador;
 
+    public int getContador() {
+        return contador;
+    }
 
     public ModeloPlanes(Integer id, String imagen, String titulo, String subtitulo) {
         this.id = id;
