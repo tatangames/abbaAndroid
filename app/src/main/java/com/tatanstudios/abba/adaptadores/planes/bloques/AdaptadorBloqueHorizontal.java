@@ -2,6 +2,7 @@ package com.tatanstudios.abba.adaptadores.planes.bloques;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -196,9 +197,22 @@ public class AdaptadorBloqueHorizontal extends RecyclerView.Adapter<AdaptadorBlo
                 }
             }
 
+        if(m.getUsaTextoPersonalizado() == 1){
 
-        holder.txtContador.setText(String.valueOf(m.getContador()));
-        holder.txtFecha.setText(m.getAbreviatura());
+            if(m.getTextopersonalizado() != null && !TextUtils.isEmpty(m.getTextopersonalizado())){
+                holder.txtFecha.setText(m.getTextopersonalizado());
+                holder.txtContador.setText("");
+            }else{
+                holder.txtFecha.setText("");
+                holder.txtContador.setText("");
+            }
+
+        }else{
+            holder.txtContador.setText(String.valueOf(m.getContador()));
+            holder.txtFecha.setText(m.getAbreviatura());
+        }
+
+
         holder.itemView.setOnClickListener(v -> {
 
             for (ModeloMisPlanesBloques modelo : modeloMisPlanesBloques) {

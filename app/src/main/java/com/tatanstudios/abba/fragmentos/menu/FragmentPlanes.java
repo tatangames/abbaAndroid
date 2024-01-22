@@ -58,9 +58,10 @@ public class FragmentPlanes extends Fragment {
         int tema = tokenManager.getToken().getTema();
 
         List<ModeloBotoneraPlanes> modeloBotoneraPlanes = new ArrayList<>();
-        modeloBotoneraPlanes.add(new ModeloBotoneraPlanes(1, "Mis planes"));
-        modeloBotoneraPlanes.add(new ModeloBotoneraPlanes(2, "Buscar planes"));
-        modeloBotoneraPlanes.add(new ModeloBotoneraPlanes(3, "Completados"));
+        modeloBotoneraPlanes.add(new ModeloBotoneraPlanes(1, getString(R.string.mis_planes)));
+        modeloBotoneraPlanes.add(new ModeloBotoneraPlanes(2, getString(R.string.buscar_planes)));
+        modeloBotoneraPlanes.add(new ModeloBotoneraPlanes(3, getString(R.string.completados)));
+        modeloBotoneraPlanes.add(new ModeloBotoneraPlanes(4, getString(R.string.compartidos)));
 
         adapterBotoneraPlanes = new AdapterBotoneraPlanes(getContext(), modeloBotoneraPlanes, this, tema);
         recyclerView.setAdapter(adapterBotoneraPlanes);

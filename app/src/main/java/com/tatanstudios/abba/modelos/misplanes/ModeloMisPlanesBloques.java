@@ -25,9 +25,24 @@ public class ModeloMisPlanesBloques {
     @SerializedName("mismodia")
     private int mismodia;
 
+    @SerializedName("texto_personalizado")
+    private int usaTextoPersonalizado;
+
+    @SerializedName("textopersonalizado")
+    private String textopersonalizado;
+
+
     @SerializedName("detalle")
     public List<ModeloMisPlanesBloqueDetalle> modeloMisPlanesBloqueDetalles;
 
+
+    public int getUsaTextoPersonalizado() {
+        return usaTextoPersonalizado;
+    }
+
+    public String getTextopersonalizado() {
+        return textopersonalizado;
+    }
 
     private boolean estaPresionado;
 
