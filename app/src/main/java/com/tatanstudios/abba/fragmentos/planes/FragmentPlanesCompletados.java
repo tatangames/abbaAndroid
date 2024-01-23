@@ -48,7 +48,8 @@ public class FragmentPlanesCompletados extends Fragment {
 
     private int currentPage = 1;
     private int lastPage = 1;
-    private boolean unaVezAdapter, unaVezVisibilidad = true;
+    private boolean unaVezVisibilidad = true;
+    private boolean unaVezAdapter = true;
 
     private AdaptadorPlanesCompletados adapter;
 
@@ -73,9 +74,6 @@ public class FragmentPlanesCompletados extends Fragment {
         rootRelative.addView(progressBar, params);
         // Aplicar el ColorFilter al Drawable del ProgressBar
         progressBar.getIndeterminateDrawable().setColorFilter(colorProgress, PorterDuff.Mode.SRC_IN);
-
-        adapter = new AdaptadorPlanesCompletados();
-        recyclerView.setAdapter(adapter);
 
 
         // Configura el LinearLayoutManager y el ScrollListener para manejar la paginación
@@ -104,13 +102,15 @@ public class FragmentPlanesCompletados extends Fragment {
                 int visibleItemCount = layoutManager.getChildCount();
                 int totalItemCount = layoutManager.getItemCount();
                 int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                if (puedeCargarYa && !isLastPage()) {
+                    // Verificar si no se está cargando y si ha llegado al final de la lista
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && dy > 0) {
+                        // Iniciar la carga de más elementos
+                        // isLoading = true;
+                        // Cargar más elementos aquí
 
-                // Verificar si no se está cargando y si ha llegado al final de la lista
-                if (!isLoading && (visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && dy > 0) {
-                    // Iniciar la carga de más elementos
-                    // isLoading = true;
-                    // Cargar más elementos aquí
-                    apiBuscarMisPlanesCompletados();
+                        apiBuscarMisPlanesCompletados();
+                    }
                 }
 
             }
@@ -122,13 +122,6 @@ public class FragmentPlanesCompletados extends Fragment {
     }
 
 
-    private boolean isLoadingg(){
-        if(isLoading){
-            return true;
-        }else{
-            return false;
-        }
-    }
 
 
     private boolean isLastPage(){
@@ -175,23 +168,23 @@ public class FragmentPlanesCompletados extends Fragment {
                                                 if (!apiRespuesta.getData().getData().isEmpty()) {
                                                     List<ModeloPlanes> newData = apiRespuesta.getData().getData();
 
-                                                    //lastPage = apiRespuesta.getData().getLastPage();
+                                                    lastPage = apiRespuesta.getData().getLastPage();
 
-                                                    for (ModeloPlanes pl : newData){
-                                                        Log.i("PORTADA", pl.getTitulo());
-                                                    }
-                                                    setearAdapter(newData);
                                                     if(unaVezAdapter){
-                                                        unaVezAdapter = false;
-
+                                                        setearAdapter(newData);
                                                     }
                                                     else{
                                                         adapter.addData(newData);
                                                     }
 
-                                                    currentPage++;
+                                                    if(lastPage > 1){
+                                                        currentPage++;
+                                                    }
+
+                                                    unaVezAdapter = false;
                                                     isLoading = false;
                                                     unaVezVisibilidad = false;
+                                                    puedeCargarYa = true;
                                                 }
                                             }else{
                                                 if(unaVezVisibilidad){
@@ -209,8 +202,8 @@ public class FragmentPlanesCompletados extends Fragment {
                                     throwable -> {
                                         mensajeSinConexion();
                                         isLoading = false;
-                                        //String errorMessage = throwable.getMessage();
-
+                                        String errorMessage = throwable.getMessage();
+                                        Log.i("PORTADA", errorMessage);
                                     }
                             ));
         }

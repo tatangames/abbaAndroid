@@ -38,8 +38,6 @@ public class AdaptadorPlanesCompletados extends RecyclerView.Adapter<AdaptadorPl
             .priority(Priority.NORMAL);
 
 
-    public AdaptadorPlanesCompletados(){}
-
     public AdaptadorPlanesCompletados(Context context, List<ModeloPlanes> modeloPlanes, FragmentPlanesCompletados fragmentPlanesCompletados) {
         this.context = context;
         this.modeloPlanes = modeloPlanes;
@@ -108,17 +106,13 @@ public class AdaptadorPlanesCompletados extends RecyclerView.Adapter<AdaptadorPl
 
     public void addData(List<ModeloPlanes> newData) {
 
-        if(!newData.isEmpty()){
-            int startPosition = modeloPlanes.size();
+        int startPosition = modeloPlanes.size();
 
+        // Agrega nuevos elementos a la lista existente
+        modeloPlanes.addAll(newData);
 
-            // Agrega nuevos elementos a la lista existente
-            modeloPlanes.addAll(newData);
-
-            // Notifica al RecyclerView sobre los cambios en los datos
-            notifyItemRangeInserted(startPosition, newData.size());
-        }
-
+        // Notifica al RecyclerView sobre los cambios en los datos
+        notifyItemRangeInserted(startPosition, newData.size());
 
     }
 
