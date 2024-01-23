@@ -207,6 +207,17 @@
 
 
 
+    <!-- ESTILO PARA TAB LAYOUT-->
+    <style name="MineCustomTabLayout" parent="TextAppearance.Design.Tab">
+
+        <item name="textAllCaps">false</item>
+        <item name="android:dividerPadding">3dp</item>
+        <item name="android:textSize">16sp</item>
+
+    </style>
+
+
+
 
 
 

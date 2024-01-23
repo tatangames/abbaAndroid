@@ -48,11 +48,11 @@ public class FragmentPlanesCompletados extends Fragment {
 
     private int currentPage = 1;
     private int lastPage = 1;
-    private boolean unaVezAdapter = true;
+    private boolean unaVezAdapter, unaVezVisibilidad = true;
 
     private AdaptadorPlanesCompletados adapter;
 
-    private boolean isLoading = false;
+    private boolean isLoading, puedeCargarYa = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -87,16 +87,32 @@ public class FragmentPlanesCompletados extends Fragment {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                int visibleItemCount = layoutManager.getChildCount();
+                /*int visibleItemCount = layoutManager.getChildCount();
                 int totalItemCount = layoutManager.getItemCount();
                 int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
                 if (!isLoadingg() && !isLastPage()) {
                     if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
                             && firstVisibleItemPosition >= 0
                             && totalItemCount >= 0) {
-                        apiBuscarMisPlanesCompletados();
+                        if(puedeCargarYa) {
+                            apiBuscarMisPlanesCompletados();
+                        }
+
                     }
+                }*/
+
+                int visibleItemCount = layoutManager.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+
+                // Verificar si no se está cargando y si ha llegado al final de la lista
+                if (!isLoading && (visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && dy > 0) {
+                    // Iniciar la carga de más elementos
+                    // isLoading = true;
+                    // Cargar más elementos aquí
+                    apiBuscarMisPlanesCompletados();
                 }
+
             }
         });
 
@@ -159,11 +175,15 @@ public class FragmentPlanesCompletados extends Fragment {
                                                 if (!apiRespuesta.getData().getData().isEmpty()) {
                                                     List<ModeloPlanes> newData = apiRespuesta.getData().getData();
 
-                                                    lastPage = apiRespuesta.getData().getLastPage();
+                                                    //lastPage = apiRespuesta.getData().getLastPage();
 
+                                                    for (ModeloPlanes pl : newData){
+                                                        Log.i("PORTADA", pl.getTitulo());
+                                                    }
+                                                    setearAdapter(newData);
                                                     if(unaVezAdapter){
                                                         unaVezAdapter = false;
-                                                        setearAdapter(newData);
+
                                                     }
                                                     else{
                                                         adapter.addData(newData);
@@ -171,10 +191,14 @@ public class FragmentPlanesCompletados extends Fragment {
 
                                                     currentPage++;
                                                     isLoading = false;
+                                                    unaVezVisibilidad = false;
                                                 }
                                             }else{
-                                                recyclerView.setVisibility(View.GONE);
-                                                txtSinPlanes.setVisibility(View.VISIBLE);
+                                                if(unaVezVisibilidad){
+                                                    unaVezVisibilidad = false;
+                                                    recyclerView.setVisibility(View.GONE);
+                                                    txtSinPlanes.setVisibility(View.VISIBLE);
+                                                }
                                             }
 
                                         }else{
@@ -186,6 +210,7 @@ public class FragmentPlanesCompletados extends Fragment {
                                         mensajeSinConexion();
                                         isLoading = false;
                                         //String errorMessage = throwable.getMessage();
+
                                     }
                             ));
         }
