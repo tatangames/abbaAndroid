@@ -25,6 +25,11 @@
     </style>
 
 
+    <style parent="ThemeOverlay.AppCompat.Dialog.Alert" name="TrackSelectionDialogThemeOverlay">
+        <item name="windowNoTitle">false</item>
+
+    </style>
+
 
 
     <!-- ESTILO BOTON PARA IR A LOGIN -->

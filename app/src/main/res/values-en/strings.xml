@@ -132,7 +132,10 @@
     <string name="completados">Completed</string>
     <string name="compartidos">Shared</string>
     <string name="comunidad">Community</string>
-
+    <string name="track_selection_title">Video Quality</string>
+    <string name="exo_track_selection_title_video">Video Quality</string>
+    <string name="exo_track_selection_title_audio">Audio Quality</string>
+    <string name="exo_track_selection_title_text">Texto Quality</string>
 
 
 
