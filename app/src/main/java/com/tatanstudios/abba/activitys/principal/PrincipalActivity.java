@@ -113,6 +113,7 @@ public class PrincipalActivity extends AppCompatActivity  implements InterfaceAc
     private void cambioMenuInicio(){
 
 
+
             menuInicio.setIcon(R.drawable.vector_casa_lleno);
 
             menuBiblia.setIcon(R.drawable.vector_biblia_linea);
