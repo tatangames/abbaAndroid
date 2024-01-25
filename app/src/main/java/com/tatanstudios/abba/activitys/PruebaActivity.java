@@ -49,7 +49,7 @@ public class PruebaActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_prueba);
-        String facebookVideoUrl = "https://www.facebook.com/reel/1681591828991728";
+        /*String facebookVideoUrl = "https://www.facebook.com/reel/pNvtHJsCPO";
 
 
 
@@ -77,6 +77,19 @@ public class PruebaActivity extends AppCompatActivity {
         startActivity(chooser);
 
         // Finaliza la actividad actual (opcional)
+        finish();
+*/
+
+
+
+        String instagramProfileUrl = "https://www.instagram.com/reel/C2S6Pi0voaS";
+
+        // Crea un Intent con la acción ACTION_VIEW y la URI del perfil de Instagram
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(instagramProfileUrl));
+
+        // Muestra el diálogo de elección para que el usuario elija un navegador o la aplicación de Instagram
+        startActivity(Intent.createChooser(intent, "Abrir con..."));
+
         finish();
 
 

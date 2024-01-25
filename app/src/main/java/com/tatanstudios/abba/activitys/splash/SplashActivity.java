@@ -82,7 +82,7 @@ public class SplashActivity extends AppCompatActivity {
             if(!TextUtils.isEmpty(tokenManager.getToken().getId())){
 
                 // Siguiente Actvity
-                Intent intent = new Intent(this, PruebaActivity.class);
+                Intent intent = new Intent(this, PrincipalActivity.class);
                 startActivity(intent);
 
                 // Animación personalizada de entrada
