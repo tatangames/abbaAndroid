@@ -1,9 +1,10 @@
 package com.tatanstudios.abba.modelos.inicio;
 
-import com.tatanstudios.abba.modelos.inicio.bloques.versiculos.ModeloVersiculo;
-import com.tatanstudios.abba.modelos.inicio.bloques.videos.ModeloVideos;
-import com.tatanstudios.abba.modelos.misplanes.ModeloMisPlanesPortada;
-import com.tatanstudios.abba.modelos.misplanes.ModeloMisPlanesReHorizontal;
+import com.tatanstudios.abba.modelos.inicio.bloques.comparteapp.ModeloInicioComparteApp;
+import com.tatanstudios.abba.modelos.inicio.bloques.imagenes.ModeloInicioImagenes;
+import com.tatanstudios.abba.modelos.inicio.bloques.insignias.ModeloInicioInsignias;
+import com.tatanstudios.abba.modelos.inicio.bloques.versiculos.ModeloInicioDevocional;
+import com.tatanstudios.abba.modelos.inicio.bloques.videos.ModeloInicioVideos;
 
 public class ModeloVistasInicio {
 
@@ -12,21 +13,37 @@ public class ModeloVistasInicio {
     public int tipoVista;
 
     // Esta vista es cuando tenemos el ultimo plan para poder continuarlo
-    public static final int TIPO_VERSICULO = 0;
+    public static final int TIPO_DEVOCIONAL = 0;
+
     public static final int TIPO_VIDEOS = 1;
 
+    public static final int TIPO_IMAGENES = 2;
 
-    private ModeloVersiculo modeloVersiculo;
-    private ModeloVideos modeloVideos;
+    public static final int TIPO_COMPARTEAPP = 3;
+
+    public static final int TIPO_INSIGNIAS = 4;
 
 
-    public ModeloVistasInicio(int tipoVista, ModeloVersiculo modeloVersiculo, ModeloVideos modeloVideos
+    private ModeloInicioDevocional modeloInicioDevocional;
+    private ModeloInicioVideos modeloInicioVideos;
 
+    private ModeloInicioImagenes modeloInicioImagenes;
+    private ModeloInicioComparteApp ModeloInicioComparteApp;
+    private ModeloInicioInsignias modeloInicioInsignias;
+
+
+    public ModeloVistasInicio(int tipoVista, ModeloInicioDevocional modeloInicioDevocional,
+                              ModeloInicioVideos modeloInicioVideos,
+                              ModeloInicioImagenes modeloInicioImagenes,
+                              ModeloInicioComparteApp ModeloInicioComparteApp,
+                              ModeloInicioInsignias modeloInicioInsignias
     ) {
         this.tipoVista = tipoVista;
-        this.modeloVersiculo = modeloVersiculo;
-        this.modeloVideos = modeloVideos;
-
+        this.modeloInicioDevocional = modeloInicioDevocional;
+        this.modeloInicioVideos = modeloInicioVideos;
+        this.modeloInicioImagenes = modeloInicioImagenes;
+        this.ModeloInicioComparteApp = ModeloInicioComparteApp;
+        this.modeloInicioInsignias = modeloInicioInsignias;
     }
 
     public int getTipoVista() {
@@ -34,11 +51,26 @@ public class ModeloVistasInicio {
     }
 
 
-    public ModeloVersiculo getModeloVersiculo() {
-        return modeloVersiculo;
+
+
+
+    public ModeloInicioDevocional getModeloInicioDevocional() {
+        return modeloInicioDevocional;
     }
 
-    public ModeloVideos getModeloVideos() {
-        return modeloVideos;
+    public ModeloInicioVideos getModeloInicioVideos() {
+        return modeloInicioVideos;
+    }
+
+    public ModeloInicioImagenes getModeloInicioImagenes() {
+        return modeloInicioImagenes;
+    }
+
+    public com.tatanstudios.abba.modelos.inicio.bloques.comparteapp.ModeloInicioComparteApp getModeloInicioComparteApp() {
+        return ModeloInicioComparteApp;
+    }
+
+    public ModeloInicioInsignias getModeloInicioInsignias() {
+        return modeloInicioInsignias;
     }
 }

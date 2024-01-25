@@ -3,38 +3,31 @@ package com.tatanstudios.abba.fragmentos.inicio.tabs;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.graphics.PorterDuff;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.exoplayer2.DefaultLoadControl;
-import com.google.android.exoplayer2.DefaultRenderersFactory;
-import com.google.android.exoplayer2.ExoPlayer;
-import com.google.android.exoplayer2.ExoPlayer.Builder;
-import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
-import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.ProgressiveMediaSource;
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.ui.PlayerView;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.google.android.exoplayer2.util.Util;
 import com.tatanstudios.abba.R;
+import com.tatanstudios.abba.adaptadores.inicio.AdaptadorInicio;
+import com.tatanstudios.abba.adaptadores.planes.bloques.AdaptadorPreguntas;
+import com.tatanstudios.abba.modelos.inicio.ModeloContenedorInicio;
 import com.tatanstudios.abba.modelos.inicio.ModeloVistasInicio;
-import com.tatanstudios.abba.modelos.planes.ModeloPlanes;
-import com.tatanstudios.abba.modelos.planes.ModeloPlanesTitulo;
-import com.tatanstudios.abba.modelos.planes.planesmodelo.ModeloVistasBuscarPlanes;
+import com.tatanstudios.abba.modelos.inicio.bloques.comparteapp.ModeloInicioComparteApp;
+import com.tatanstudios.abba.modelos.inicio.bloques.imagenes.ModeloInicioImagenes;
+import com.tatanstudios.abba.modelos.inicio.bloques.insignias.ModeloInicioInsignias;
+import com.tatanstudios.abba.modelos.inicio.bloques.versiculos.ModeloInicioDevocional;
+import com.tatanstudios.abba.modelos.inicio.bloques.videos.ModeloInicioVideos;
+import com.tatanstudios.abba.modelos.mas.ModeloFraMasConfig;
+import com.tatanstudios.abba.modelos.mas.ModeloFragmentMas;
 import com.tatanstudios.abba.network.ApiService;
 import com.tatanstudios.abba.network.RetrofitBuilder;
 import com.tatanstudios.abba.network.TokenManager;
@@ -58,6 +51,9 @@ public class FragmentTabInicio extends Fragment {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     private ArrayList<ModeloVistasInicio> elementos;
+
+    private AdaptadorInicio adapter;
+
 
 
     @Override
@@ -94,7 +90,7 @@ public class FragmentTabInicio extends Fragment {
         elementos = new ArrayList<>();
 
         compositeDisposable.add(
-                service.buscarPlanesNuevos(iduser, idiomaPlan)
+                service.informacionBloqueInicio(iduser, idiomaPlan)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(apiRespuesta -> {
@@ -106,30 +102,9 @@ public class FragmentTabInicio extends Fragment {
 
                                         if(apiRespuesta.getSuccess() == 1) {
 
-                                            if(apiRespuesta.getHayinfo() == 1){
+                                                llenarBloques(apiRespuesta);
 
-                                               /* for (ModeloPlanesTitulo arrayTitulo : apiRespuesta.getModeloPlanesTitulos()) {
-                                                    elementos.add(new ModeloVistasBuscarPlanes( ModeloVistasBuscarPlanes.TIPO_TITULO, new ModeloPlanesTitulo(arrayTitulo.getId(), arrayTitulo.getTitulo()), null));
-
-                                                    for (ModeloPlanes arrayPlanes : arrayTitulo.getModeloPlanes()){
-
-                                                        elementos.add(new ModeloVistasBuscarPlanes( ModeloVistasBuscarPlanes.TIPO_PLANES, null, new ModeloPlanes(
-                                                                arrayPlanes.getId(),
-                                                                arrayPlanes.getImagen(),
-                                                                arrayPlanes.getTitulo(),
-                                                                arrayPlanes.getSubtitulo()
-                                                        )));
-                                                    }
-                                                }
-
-                                                completarAdapter();
-*/
-
-                                            }else{
-                                                recyclerView.setVisibility(View.GONE);
-                                              //  txtSinPlanes.setVisibility(View.VISIBLE);
-                                            }
-                                        }
+                                          }
                                         else{
                                             mensajeSinConexion();
                                         }
@@ -141,9 +116,160 @@ public class FragmentTabInicio extends Fragment {
                                     mensajeSinConexion();
                                 })
         );
-
-
     }
+
+    private void llenarBloques(ModeloContenedorInicio apiRespuesta){
+
+        if(apiRespuesta.getMostrarbloquedevocional() == 1 && apiRespuesta.getDevohaydevocional() == 1){
+            elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_DEVOCIONAL,
+                    new ModeloInicioDevocional(apiRespuesta.getDevohaydevocional(),
+                            apiRespuesta.getDevocuestionario(),
+                            apiRespuesta.getDevoidblockdeta()),
+                    null,
+                    null,
+                    null,
+                    null
+            ));
+        }
+
+        // BLOQUE DE POSICION 2 - Videos
+
+        if(apiRespuesta.getMostrarbloquevideo() == 1 && apiRespuesta.getVideohayvideos() == 1){
+
+            for (ModeloInicioVideos m : apiRespuesta.getModeloInicioVideos()){
+                elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_VIDEOS,null,
+                        new ModeloInicioVideos(m.getId(),
+                                m.getId_tipo_video(),
+                                m.getUrl_video(),
+                                m.getPosicion(),
+                                m.getImagen(),
+                                m.getTitulo()),
+                        null,
+                        null,
+                        null
+                ));
+            }
+        }
+
+        setearAdaptador();
+    }
+
+
+
+    private void llenarBloques2(ModeloContenedorInicio apiRespuesta){
+
+
+        // BLOQUE DE POSICION 1 - Devocional
+
+        if(apiRespuesta.getMostrarbloquedevocional() == 1 && apiRespuesta.getDevohaydevocional() == 1){
+            elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_DEVOCIONAL,
+                    new ModeloInicioDevocional(apiRespuesta.getDevohaydevocional(),
+                            apiRespuesta.getDevocuestionario(),
+                            apiRespuesta.getDevoidblockdeta()),
+                    null,
+                    null,
+                    null,
+                    null
+            ));
+        }
+
+        // BLOQUE DE POSICION 2 - Videos
+
+        if(apiRespuesta.getMostrarbloquevideo() == 1 && apiRespuesta.getVideohayvideos() == 1){
+
+            for (ModeloInicioVideos m : apiRespuesta.getModeloInicioVideos()){
+                elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_VIDEOS,null,
+                        new ModeloInicioVideos(m.getId(),
+                                m.getId_tipo_video(),
+                                m.getUrl_video(),
+                                m.getPosicion(),
+                                m.getImagen(),
+                                m.getTitulo()),
+                        null,
+                        null,
+                        null
+                ));
+            }
+        }
+
+        // BLOQUE DE POSICION 3 - Imagenes
+
+
+        if(apiRespuesta.getMostrarbloqueimagenes() == 1 && apiRespuesta.getImageneshayhoy() == 1){
+
+            for (ModeloInicioImagenes m : apiRespuesta.getModeloInicioImagenes()){
+                elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_IMAGENES,null,
+                        null,
+                        new ModeloInicioImagenes(m.getId(),
+                                m.getImagen()),
+                        null,
+                        null
+                ));
+            }
+        }
+
+
+        // BLOQUE DE POSICION 4 - Comparte App
+
+        if(apiRespuesta.getMostrarbloquecomparte() == 1){
+
+            ModeloInicioComparteApp comparte = new ModeloInicioComparteApp(
+                    apiRespuesta.getComparteappimagen(),
+                    apiRespuesta.getComparteapptitulo(),
+                    apiRespuesta.getComparteappdescrip()
+            );
+                elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_COMPARTEAPP,null,
+                        null,
+                       null,
+                        comparte,
+                        null
+                ));
+        }
+
+
+        // BLOQUE DE POSICION 5 - Insignias
+
+        if(apiRespuesta.getMostrarbloqueinsignias() == 1 && apiRespuesta.getInsigniashay() == 1){
+
+
+            for (ModeloInicioInsignias m : apiRespuesta.getModeloInicioInsignias()){
+
+                elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_INSIGNIAS,null,
+                        null,
+                        null,
+                        null,
+                        new ModeloInicioInsignias(
+                            m.getId(),
+                            m.getTitulo(),
+                            m.getDescripcion(),
+                            m.getNivelVoy()
+                        )
+                ));
+            }
+        }
+
+
+        setearAdaptador();
+    }
+
+
+    private void setearAdaptador(){
+
+        boolean temaActual = false;
+        if(tokenManager.getToken().getTema() == 1){
+            temaActual = true;
+        }
+
+        adapter = new AdaptadorInicio(getContext(), elementos, this, temaActual);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+    }
+
+
 
 
 

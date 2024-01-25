@@ -1,5 +1,6 @@
 package com.tatanstudios.abba.network;
 
+import com.tatanstudios.abba.modelos.inicio.ModeloContenedorInicio;
 import com.tatanstudios.abba.modelos.misplanes.ModeloMisPlanesContenedor;
 import com.tatanstudios.abba.modelos.misplanes.preguntas.ModeloPreguntasContenedor;
 import com.tatanstudios.abba.modelos.perfil.ModeloAjustes;
@@ -196,7 +197,10 @@ public interface ApiService {
                                                                 @Field("idiomaplan") int idiomaplan,
                                                                 @Field("idplan") int idplan);
 
-
+    @POST("app/inicio/bloque/completa")
+    @FormUrlEncoded
+    Observable<ModeloContenedorInicio> informacionBloqueInicio(@Field("iduser") String iduser,
+                                                               @Field("idiomaplan") int idiomaplan);
 
 
     //Observable<ModeloPlanesContenedor> listadoMisPlanesCompletados(@Body PaginationRequest request);

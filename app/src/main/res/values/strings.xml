@@ -132,12 +132,10 @@
     <string name="completados">Completados</string>
     <string name="compartidos">Compartidos</string>
     <string name="comunidad">Comunidad</string>
+    <string name="devocional_del_dia">Devocional del día</string>
 
 
-    <string name="track_selection_title">Video Quality</string>
-    <string name="exo_track_selection_title_video">Video Quality</string>
-    <string name="exo_track_selection_title_audio">Audio Quality</string>
-    <string name="exo_track_selection_title_text">Texto Quality</string>
+
 
 
 

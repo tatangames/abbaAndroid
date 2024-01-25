@@ -5,6 +5,7 @@ import static android.content.Context.MODE_PRIVATE;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class FragmentInicio extends Fragment {
     private ImageView imgNoti;
 
     private TextView txtRacha;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,6 +85,11 @@ public class FragmentInicio extends Fragment {
         tabLayout.setBackgroundColor(colorPrimary);
         tabLayout.setTabTextColors(tabTextColor, tabStrokeColor);
 
+
+
+        imgNoti.setOnClickListener(v -> {
+
+        });
 
         // Configura el adaptador del ViewPager y agrega pestañas al TabLayout
         TabPagerAdapter adapter = new TabPagerAdapter(getContext(), getChildFragmentManager());
