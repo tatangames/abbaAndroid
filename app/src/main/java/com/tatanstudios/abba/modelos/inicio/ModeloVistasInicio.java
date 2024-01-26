@@ -3,6 +3,7 @@ package com.tatanstudios.abba.modelos.inicio;
 import com.tatanstudios.abba.modelos.inicio.bloques.comparteapp.ModeloInicioComparteApp;
 import com.tatanstudios.abba.modelos.inicio.bloques.imagenes.ModeloInicioImagenes;
 import com.tatanstudios.abba.modelos.inicio.bloques.insignias.ModeloInicioInsignias;
+import com.tatanstudios.abba.modelos.inicio.bloques.separador.ModeloInicioSeparador;
 import com.tatanstudios.abba.modelos.inicio.bloques.versiculos.ModeloInicioDevocional;
 import com.tatanstudios.abba.modelos.inicio.bloques.videos.ModeloInicioVideos;
 
@@ -25,6 +26,7 @@ public class ModeloVistasInicio {
 
     public static final int TIPO_INSIGNIAS = 4;
 
+    public static final int TIPO_SEPARADOR = 5;
 
     private ModeloInicioDevocional modeloInicioDevocional;
     private List<ModeloInicioVideos> modeloInicioVideos;
@@ -33,12 +35,15 @@ public class ModeloVistasInicio {
     private ModeloInicioComparteApp modeloInicioComparteApp;
     private List<ModeloInicioInsignias> modeloInicioInsignias;
 
+    private ModeloInicioSeparador modeloInicioSeparador;
+
 
     public ModeloVistasInicio(int tipoVista, ModeloInicioDevocional modeloInicioDevocional,
                               List<ModeloInicioVideos> modeloInicioVideos,
                               List<ModeloInicioImagenes> modeloInicioImagenes,
                               ModeloInicioComparteApp modeloInicioComparteApp,
-                              List<ModeloInicioInsignias> modeloInicioInsignias
+                              List<ModeloInicioInsignias> modeloInicioInsignias,
+                              ModeloInicioSeparador modeloInicioSeparador
     ) {
         this.tipoVista = tipoVista;
         this.modeloInicioDevocional = modeloInicioDevocional;
@@ -46,12 +51,17 @@ public class ModeloVistasInicio {
         this.modeloInicioImagenes = modeloInicioImagenes;
         this.modeloInicioComparteApp = modeloInicioComparteApp;
         this.modeloInicioInsignias = modeloInicioInsignias;
+        this.modeloInicioSeparador = modeloInicioSeparador;
     }
 
     public int getTipoVista() {
         return tipoVista;
     }
 
+
+    public ModeloInicioSeparador getModeloInicioSeparador() {
+        return modeloInicioSeparador;
+    }
 
     public List<ModeloInicioVideos> getModeloInicioVideos() {
         return modeloInicioVideos;

@@ -98,12 +98,34 @@ public class ModeloContenedorInicio {
     public List<ModeloInicioInsignias> modeloInicioInsignias;
 
 
+    //********************
+
+    @SerializedName("videomayor5")
+    private int videomayor5;
+
+    @SerializedName("imagenesmayor5")
+    private int imagenesmayor5;
+
+    @SerializedName("insigniasmayor5")
+    private int insigniasmayor5;
 
 
 
 
 
 
+
+    public int getVideomayor5() {
+        return videomayor5;
+    }
+
+    public int getImagenesmayor5() {
+        return imagenesmayor5;
+    }
+
+    public int getInsigniasmayor5() {
+        return insigniasmayor5;
+    }
 
     public List<ModeloInicioInsignias> getModeloInicioInsignias() {
         return modeloInicioInsignias;

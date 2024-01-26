@@ -35,6 +35,7 @@ import com.tatanstudios.abba.fragmentos.planes.cuestionario.FragmentPreguntasPla
 import com.tatanstudios.abba.modelos.inicio.ModeloVistasInicio;
 import com.tatanstudios.abba.modelos.inicio.bloques.imagenes.ModeloInicioImagenes;
 import com.tatanstudios.abba.modelos.inicio.bloques.insignias.ModeloInicioInsignias;
+import com.tatanstudios.abba.modelos.inicio.bloques.separador.ModeloInicioSeparador;
 import com.tatanstudios.abba.modelos.inicio.bloques.versiculos.ModeloInicioDevocional;
 import com.tatanstudios.abba.modelos.inicio.bloques.videos.ModeloInicioVideos;
 import com.tatanstudios.abba.modelos.misplanes.preguntas.ModeloPreguntas;
@@ -84,6 +85,10 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
             case ModeloVistasInicio.TIPO_INSIGNIAS:
                 itemView = inflater.inflate(R.layout.cardview_inicio_insignias_recycler, parent, false);
                 return new AdaptadorInicio.RecyclerInsigniasViewHolder(itemView);
+
+            case ModeloVistasInicio.TIPO_SEPARADOR:
+                itemView = inflater.inflate(R.layout.cardview_inicio_separador, parent, false);
+                return new AdaptadorInicio.SeparadorViewHolder(itemView);
 
             default:
                 throw new IllegalArgumentException("Tipo de vista desconocido");
@@ -151,15 +156,14 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     }
                 });
 
-
-
-
-
-
-
                 break;
             case ModeloVistasInicio.TIPO_VIDEOS:
+
                 AdaptadorInicio.RecyclerVideoViewHolder viewHolderVideo = (AdaptadorInicio.RecyclerVideoViewHolder) holder;
+                viewHolderVideo.txtToolbar.setText(context.getString(R.string.videos));
+
+
+
                 configurarRecyclerVideos(viewHolderVideo.recyclerViewVideos, modeloVistasInicio.getModeloInicioVideos());
                 break;
 
@@ -178,6 +182,26 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 AdaptadorInicio.RecyclerInsigniasViewHolder viewHolderInsignias = (AdaptadorInicio.RecyclerInsigniasViewHolder) holder;
                 configurarRecyclerInsignias(viewHolderInsignias.recyclerViewInsignias, modeloVistasInicio.getModeloInicioInsignias());
                 break;
+
+            case ModeloVistasInicio.TIPO_SEPARADOR:
+
+                ModeloInicioSeparador mSeparador = modeloVistasInicio.getModeloInicioSeparador();
+
+                AdaptadorInicio.SeparadorViewHolder viewHolderSeparador = (AdaptadorInicio.SeparadorViewHolder) holder;
+
+                if(mSeparador.getHayMas() == 1){
+                    viewHolderSeparador.imgFlechaDerecha.setVisibility(View.VISIBLE);
+                }else{
+                    viewHolderSeparador.imgFlechaDerecha.setVisibility(View.GONE);
+                }
+
+                viewHolderSeparador.txtToolbar.setText(mSeparador.getNombre());
+
+                viewHolderSeparador.imgFlechaDerecha.setOnClickListener(v -> {
+
+                });
+
+                break;
         }
     }
 
@@ -194,7 +218,7 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private void configurarRecyclerVideos(RecyclerView recyclerView, List<ModeloInicioVideos> modeloInicioVideos) {
 
-        RecyclerView.Adapter adaptadorInterno = new AdaptadorInicioRecyclerVideos(modeloInicioVideos);
+        RecyclerView.Adapter adaptadorInterno = new AdaptadorInicioRecyclerVideos(context, modeloInicioVideos, fragmentTabInicio);
         recyclerView.setAdapter(adaptadorInterno);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false));
     }
@@ -240,11 +264,13 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     // BLOQUE VIDEOS
     private static class RecyclerVideoViewHolder extends RecyclerView.ViewHolder {
-        RecyclerView recyclerViewVideos;
+        private RecyclerView recyclerViewVideos;
+        private TextView txtToolbar;
 
         RecyclerVideoViewHolder(View itemView) {
             super(itemView);
             recyclerViewVideos = itemView.findViewById(R.id.recyclerViewVideos);
+            txtToolbar = itemView.findViewById(R.id.txtToolbar);
         }
     }
 
@@ -284,6 +310,21 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
             recyclerViewInsignias = itemView.findViewById(R.id.recyclerViewInsignias);
         }
     }
+
+
+    // BLOQUE DEVOCIONAL
+    private static class SeparadorViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView txtToolbar;
+        private ImageView imgFlechaDerecha;
+
+        SeparadorViewHolder(View itemView) {
+            super(itemView);
+            txtToolbar = itemView.findViewById(R.id.txtToolbar);
+            imgFlechaDerecha = itemView.findViewById(R.id.imgFlechaDerecha);
+        }
+    }
+
 
 
     private String obtenerTextoCortado(String texto, int maxCaracteres) {

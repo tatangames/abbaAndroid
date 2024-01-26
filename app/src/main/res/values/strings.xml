@@ -134,13 +134,8 @@
     <string name="comunidad">Comunidad</string>
     <string name="devocional_del_dia">Devocional del día</string>
     <string name="compartir_con">Compartir con</string>
-
-
-
-
-
-
-
+    <string name="imagenes_del_dia">Imágenes del Día</string>
+    <string name="abrir_con">Abrir con...</string>
 
 
     <string-array name="generos_array">
