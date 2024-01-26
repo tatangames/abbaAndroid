@@ -121,6 +121,7 @@ public class FragmentTabInicio extends Fragment {
     private void llenarBloques(ModeloContenedorInicio apiRespuesta){
 
         if(apiRespuesta.getMostrarbloquedevocional() == 1 && apiRespuesta.getDevohaydevocional() == 1){
+
             elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_DEVOCIONAL,
                     new ModeloInicioDevocional(apiRespuesta.getDevohaydevocional(),
                             apiRespuesta.getDevocuestionario(),
@@ -136,122 +137,60 @@ public class FragmentTabInicio extends Fragment {
 
         if(apiRespuesta.getMostrarbloquevideo() == 1 && apiRespuesta.getVideohayvideos() == 1){
 
-            for (ModeloInicioVideos m : apiRespuesta.getModeloInicioVideos()){
-                elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_VIDEOS,null,
-                        new ModeloInicioVideos(m.getId(),
-                                m.getId_tipo_video(),
-                                m.getUrl_video(),
-                                m.getPosicion(),
-                                m.getImagen(),
-                                m.getTitulo()),
-                        null,
-                        null,
-                        null
-                ));
-            }
-        }
-
-        setearAdaptador();
-    }
-
-
-
-    private void llenarBloques2(ModeloContenedorInicio apiRespuesta){
-
-
-        // BLOQUE DE POSICION 1 - Devocional
-
-        if(apiRespuesta.getMostrarbloquedevocional() == 1 && apiRespuesta.getDevohaydevocional() == 1){
-            elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_DEVOCIONAL,
-                    new ModeloInicioDevocional(apiRespuesta.getDevohaydevocional(),
-                            apiRespuesta.getDevocuestionario(),
-                            apiRespuesta.getDevoidblockdeta()),
-                    null,
+            elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_VIDEOS,null,
+                    apiRespuesta.getModeloInicioVideos(),
                     null,
                     null,
                     null
             ));
-        }
-
-        // BLOQUE DE POSICION 2 - Videos
-
-        if(apiRespuesta.getMostrarbloquevideo() == 1 && apiRespuesta.getVideohayvideos() == 1){
-
-            for (ModeloInicioVideos m : apiRespuesta.getModeloInicioVideos()){
-                elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_VIDEOS,null,
-                        new ModeloInicioVideos(m.getId(),
-                                m.getId_tipo_video(),
-                                m.getUrl_video(),
-                                m.getPosicion(),
-                                m.getImagen(),
-                                m.getTitulo()),
-                        null,
-                        null,
-                        null
-                ));
-            }
         }
 
         // BLOQUE DE POSICION 3 - Imagenes
 
-
         if(apiRespuesta.getMostrarbloqueimagenes() == 1 && apiRespuesta.getImageneshayhoy() == 1){
-
-            for (ModeloInicioImagenes m : apiRespuesta.getModeloInicioImagenes()){
-                elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_IMAGENES,null,
-                        null,
-                        new ModeloInicioImagenes(m.getId(),
-                                m.getImagen()),
-                        null,
-                        null
-                ));
-            }
+            elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_IMAGENES,null,
+                    null,
+                    apiRespuesta.getModeloInicioImagenes(),
+                    null,
+                    null
+            ));
         }
+
+
 
 
         // BLOQUE DE POSICION 4 - Comparte App
 
-        if(apiRespuesta.getMostrarbloquecomparte() == 1){
 
-            ModeloInicioComparteApp comparte = new ModeloInicioComparteApp(
-                    apiRespuesta.getComparteappimagen(),
-                    apiRespuesta.getComparteapptitulo(),
-                    apiRespuesta.getComparteappdescrip()
-            );
-                elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_COMPARTEAPP,null,
-                        null,
-                       null,
-                        comparte,
-                        null
-                ));
+        if(apiRespuesta.getMostrarbloquecomparte() == 1){
+            elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_COMPARTEAPP,null,
+                    null,
+                    null,
+                    new ModeloInicioComparteApp(apiRespuesta.getComparteappimagen(),
+                            apiRespuesta.getComparteapptitulo(),
+                            apiRespuesta.getComparteappdescrip()),
+                    null
+            ));
         }
+
+
 
 
         // BLOQUE DE POSICION 5 - Insignias
 
+
         if(apiRespuesta.getMostrarbloqueinsignias() == 1 && apiRespuesta.getInsigniashay() == 1){
-
-
-            for (ModeloInicioInsignias m : apiRespuesta.getModeloInicioInsignias()){
-
-                elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_INSIGNIAS,null,
-                        null,
-                        null,
-                        null,
-                        new ModeloInicioInsignias(
-                            m.getId(),
-                            m.getTitulo(),
-                            m.getDescripcion(),
-                            m.getNivelVoy()
-                        )
-                ));
-            }
+            elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_INSIGNIAS,null,
+                    null,
+                    null,
+                    null,
+                    apiRespuesta.getModeloInicioInsignias()
+            ));
         }
 
 
         setearAdaptador();
     }
-
 
     private void setearAdaptador(){
 

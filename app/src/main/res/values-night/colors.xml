@@ -72,6 +72,7 @@
     <color name="colorTextoLightDark">#FFFFFF</color> <!-- textos black y Light -->
     <color name="colorBordeCheckbox">#FFFFFF</color>
     <color name="colorCirculoBlockPregunta">#FFFFFF</color>
+    <color name="colorGrey_White">#FFFFFF</color> <!-- para txt Devocional del dia -->
 
     <color name="color1">#FFC107</color>
     <color name="color2">#FF4081</color>

@@ -6,6 +6,8 @@ import com.tatanstudios.abba.modelos.inicio.bloques.insignias.ModeloInicioInsign
 import com.tatanstudios.abba.modelos.inicio.bloques.versiculos.ModeloInicioDevocional;
 import com.tatanstudios.abba.modelos.inicio.bloques.videos.ModeloInicioVideos;
 
+import java.util.List;
+
 public class ModeloVistasInicio {
 
     // PARA ELEGIR TIPO DE VISTA PARA INICIO
@@ -25,24 +27,24 @@ public class ModeloVistasInicio {
 
 
     private ModeloInicioDevocional modeloInicioDevocional;
-    private ModeloInicioVideos modeloInicioVideos;
+    private List<ModeloInicioVideos> modeloInicioVideos;
 
-    private ModeloInicioImagenes modeloInicioImagenes;
-    private ModeloInicioComparteApp ModeloInicioComparteApp;
-    private ModeloInicioInsignias modeloInicioInsignias;
+    private List<ModeloInicioImagenes> modeloInicioImagenes;
+    private ModeloInicioComparteApp modeloInicioComparteApp;
+    private List<ModeloInicioInsignias> modeloInicioInsignias;
 
 
     public ModeloVistasInicio(int tipoVista, ModeloInicioDevocional modeloInicioDevocional,
-                              ModeloInicioVideos modeloInicioVideos,
-                              ModeloInicioImagenes modeloInicioImagenes,
-                              ModeloInicioComparteApp ModeloInicioComparteApp,
-                              ModeloInicioInsignias modeloInicioInsignias
+                              List<ModeloInicioVideos> modeloInicioVideos,
+                              List<ModeloInicioImagenes> modeloInicioImagenes,
+                              ModeloInicioComparteApp modeloInicioComparteApp,
+                              List<ModeloInicioInsignias> modeloInicioInsignias
     ) {
         this.tipoVista = tipoVista;
         this.modeloInicioDevocional = modeloInicioDevocional;
         this.modeloInicioVideos = modeloInicioVideos;
         this.modeloInicioImagenes = modeloInicioImagenes;
-        this.ModeloInicioComparteApp = ModeloInicioComparteApp;
+        this.modeloInicioComparteApp = modeloInicioComparteApp;
         this.modeloInicioInsignias = modeloInicioInsignias;
     }
 
@@ -51,26 +53,25 @@ public class ModeloVistasInicio {
     }
 
 
-
-
+    public List<ModeloInicioVideos> getModeloInicioVideos() {
+        return modeloInicioVideos;
+    }
 
     public ModeloInicioDevocional getModeloInicioDevocional() {
         return modeloInicioDevocional;
     }
 
-    public ModeloInicioVideos getModeloInicioVideos() {
-        return modeloInicioVideos;
-    }
 
-    public ModeloInicioImagenes getModeloInicioImagenes() {
+    public List<ModeloInicioImagenes> getModeloInicioImagenes() {
         return modeloInicioImagenes;
     }
 
-    public com.tatanstudios.abba.modelos.inicio.bloques.comparteapp.ModeloInicioComparteApp getModeloInicioComparteApp() {
-        return ModeloInicioComparteApp;
+
+    public ModeloInicioComparteApp getModeloInicioComparteApp() {
+        return modeloInicioComparteApp;
     }
 
-    public ModeloInicioInsignias getModeloInicioInsignias() {
+    public List<ModeloInicioInsignias> getModeloInicioInsignias() {
         return modeloInicioInsignias;
     }
 }

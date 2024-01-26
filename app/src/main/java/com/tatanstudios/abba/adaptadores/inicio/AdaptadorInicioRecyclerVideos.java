@@ -9,8 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tatanstudios.abba.R;
-import com.tatanstudios.abba.adaptadores.planes.bloques.AdaptadorHorizontal;
-import com.tatanstudios.abba.fragmentos.planes.bloques.SubItemModel;
 import com.tatanstudios.abba.modelos.inicio.bloques.videos.ModeloInicioVideos;
 
 import java.util.List;
