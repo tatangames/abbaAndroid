@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.tatanstudios.abba.R;
 import com.tatanstudios.abba.adaptadores.planes.buscarplanes.AdaptadorMisPlanes;
 import com.tatanstudios.abba.extras.IOnRecyclerViewClickListener;
@@ -28,20 +29,19 @@ public class AdaptadorInicioRecyclerVideos extends RecyclerView.Adapter<Adaptado
 
     private List<ModeloInicioVideos> modeloInicioVideos;
     private Context context;
-
     private FragmentTabInicio fragmentTabInicio;
-
-    public AdaptadorInicioRecyclerVideos(Context context, List<ModeloInicioVideos> modeloInicioVideos, FragmentTabInicio fragmentTabInicio) {
-        this.context = context;
-        this.modeloInicioVideos = modeloInicioVideos;
-        this.fragmentTabInicio = fragmentTabInicio;
-    }
 
     RequestOptions opcionesGlide = new RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .skipMemoryCache(true)
             .placeholder(R.drawable.camaradefecto)
             .priority(Priority.NORMAL);
+
+    public AdaptadorInicioRecyclerVideos(Context context, List<ModeloInicioVideos> modeloInicioVideos, FragmentTabInicio fragmentTabInicio) {
+        this.context = context;
+        this.modeloInicioVideos = modeloInicioVideos;
+        this.fragmentTabInicio = fragmentTabInicio;
+    }
 
     @NonNull
     @Override
@@ -87,7 +87,7 @@ public class AdaptadorInicioRecyclerVideos extends RecyclerView.Adapter<Adaptado
 
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView txtTitulo;
-        private ImageView iconImageView;
+        private ShapeableImageView iconImageView;
 
         IOnRecyclerViewClickListener listener;
 

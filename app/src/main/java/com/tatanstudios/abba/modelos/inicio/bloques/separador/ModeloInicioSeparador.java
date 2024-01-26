@@ -2,28 +2,38 @@ package com.tatanstudios.abba.modelos.inicio.bloques.separador;
 
 public class ModeloInicioSeparador {
 
-    private int id;
-
-    private String nombre;
-
-    private int hayMas;
+    private int hayMasDe5Videos;
+    private int hayMasDe5Imagenes;
+    private int hayMasDe5Insignias;
 
 
-    public ModeloInicioSeparador(int id, String nombre, int hayMas) {
-        this.id = id;
-        this.nombre = nombre;
-        this.hayMas = hayMas;
+    public ModeloInicioSeparador(int hayMasDe5Videos, int hayMasDe5Imagenes, int hayMasDe5Insignias) {
+        this.hayMasDe5Videos = hayMasDe5Videos;
+        this.hayMasDe5Imagenes = hayMasDe5Imagenes;
+        this.hayMasDe5Insignias = hayMasDe5Insignias;
     }
 
-    public int getId() {
-        return id;
+    public int getHayMasDe5Videos() {
+        return hayMasDe5Videos;
     }
 
-    public String getNombre() {
-        return nombre;
+    public int getHayMasDe5Imagenes() {
+        return hayMasDe5Imagenes;
     }
 
-    public int getHayMas() {
-        return hayMas;
+    public int getHayMasDe5Insignias() {
+        return hayMasDe5Insignias;
+    }
+
+    public void setHayMasDe5Videos(int hayMasDe5Videos) {
+        this.hayMasDe5Videos = hayMasDe5Videos;
+    }
+
+    public void setHayMasDe5Imagenes(int hayMasDe5Imagenes) {
+        this.hayMasDe5Imagenes = hayMasDe5Imagenes;
+    }
+
+    public void setHayMasDe5Insignias(int hayMasDe5Insignias) {
+        this.hayMasDe5Insignias = hayMasDe5Insignias;
     }
 }

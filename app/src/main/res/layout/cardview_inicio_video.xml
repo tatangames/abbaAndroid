@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iconImageView"
             android:layout_width="80dp"
             android:layout_height="120dp"
@@ -24,6 +24,7 @@
             android:layout_marginBottom="5dp"
             android:scaleType="centerCrop"
             android:src="@drawable/p_biblia"
+            app:shapeAppearanceOverlay="@style/radius"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -58,9 +58,7 @@ public class FragmentTabInicio extends Fragment {
 
     private AdaptadorInicio adapter;
 
-    private final int ID_SEPARADOR_VIDEOS = 1;
-    private final int ID_SEPARADOR_IMAGENES = 1;
-    private final int ID_SEPARADOR_INSIGNIAS = 1;
+    private ModeloInicioSeparador modeloInicioSeparador;
 
 
 
@@ -128,6 +126,12 @@ public class FragmentTabInicio extends Fragment {
 
     private void llenarBloques(ModeloContenedorInicio apiRespuesta){
 
+        modeloInicioSeparador = new ModeloInicioSeparador(
+                apiRespuesta.getVideomayor5(),
+                apiRespuesta.getImagenesmayor5(),
+                apiRespuesta.getInsigniashay()
+        );
+
         if(apiRespuesta.getMostrarbloquedevocional() == 1 && apiRespuesta.getDevohaydevocional() == 1){
 
             elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_DEVOCIONAL,
@@ -137,8 +141,8 @@ public class FragmentTabInicio extends Fragment {
                     null,
                     null,
                     null,
-                    null,
                     null
+
             ));
         }
 
@@ -146,20 +150,8 @@ public class FragmentTabInicio extends Fragment {
 
         if(apiRespuesta.getMostrarbloquevideo() == 1 && apiRespuesta.getVideohayvideos() == 1){
 
-            // Separador
-
-            /*elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_SEPARADOR,null,
-                   null,
-                    null,
-                    null,
-                    null,
-                    new ModeloInicioSeparador(ID_SEPARADOR_VIDEOS, getString(R.string.videos), apiRespuesta.getVideomayor5())
-            ));*/
-
-
             elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_VIDEOS,null,
                     apiRespuesta.getModeloInicioVideos(),
-                    null,
                     null,
                     null,
                     null
@@ -168,27 +160,15 @@ public class FragmentTabInicio extends Fragment {
 
         // BLOQUE DE POSICION 3 - Imagenes
 
-
-        // Separador
-
-        elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_SEPARADOR,null,
-                null,
-                null,
-                null,
-                null,
-                new ModeloInicioSeparador(ID_SEPARADOR_IMAGENES, getString(R.string.imagenes_del_dia), apiRespuesta.getImagenesmayor5())
-        ));
-
-
         if(apiRespuesta.getMostrarbloqueimagenes() == 1 && apiRespuesta.getImageneshayhoy() == 1){
             elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_IMAGENES,null,
                     null,
                     apiRespuesta.getModeloInicioImagenes(),
                     null,
-                    null,
                     null
             ));
         }
+
 
 
         // BLOQUE DE POSICION 4 - Comparte App
@@ -200,7 +180,6 @@ public class FragmentTabInicio extends Fragment {
                     new ModeloInicioComparteApp(apiRespuesta.getComparteappimagen(),
                             apiRespuesta.getComparteapptitulo(),
                             apiRespuesta.getComparteappdescrip()),
-                    null,
                     null
             ));
         }
@@ -211,23 +190,12 @@ public class FragmentTabInicio extends Fragment {
         // BLOQUE DE POSICION 5 - Insignias
 
 
-        // Separador
-
-        elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_SEPARADOR,null,
-                null,
-                null,
-                null,
-                null,
-                new ModeloInicioSeparador(ID_SEPARADOR_INSIGNIAS, getString(R.string.insignias), apiRespuesta.getInsigniasmayor5())
-        ));
-
         if(apiRespuesta.getMostrarbloqueinsignias() == 1 && apiRespuesta.getInsigniashay() == 1){
             elementos.add(new ModeloVistasInicio( ModeloVistasInicio.TIPO_INSIGNIAS,null,
                     null,
                     null,
                     null,
-                    apiRespuesta.getModeloInicioInsignias(),
-                    null
+                    apiRespuesta.getModeloInicioInsignias()
             ));
         }
 
@@ -242,7 +210,7 @@ public class FragmentTabInicio extends Fragment {
             temaActual = true;
         }
 
-        adapter = new AdaptadorInicio(getContext(), elementos, this, temaActual);
+        adapter = new AdaptadorInicio(getContext(), elementos, this, temaActual, modeloInicioSeparador);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -273,6 +241,15 @@ public class FragmentTabInicio extends Fragment {
         Intent intent = new Intent(getContext(), VideoServidorActivity.class);
         intent.putExtra("URL", urlVideo);
         startActivity(intent);
+    }
+
+    public void vistaTodosLosVideos(){
+
+    }
+
+    public void vistaTodosLasImagenes(){
+
+
     }
 
 

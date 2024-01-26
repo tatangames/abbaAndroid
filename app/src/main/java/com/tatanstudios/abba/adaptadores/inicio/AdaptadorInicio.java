@@ -22,6 +22,11 @@ import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tatanstudios.abba.R;
@@ -33,6 +38,7 @@ import com.tatanstudios.abba.fragmentos.planes.bloques.ItemModel;
 import com.tatanstudios.abba.fragmentos.planes.bloques.SubItemModel;
 import com.tatanstudios.abba.fragmentos.planes.cuestionario.FragmentPreguntasPlanBloque;
 import com.tatanstudios.abba.modelos.inicio.ModeloVistasInicio;
+import com.tatanstudios.abba.modelos.inicio.bloques.comparteapp.ModeloInicioComparteApp;
 import com.tatanstudios.abba.modelos.inicio.bloques.imagenes.ModeloInicioImagenes;
 import com.tatanstudios.abba.modelos.inicio.bloques.insignias.ModeloInicioInsignias;
 import com.tatanstudios.abba.modelos.inicio.bloques.separador.ModeloInicioSeparador;
@@ -40,6 +46,7 @@ import com.tatanstudios.abba.modelos.inicio.bloques.versiculos.ModeloInicioDevoc
 import com.tatanstudios.abba.modelos.inicio.bloques.videos.ModeloInicioVideos;
 import com.tatanstudios.abba.modelos.misplanes.preguntas.ModeloPreguntas;
 import com.tatanstudios.abba.modelos.misplanes.preguntas.ModeloVistasPreguntas;
+import com.tatanstudios.abba.network.RetrofitBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,12 +59,21 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private FragmentTabInicio fragmentTabInicio;
     private boolean tema;
     private boolean menuAbierto = false;
+    private ModeloInicioSeparador modeloInicioSeparador;
+
+    RequestOptions opcionesGlide = new RequestOptions()
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+            .placeholder(R.drawable.camaradefecto)
+            .priority(Priority.NORMAL);
+
     public AdaptadorInicio(Context context, List<ModeloVistasInicio> modeloVistasInicios, FragmentTabInicio fragmentTabInicio,
-                           boolean tema) {
+                           boolean tema, ModeloInicioSeparador modeloInicioSeparador) {
         this.context = context;
         this.modeloVistasInicios = modeloVistasInicios;
         this.fragmentTabInicio = fragmentTabInicio;
         this.tema = tema;
+        this.modeloInicioSeparador = modeloInicioSeparador;
     }
 
     @NonNull
@@ -86,10 +102,6 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 itemView = inflater.inflate(R.layout.cardview_inicio_insignias_recycler, parent, false);
                 return new AdaptadorInicio.RecyclerInsigniasViewHolder(itemView);
 
-            case ModeloVistasInicio.TIPO_SEPARADOR:
-                itemView = inflater.inflate(R.layout.cardview_inicio_separador, parent, false);
-                return new AdaptadorInicio.SeparadorViewHolder(itemView);
-
             default:
                 throw new IllegalArgumentException("Tipo de vista desconocido");
         }
@@ -108,7 +120,6 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                 String textoCortado = obtenerTextoCortado(m.getDevocuestionario(), 400);
                 viewHolderDevocional.txtDevocional.setText(HtmlCompat.fromHtml(textoCortado, HtmlCompat.FROM_HTML_MODE_LEGACY));
-
 
                 viewHolderDevocional.imgCompartir.setOnClickListener(v -> {
                     compartirTexto(HtmlCompat.fromHtml(textoCortado, HtmlCompat.FROM_HTML_MODE_LEGACY).toString());
@@ -162,45 +173,80 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 AdaptadorInicio.RecyclerVideoViewHolder viewHolderVideo = (AdaptadorInicio.RecyclerVideoViewHolder) holder;
                 viewHolderVideo.txtToolbar.setText(context.getString(R.string.videos));
 
+                if(modeloInicioSeparador.getHayMasDe5Videos() == 1){
+                    viewHolderVideo.imgFlechaDerecha.setVisibility(View.VISIBLE);
+                }else{
+                    viewHolderVideo.imgFlechaDerecha.setVisibility(View.GONE);
+                }
 
+                viewHolderVideo.imgFlechaDerecha.setOnClickListener(v -> {
+                    if(modeloInicioSeparador.getHayMasDe5Videos() == 1){
+
+                        fragmentTabInicio.vistaTodosLosVideos();
+                    }
+                });
 
                 configurarRecyclerVideos(viewHolderVideo.recyclerViewVideos, modeloVistasInicio.getModeloInicioVideos());
                 break;
 
             case ModeloVistasInicio.TIPO_IMAGENES:
                 AdaptadorInicio.RecyclerImagenesViewHolder viewHolderImagenes = (AdaptadorInicio.RecyclerImagenesViewHolder) holder;
+
+                viewHolderImagenes.txtToolbar.setText(context.getString(R.string.imagenes_del_dia));
+
+                if(modeloInicioSeparador.getHayMasDe5Imagenes() == 1){
+                    viewHolderImagenes.imgFlechaDerecha.setVisibility(View.VISIBLE);
+                }else{
+                    viewHolderImagenes.imgFlechaDerecha.setVisibility(View.GONE);
+                }
+
+                viewHolderImagenes.imgFlechaDerecha.setOnClickListener(v -> {
+                    if(modeloInicioSeparador.getHayMasDe5Imagenes() == 1){
+
+                        fragmentTabInicio.vistaTodosLasImagenes();
+                    }
+                });
+
                 configurarRecyclerImagenes(viewHolderImagenes.recyclerViewImagenes, modeloVistasInicio.getModeloInicioImagenes());
                 break;
             case ModeloVistasInicio.TIPO_COMPARTEAPP:
-
                 AdaptadorInicio.ComparteAppViewHolder viewHolderComparteApp = (AdaptadorInicio.ComparteAppViewHolder) holder;
-                viewHolderComparteApp.txtTitulo.setText("hoho");
+
+                ModeloInicioComparteApp mComparte = modeloVistasInicio.getModeloInicioComparteApp();
+
+                if(mComparte.getTitulo() != null && !TextUtils.isEmpty(mComparte.getTitulo())){
+                    viewHolderComparteApp.txtTitulo.setText(mComparte.getTitulo());
+                    viewHolderComparteApp.txtTitulo.setVisibility(View.VISIBLE);
+                }else{
+                    viewHolderComparteApp.txtTitulo.setVisibility(View.GONE);
+                }
+
+                if(mComparte.getDescripcion() != null && !TextUtils.isEmpty(mComparte.getDescripcion())){
+                    viewHolderComparteApp.txtDescripcion.setText(mComparte.getDescripcion());
+                    viewHolderComparteApp.txtDescripcion.setVisibility(View.VISIBLE);
+                }else{
+                    viewHolderComparteApp.txtDescripcion.setVisibility(View.GONE);
+                }
+
+                if(mComparte.getImagen() != null && !TextUtils.isEmpty(mComparte.getImagen())){
+                    Glide.with(context)
+                            .load(RetrofitBuilder.urlImagenes + mComparte.getImagen())
+                            .apply(opcionesGlide)
+                            .into(viewHolderComparteApp.imgPortada);
+                }else{
+                    int resourceId = R.drawable.camaradefecto;
+                    Glide.with(context)
+                            .load(resourceId)
+                            .apply(opcionesGlide)
+                            .into(viewHolderComparteApp.imgPortada);
+                }
+
                 break;
 
             case ModeloVistasInicio.TIPO_INSIGNIAS:
 
                 AdaptadorInicio.RecyclerInsigniasViewHolder viewHolderInsignias = (AdaptadorInicio.RecyclerInsigniasViewHolder) holder;
                 configurarRecyclerInsignias(viewHolderInsignias.recyclerViewInsignias, modeloVistasInicio.getModeloInicioInsignias());
-                break;
-
-            case ModeloVistasInicio.TIPO_SEPARADOR:
-
-                ModeloInicioSeparador mSeparador = modeloVistasInicio.getModeloInicioSeparador();
-
-                AdaptadorInicio.SeparadorViewHolder viewHolderSeparador = (AdaptadorInicio.SeparadorViewHolder) holder;
-
-                if(mSeparador.getHayMas() == 1){
-                    viewHolderSeparador.imgFlechaDerecha.setVisibility(View.VISIBLE);
-                }else{
-                    viewHolderSeparador.imgFlechaDerecha.setVisibility(View.GONE);
-                }
-
-                viewHolderSeparador.txtToolbar.setText(mSeparador.getNombre());
-
-                viewHolderSeparador.imgFlechaDerecha.setOnClickListener(v -> {
-
-                });
-
                 break;
         }
     }
@@ -226,7 +272,8 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private void configurarRecyclerImagenes(RecyclerView recyclerView, List<ModeloInicioImagenes> modeloInicioImagenes) {
 
-        RecyclerView.Adapter adaptadorInterno = new AdaptadorInicioRecyclerImagenes(modeloInicioImagenes);
+        RecyclerView.Adapter adaptadorInterno = new AdaptadorInicioRecyclerImagenes(context, modeloInicioImagenes);
+
         recyclerView.setAdapter(adaptadorInterno);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false));
     }
@@ -254,12 +301,8 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
             txtDevocional = itemView.findViewById(R.id.txtDevocional);
             imgCompartir = itemView.findViewById(R.id.imgShare);
             imgOpciones = itemView.findViewById(R.id.imgOpciones);
-
-
         }
     }
-
-
 
 
     // BLOQUE VIDEOS
@@ -267,10 +310,13 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private RecyclerView recyclerViewVideos;
         private TextView txtToolbar;
 
+        private ImageView imgFlechaDerecha;
+
         RecyclerVideoViewHolder(View itemView) {
             super(itemView);
             recyclerViewVideos = itemView.findViewById(R.id.recyclerViewVideos);
             txtToolbar = itemView.findViewById(R.id.txtToolbar);
+            imgFlechaDerecha = itemView.findViewById(R.id.imgFlechaDerecha);
         }
     }
 
@@ -278,17 +324,22 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
     // BLOQUE IMAGENES
     private static class RecyclerImagenesViewHolder extends RecyclerView.ViewHolder {
         RecyclerView recyclerViewImagenes;
+        private TextView txtToolbar;
+        private ImageView imgFlechaDerecha;
+
 
         RecyclerImagenesViewHolder(View itemView) {
             super(itemView);
             recyclerViewImagenes = itemView.findViewById(R.id.recyclerViewImagenes);
+            txtToolbar = itemView.findViewById(R.id.txtToolbar);
+            imgFlechaDerecha = itemView.findViewById(R.id.imgFlechaDerecha);
         }
     }
 
 
     // BLOQUE COMPARTE APP
     private static class ComparteAppViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imgPortada;
+        private ShapeableImageView imgPortada;
         private TextView txtTitulo;
         private TextView txtDescripcion;
 
@@ -308,20 +359,6 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
         RecyclerInsigniasViewHolder(View itemView) {
             super(itemView);
             recyclerViewInsignias = itemView.findViewById(R.id.recyclerViewInsignias);
-        }
-    }
-
-
-    // BLOQUE DEVOCIONAL
-    private static class SeparadorViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView txtToolbar;
-        private ImageView imgFlechaDerecha;
-
-        SeparadorViewHolder(View itemView) {
-            super(itemView);
-            txtToolbar = itemView.findViewById(R.id.txtToolbar);
-            imgFlechaDerecha = itemView.findViewById(R.id.imgFlechaDerecha);
         }
     }
 
