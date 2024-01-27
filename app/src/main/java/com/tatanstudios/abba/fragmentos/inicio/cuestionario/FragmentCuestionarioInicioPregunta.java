@@ -1,12 +1,9 @@
-package com.tatanstudios.abba.fragmentos.planes.cuestionario;
+package com.tatanstudios.abba.fragmentos.inicio.cuestionario;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +12,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tatanstudios.abba.R;
+import com.tatanstudios.abba.adaptadores.inicio.cuestionario.AdaptadorPreguntasInicio;
 import com.tatanstudios.abba.adaptadores.planes.bloques.AdaptadorPreguntas;
+import com.tatanstudios.abba.fragmentos.planes.cuestionario.FragmentPreguntasPlanBloque;
 import com.tatanstudios.abba.modelos.misplanes.preguntas.ModeloPreguntas;
 import com.tatanstudios.abba.modelos.misplanes.preguntas.ModeloVistasPreguntas;
 import com.tatanstudios.abba.network.ApiService;
@@ -40,7 +37,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class FragmentPreguntasPlanBloque extends Fragment {
+public class FragmentCuestionarioInicioPregunta extends Fragment {
 
 
     private RecyclerView recyclerView;
@@ -69,8 +66,8 @@ public class FragmentPreguntasPlanBloque extends Fragment {
     private TextView txtSinPreguntas;
 
 
-    public static FragmentPreguntasPlanBloque newInstance(int dato) {
-        FragmentPreguntasPlanBloque fragment = new FragmentPreguntasPlanBloque();
+    public static FragmentCuestionarioInicioPregunta newInstance(int dato) {
+        FragmentCuestionarioInicioPregunta fragment = new FragmentCuestionarioInicioPregunta();
         Bundle args = new Bundle();
         args.putInt(ARG_DATO, dato);
         fragment.setArguments(args);
@@ -81,7 +78,7 @@ public class FragmentPreguntasPlanBloque extends Fragment {
     private ArrayList<ModeloVistasPreguntas> elementos;
 
 
-    private AdaptadorPreguntas adapter;
+    private AdaptadorPreguntasInicio adapter;
 
     private List<ModeloPreguntas> modeloPreguntas;
 
@@ -205,7 +202,7 @@ public class FragmentPreguntasPlanBloque extends Fragment {
 
     private void setearAdaptador(String tituloP, String descripcionP){
 
-        adapter = new AdaptadorPreguntas(getContext(), elementos, this, tituloP, descripcionP, temaActual);
+        adapter = new AdaptadorPreguntasInicio(getContext(), elementos, this, tituloP, descripcionP, temaActual);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -213,8 +210,6 @@ public class FragmentPreguntasPlanBloque extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
     }
-
-
 
 
     public void verificarDatosActualizar(){
@@ -255,7 +250,7 @@ public class FragmentPreguntasPlanBloque extends Fragment {
             String iduser = tokenManager.getToken().getId();
 
             compositeDisposable.add(
-                    service.actualizarPreguntasUsuarioPlanes(iduser, idBloqueDeta, hashMapPreguntas)
+                    service.guardarPreguntasCuestionarioInicio(iduser, idBloqueDeta, hashMapPreguntas)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread()) // NO RETRY
                             .subscribe(apiRespuesta -> {

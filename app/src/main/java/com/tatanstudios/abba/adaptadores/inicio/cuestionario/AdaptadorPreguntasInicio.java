@@ -1,53 +1,39 @@
-package com.tatanstudios.abba.adaptadores.planes.bloques;
+package com.tatanstudios.abba.adaptadores.inicio.cuestionario;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
-import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tatanstudios.abba.R;
-import com.tatanstudios.abba.adaptadores.mas.AdaptadorFragmentMas;
-import com.tatanstudios.abba.fragmentos.planes.FragmentMisPlanes;
+import com.tatanstudios.abba.fragmentos.inicio.cuestionario.FragmentCuestionarioInicioPregunta;
 import com.tatanstudios.abba.fragmentos.planes.cuestionario.FragmentPreguntasPlanBloque;
 import com.tatanstudios.abba.modelos.misplanes.preguntas.ModeloPreguntas;
 import com.tatanstudios.abba.modelos.misplanes.preguntas.ModeloVistasPreguntas;
-import com.tatanstudios.abba.modelos.planes.ModeloPlanes;
-import com.tatanstudios.abba.modelos.planes.misplanes.ModeloVistasMisPlanes;
-import com.tatanstudios.abba.modelos.planes.planesmodelo.ModeloVistasBuscarPlanes;
-import com.tatanstudios.abba.network.RetrofitBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class AdaptadorPreguntas extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
+public class AdaptadorPreguntasInicio extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
 
     private Context context;
     public ArrayList<ModeloVistasPreguntas> modeloVistasPreguntas;
-    private FragmentPreguntasPlanBloque fragmentPreguntasPlanBloque;
+    private FragmentCuestionarioInicioPregunta fragmentCuestionarioInicioPregunta;
 
     private String tituloP = "";
     private String descripcionP = "";
@@ -62,10 +48,10 @@ public class AdaptadorPreguntas extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
 
-    public AdaptadorPreguntas(Context context, ArrayList<ModeloVistasPreguntas> modeloVistasPreguntas,
-                              FragmentPreguntasPlanBloque fragmentPreguntasPlanBloque, String tituloP, String descripcionP, boolean temaActual){
+    public AdaptadorPreguntasInicio(Context context, ArrayList<ModeloVistasPreguntas> modeloVistasPreguntas,
+                                    FragmentCuestionarioInicioPregunta fragmentCuestionarioInicioPregunta, String tituloP, String descripcionP, boolean temaActual){
         this.context = context;
-        this.fragmentPreguntasPlanBloque = fragmentPreguntasPlanBloque;
+        this.fragmentCuestionarioInicioPregunta = fragmentCuestionarioInicioPregunta;
         this.modeloVistasPreguntas = modeloVistasPreguntas;
         this.tituloP = tituloP;
         this.temaActual = temaActual;
@@ -128,7 +114,7 @@ public class AdaptadorPreguntas extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
             ((HolderVistaTitular) holder).txtTitulo.setOnClickListener(v -> {
-                fragmentPreguntasPlanBloque.redireccionarBiblia();
+                fragmentCuestionarioInicioPregunta.redireccionarBiblia();
             });
 
         }
@@ -201,7 +187,7 @@ public class AdaptadorPreguntas extends RecyclerView.Adapter<RecyclerView.ViewHo
                 ((HolderVistaBotonGuardar) holder).btnGuardar.setTextColor(colorStateListWhite);
             }
 
-            if(fragmentPreguntasPlanBloque.isYaHabiaGuardado()){
+            if(fragmentCuestionarioInicioPregunta.isYaHabiaGuardado()){
                 ((HolderVistaBotonGuardar) holder).btnGuardar.setText(context.getString(R.string.actualizar));
             }else{
                 ((HolderVistaBotonGuardar) holder).btnGuardar.setText(context.getString(R.string.guardar));
@@ -209,7 +195,7 @@ public class AdaptadorPreguntas extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             ((HolderVistaBotonGuardar) holder).btnGuardar.setOnClickListener(v -> {
 
-                fragmentPreguntasPlanBloque.verificarDatosActualizar();
+                fragmentCuestionarioInicioPregunta.verificarDatosActualizar();
 
             });
 

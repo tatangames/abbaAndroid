@@ -33,6 +33,7 @@ import com.tatanstudios.abba.R;
 import com.tatanstudios.abba.adaptadores.planes.bloques.AdaptadorHorizontal;
 import com.tatanstudios.abba.adaptadores.planes.bloques.AdaptadorPlanBloque;
 import com.tatanstudios.abba.adaptadores.planes.bloques.AdaptadorPreguntas;
+import com.tatanstudios.abba.extras.IOnRecyclerViewClickListener;
 import com.tatanstudios.abba.fragmentos.inicio.tabs.FragmentTabInicio;
 import com.tatanstudios.abba.fragmentos.planes.bloques.ItemModel;
 import com.tatanstudios.abba.fragmentos.planes.bloques.SubItemModel;
@@ -122,8 +123,13 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 viewHolderDevocional.txtDevocional.setText(HtmlCompat.fromHtml(textoCortado, HtmlCompat.FROM_HTML_MODE_LEGACY));
 
                 viewHolderDevocional.imgCompartir.setOnClickListener(v -> {
-                    compartirTexto(HtmlCompat.fromHtml(textoCortado, HtmlCompat.FROM_HTML_MODE_LEGACY).toString());
+                    compartirTexto(HtmlCompat.fromHtml(m.getDevocuestionario(), HtmlCompat.FROM_HTML_MODE_LEGACY).toString());
                 });
+
+                viewHolderDevocional.txtDevocional.setOnClickListener(v -> {
+                    fragmentTabInicio.redireccionarCuestionario(m.getDevoidblockdeta());
+                });
+
 
                 viewHolderDevocional.imgOpciones.setOnClickListener(v -> {
 
@@ -143,13 +149,17 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
                             menuAbierto = false;
 
                             if (item.getItemId() == R.id.opcion1) {
-                                // Maneja la selección de la opción 1
+
+                                // IR A CUESTIONARIO Y PREGUNTAS
+                                fragmentTabInicio.redireccionarCuestionario(m.getDevoidblockdeta());
+
                                 return true;
                             } else if (item.getItemId() == R.id.opcion2) {
-                                // Maneja la selección de la opción 2
-                                return true;
-                            } else if (item.getItemId() == R.id.opcion3) {
-                                // Maneja la selección de la opción 3
+
+                                // INFORMACION DEL PLAN
+                                fragmentTabInicio.redireccionarInfoPlanVista(m.getDevoidblockdeta());
+
+
                                 return true;
                             } else {
                                 return false;
@@ -241,11 +251,25 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
                             .into(viewHolderComparteApp.imgPortada);
                 }
 
+                viewHolderComparteApp.setListener((view, position1) -> {
+                    fragmentTabInicio.compartirAplicacion();
+                });
+
                 break;
 
             case ModeloVistasInicio.TIPO_INSIGNIAS:
 
                 AdaptadorInicio.RecyclerInsigniasViewHolder viewHolderInsignias = (AdaptadorInicio.RecyclerInsigniasViewHolder) holder;
+
+                viewHolderInsignias.txtToolbar.setText(context.getString(R.string.insignias));
+
+
+                if(modeloInicioSeparador.getHayMasDe5Insignias() == 1){
+                    viewHolderInsignias.imgFlechaDerecha.setVisibility(View.VISIBLE);
+                }else{
+                    viewHolderInsignias.imgFlechaDerecha.setVisibility(View.GONE);
+                }
+
                 configurarRecyclerInsignias(viewHolderInsignias.recyclerViewInsignias, modeloVistasInicio.getModeloInicioInsignias());
                 break;
         }
@@ -282,7 +306,7 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private void configurarRecyclerInsignias(RecyclerView recyclerView, List<ModeloInicioInsignias> modeloInicioInsignias) {
 
-        RecyclerView.Adapter adaptadorInterno = new AdaptadorInicioRecyclerInsignias(modeloInicioInsignias);
+        RecyclerView.Adapter adaptadorInterno = new AdaptadorInicioRecyclerInsignias(context, modeloInicioInsignias);
         recyclerView.setAdapter(adaptadorInterno);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false));
     }
@@ -338,27 +362,47 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
     // BLOQUE COMPARTE APP
-    private static class ComparteAppViewHolder extends RecyclerView.ViewHolder {
+    private static class ComparteAppViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private ShapeableImageView imgPortada;
         private TextView txtTitulo;
         private TextView txtDescripcion;
+
+        private ImageView imgShare;
+
+        IOnRecyclerViewClickListener listener;
+
+        public void setListener(IOnRecyclerViewClickListener listener) {
+            this.listener = listener;
+            itemView.setOnClickListener(this);
+        }
+
 
         ComparteAppViewHolder(View itemView) {
             super(itemView);
             imgPortada = itemView.findViewById(R.id.iconImageView);
             txtTitulo = itemView.findViewById(R.id.txtTitulo);
             txtDescripcion = itemView.findViewById(R.id.txtDescripcion);
+            imgShare = itemView.findViewById(R.id.imgShare);
+        }
+
+        @Override
+        public void onClick(View v) {
+            listener.onClick(v, getBindingAdapterPosition());
         }
     }
 
 
     // BLOQUE INSIGNIAS
     private static class RecyclerInsigniasViewHolder extends RecyclerView.ViewHolder {
-        RecyclerView recyclerViewInsignias;
+        private RecyclerView recyclerViewInsignias;
+        private TextView txtToolbar;
+        private ImageView imgFlechaDerecha;
 
         RecyclerInsigniasViewHolder(View itemView) {
             super(itemView);
             recyclerViewInsignias = itemView.findViewById(R.id.recyclerViewInsignias);
+            txtToolbar = itemView.findViewById(R.id.txtToolbar);
+            imgFlechaDerecha = itemView.findViewById(R.id.imgFlechaDerecha);
         }
     }
 

@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -326,5 +327,20 @@ public class PrincipalActivity extends AppCompatActivity  implements InterfaceAc
         // Actualiza el fragmento activo
         fragmentActivo = fragmentPlanes;
     }
+
+
+    private static final int REQUEST_CODE_COMPARTIR = 123;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_COMPARTIR) {
+            // Pasa el resultado de vuelta al fragmento
+            fragmentInicio.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+
+
+
 
 }

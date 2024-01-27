@@ -40,14 +40,12 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="13dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="30dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/p_biblia"
-                app:shapeAppearanceOverlay="@style/radius"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtDescripcion" />
+                app:layout_constraintTop_toBottomOf="@+id/txtDescripcion"
+                app:shapeAppearanceOverlay="@style/radius" />
 
             <TextView
                 android:id="@+id/txtTitulo"
@@ -78,6 +76,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtTitulo" />
 
+
+            <ImageView
+                android:id="@+id/imgShare"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="15dp"
+                android:src="@drawable/icono_compartir_negro"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iconImageView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

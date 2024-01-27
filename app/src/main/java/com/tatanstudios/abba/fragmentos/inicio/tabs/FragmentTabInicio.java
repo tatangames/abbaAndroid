@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tatanstudios.abba.R;
+import com.tatanstudios.abba.activitys.inicio.CuestionarioInicioActivity;
+import com.tatanstudios.abba.activitys.inicio.InformacionPlanVistaActivity;
 import com.tatanstudios.abba.activitys.videos.VideoServidorActivity;
 import com.tatanstudios.abba.adaptadores.inicio.AdaptadorInicio;
 import com.tatanstudios.abba.adaptadores.planes.bloques.AdaptadorPreguntas;
@@ -99,6 +102,7 @@ public class FragmentTabInicio extends Fragment {
                 service.informacionBloqueInicio(iduser, idiomaPlan)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
+                        .retry()
                         .subscribe(apiRespuesta -> {
 
                                     progressBar.setVisibility(View.GONE);
@@ -107,9 +111,7 @@ public class FragmentTabInicio extends Fragment {
                                     if(apiRespuesta != null) {
 
                                         if(apiRespuesta.getSuccess() == 1) {
-
-                                                llenarBloques(apiRespuesta);
-
+                                            llenarBloques(apiRespuesta);
                                           }
                                         else{
                                             mensajeSinConexion();
@@ -129,7 +131,7 @@ public class FragmentTabInicio extends Fragment {
         modeloInicioSeparador = new ModeloInicioSeparador(
                 apiRespuesta.getVideomayor5(),
                 apiRespuesta.getImagenesmayor5(),
-                apiRespuesta.getInsigniashay()
+                apiRespuesta.getInsigniasmayor5()
         );
 
         if(apiRespuesta.getMostrarbloquedevocional() == 1 && apiRespuesta.getDevohaydevocional() == 1){
@@ -228,6 +230,39 @@ public class FragmentTabInicio extends Fragment {
         } else {
             mostrarVideo(urlVideo); // Facebook, Instagram, Youtube
         }
+    }
+
+
+    public void redireccionarCuestionario(int idblockdeta){
+        Intent intent = new Intent(getContext(), CuestionarioInicioActivity.class);
+        intent.putExtra("IDBLOCKDETA", idblockdeta);
+        startActivity(intent);
+    }
+
+
+    public void redireccionarInfoPlanVista(int idblockdeta){
+        Intent intent = new Intent(getContext(), InformacionPlanVistaActivity.class);
+        intent.putExtra("IDBLOCKDETA", idblockdeta);
+        startActivity(intent);
+    }
+
+
+    public void compartirAplicacion(){
+
+        String packageName = getContext().getPackageName();
+        String playStoreLink = "https://play.google.com/store/apps/details?id=" + packageName;
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
+        intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.compartir) + playStoreLink);
+
+        try {
+            startActivity(Intent.createChooser(intent, getString(R.string.compartir)));
+        } catch (Exception e) {
+
+        }
+
     }
 
 

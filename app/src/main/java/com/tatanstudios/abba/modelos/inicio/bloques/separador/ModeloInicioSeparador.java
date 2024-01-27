@@ -25,15 +25,5 @@ public class ModeloInicioSeparador {
         return hayMasDe5Insignias;
     }
 
-    public void setHayMasDe5Videos(int hayMasDe5Videos) {
-        this.hayMasDe5Videos = hayMasDe5Videos;
-    }
 
-    public void setHayMasDe5Imagenes(int hayMasDe5Imagenes) {
-        this.hayMasDe5Imagenes = hayMasDe5Imagenes;
-    }
-
-    public void setHayMasDe5Insignias(int hayMasDe5Insignias) {
-        this.hayMasDe5Insignias = hayMasDe5Insignias;
-    }
 }

@@ -162,12 +162,7 @@ public interface ApiService {
                                                                             @Field("idblockdeta") int idBlockDeta,
                                                                             @Field("idioma") int idioma);
 
-    // guardar las preguntas
-    @POST("app/plan/misplanes/preguntas/usuario/guardar")
-    @FormUrlEncoded
-    Observable<ModeloPreguntasContenedor> guardarPreguntasUsuarioPlanes(@Field("iduser") String iduser,
-                                                                        @Field("idblockdeta") int idBlockDeta,
-                                                                        @FieldMap Map<String, String> listado);
+
 
 
     // actualizar las preguntas
@@ -201,6 +196,25 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<ModeloContenedorInicio> informacionBloqueInicio(@Field("iduser") String iduser,
                                                                @Field("idiomaplan") int idiomaplan);
+
+
+    // informacion de un plan pero su vista
+    @POST("app/plan/informacion/solovista")
+    @FormUrlEncoded
+    Observable<ModeloPlanes> informacionPlanSoloVista(@Field("idblockdeta") int idblockdeta,
+                                                      @Field("idiomaplan") int idiomaplan);
+
+
+    // es para guardar preguntas, registrar en el plan sino lo estoy, y setear check aunque no se mire
+    // en esta parte en inicio cuestionario
+    @POST("app/plan/inicio/preguntas/guardar/actualizar")
+    @FormUrlEncoded
+    Observable<ModeloPreguntasContenedor> guardarPreguntasCuestionarioInicio(@Field("iduser") String iduser,
+                                                                        @Field("idblockdeta") int idBlockDeta,
+                                                                        @FieldMap Map<String, String> listado);
+
+
+
 
 
     //Observable<ModeloPlanesContenedor> listadoMisPlanesCompletados(@Body PaginationRequest request);

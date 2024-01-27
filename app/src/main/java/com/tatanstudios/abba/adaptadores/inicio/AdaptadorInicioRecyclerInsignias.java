@@ -1,24 +1,41 @@
 package com.tatanstudios.abba.adaptadores.inicio;
 
+import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.tatanstudios.abba.R;
 import com.tatanstudios.abba.modelos.inicio.bloques.imagenes.ModeloInicioImagenes;
 import com.tatanstudios.abba.modelos.inicio.bloques.insignias.ModeloInicioInsignias;
+import com.tatanstudios.abba.network.RetrofitBuilder;
 
 import java.util.List;
 
 public class AdaptadorInicioRecyclerInsignias extends RecyclerView.Adapter<AdaptadorInicioRecyclerInsignias.ViewHolder> {
 
     private List<ModeloInicioInsignias> modeloInicioInsignias;
+    private Context context;
 
-    public AdaptadorInicioRecyclerInsignias(List<ModeloInicioInsignias> modeloInicioInsignias) {
+    RequestOptions opcionesGlide = new RequestOptions()
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+            .placeholder(R.drawable.camaradefecto)
+            .priority(Priority.NORMAL);
+
+
+    public AdaptadorInicioRecyclerInsignias(Context context, List<ModeloInicioInsignias> modeloInicioInsignias) {
+        this.context = context;
         this.modeloInicioInsignias = modeloInicioInsignias;
     }
 
@@ -34,7 +51,20 @@ public class AdaptadorInicioRecyclerInsignias extends RecyclerView.Adapter<Adapt
     public void onBindViewHolder(@NonNull AdaptadorInicioRecyclerInsignias.ViewHolder holder, int position) {
         ModeloInicioInsignias m = modeloInicioInsignias.get(position);
 
+        if(m.getImageninsignia() != null && !TextUtils.isEmpty(m.getImageninsignia())){
+            Glide.with(context)
+                    .load(RetrofitBuilder.urlImagenes + m.getImageninsignia())
+                    .apply(opcionesGlide)
+                    .into(holder.imgLogo);
+        }else{
+            int resourceId = R.drawable.camaradefecto;
+            Glide.with(context)
+                    .load(resourceId)
+                    .apply(opcionesGlide)
+                    .into(holder.imgLogo);
+        }
 
+        holder.txtNivel.setText(String.valueOf(m.getNivelVoy()));
 
 
     }
@@ -47,12 +77,13 @@ public class AdaptadorInicioRecyclerInsignias extends RecyclerView.Adapter<Adapt
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView iconImageView;
+        private ImageView imgLogo;
+        private TextView txtNivel;
 
         ViewHolder(View itemView) {
             super(itemView);
-            iconImageView = itemView.findViewById(R.id.iconImageView);
-
+            imgLogo = itemView.findViewById(R.id.imgLogo);
+            txtNivel = itemView.findViewById(R.id.txtNivel);
         }
     }
 }

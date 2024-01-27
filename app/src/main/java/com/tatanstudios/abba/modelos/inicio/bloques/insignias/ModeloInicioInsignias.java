@@ -26,11 +26,41 @@ public class ModeloInicioInsignias {
     @SerializedName("nivelvoy")
     private int nivelVoy;
 
-    public ModeloInicioInsignias(int id, String titulo, String descripcion, int nivelVoy) {
+
+    @SerializedName("hitohaynextlevel")
+    private int hitohaynextlevel;
+
+
+    @SerializedName("hitocuantofalta")
+    private int hitocuantofalta;
+
+
+    @SerializedName("imageninsignia")
+    private String imageninsignia;
+
+
+
+
+
+    public ModeloInicioInsignias(int id, String titulo, String descripcion, int nivelVoy, String imageninsignia) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.nivelVoy = nivelVoy;
+        this.imageninsignia = imageninsignia;
+    }
+
+
+    public int getHitohaynextlevel() {
+        return hitohaynextlevel;
+    }
+
+    public int getHitocuantofalta() {
+        return hitocuantofalta;
+    }
+
+    public String getImageninsignia() {
+        return imageninsignia;
     }
 
     public int getId() {

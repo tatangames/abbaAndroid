@@ -2,6 +2,8 @@ package com.tatanstudios.abba.fragmentos.menu;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -31,6 +34,22 @@ public class FragmentInicio extends Fragment {
     private ImageView imgNoti;
 
     private TextView txtRacha;
+
+    private static final int REQUEST_CODE_COMPARTIR = 123;
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_COMPARTIR) {
+            if (resultCode == Activity.RESULT_OK) {
+                // El contenido fue compartido exitosamente
+                Toast.makeText(getActivity(), "La aplicación fue compartida exitosamente", Toast.LENGTH_SHORT).show();
+            } else {
+                // El usuario canceló la operación
+                Toast.makeText(getActivity(), "El usuario canceló la operación", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 
 
     @Override
@@ -96,16 +115,6 @@ public class FragmentInicio extends Fragment {
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        /*new TabLayoutMediator(tabLayout, viewPager,
-                (tab, position) -> {
-                    // Establece el texto de la pestaña según la posición
-                    if (position == 0) {
-                        tab.setText(getString(R.string.devocional));
-                    } else {
-                        tab.setText(getString(R.string.meditacion));
-                    }
-                }
-        ).attach();*/
 
         return vista;
     }
