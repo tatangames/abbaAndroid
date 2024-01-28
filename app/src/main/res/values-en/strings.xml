@@ -138,6 +138,13 @@
     <string name="abrir_con">To open with</string>
     <string name="informacion">Information</string>
     <string name="compartir">Share</string>
+    <string name="todos_los_videos">All videos</string>
+    <string name="descargar">Download</string>
+    <string name="permiso_denegado">Permission denied</string>
+    <string name="permiso_autorizado">Permission success</string>
+    <string name="permiso_almacenamiento_es_requerido">Storage permission is required</string>
+    <string name="guardado">Saved</string>
+    <string name="error_al_guardar">Error when saving</string>
 
 
 

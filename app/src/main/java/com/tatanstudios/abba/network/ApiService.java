@@ -1,6 +1,7 @@
 package com.tatanstudios.abba.network;
 
 import com.tatanstudios.abba.modelos.inicio.ModeloContenedorInicio;
+import com.tatanstudios.abba.modelos.inicio.bloques.videos.ModeloInicioVideos;
 import com.tatanstudios.abba.modelos.misplanes.ModeloMisPlanesContenedor;
 import com.tatanstudios.abba.modelos.misplanes.preguntas.ModeloPreguntasContenedor;
 import com.tatanstudios.abba.modelos.perfil.ModeloAjustes;
@@ -212,6 +213,17 @@ public interface ApiService {
     Observable<ModeloPreguntasContenedor> guardarPreguntasCuestionarioInicio(@Field("iduser") String iduser,
                                                                         @Field("idblockdeta") int idBlockDeta,
                                                                         @FieldMap Map<String, String> listado);
+
+    // obtener listado de todos los videos
+    @POST("app/inicio/todos/losvideos")
+    @FormUrlEncoded
+    Observable<ModeloContenedorInicio> obtenerTodosLosVideos(@Field("iduser") String iduser,
+                                                         @Field("idiomaplan") int idiomaplan);
+
+    // obtener listado de todos las imagenes
+    @POST("app/inicio/todos/lasimagenes")
+    @FormUrlEncoded
+    Observable<ModeloContenedorInicio> obtenerTodosLasImagenes(@Field("iduser") String iduser);
 
 
 

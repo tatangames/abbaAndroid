@@ -212,10 +212,10 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                 viewHolderImagenes.imgFlechaDerecha.setOnClickListener(v -> {
                     if(modeloInicioSeparador.getHayMasDe5Imagenes() == 1){
-
                         fragmentTabInicio.vistaTodosLasImagenes();
                     }
                 });
+
 
                 configurarRecyclerImagenes(viewHolderImagenes.recyclerViewImagenes, modeloVistasInicio.getModeloInicioImagenes());
                 break;
@@ -296,7 +296,7 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private void configurarRecyclerImagenes(RecyclerView recyclerView, List<ModeloInicioImagenes> modeloInicioImagenes) {
 
-        RecyclerView.Adapter adaptadorInterno = new AdaptadorInicioRecyclerImagenes(context, modeloInicioImagenes);
+        RecyclerView.Adapter adaptadorInterno = new AdaptadorInicioRecyclerImagenes(context, modeloInicioImagenes, fragmentTabInicio);
 
         recyclerView.setAdapter(adaptadorInterno);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false));

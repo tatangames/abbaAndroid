@@ -135,8 +135,6 @@ public class PlanesBloquesVistaActivity extends AppCompatActivity {
         int idiomaPlan = tokenManager.getToken().getIdiomaTextos();
         String iduser = tokenManager.getToken().getId();
 
-        Log.i("PORTADA", "id: " + idPlan);
-
         compositeDisposable.add(
                 service.informacionPlanBloqueVista(iduser, idiomaPlan, idPlan)
                         .subscribeOn(Schedulers.io())

@@ -65,6 +65,9 @@ dependencies {
     // confetii
     implementation("nl.dionsegijn:konfetti:1.2.2")
 
+    // manejo de permisos
+    implementation("pub.devrel:easypermissions:3.0.0")
+
 
     implementation("com.google.android.exoplayer:exoplayer:2.18.7")
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
