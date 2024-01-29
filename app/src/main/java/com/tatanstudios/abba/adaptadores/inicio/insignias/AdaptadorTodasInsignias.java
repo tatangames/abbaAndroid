@@ -55,26 +55,29 @@ public class AdaptadorTodasInsignias extends RecyclerView.Adapter<AdaptadorTodas
     public void onBindViewHolder(@NonNull AdaptadorTodasInsignias.ViewHolder holder, int position) {
         ModeloInicioInsignias m = modeloInicioInsignias.get(position);
 
-       /* if(m.getImagen() != null && !TextUtils.isEmpty(m.getImagen())){
+        if(m.getImageninsignia() != null && !TextUtils.isEmpty(m.getImageninsignia())){
             Glide.with(context)
-                    .load(RetrofitBuilder.urlImagenes + m.getImagen())
+                    .load(RetrofitBuilder.urlImagenes + m.getImageninsignia())
                     .apply(opcionesGlide)
-                    .into(holder.iconImageView);
+                    .into(holder.imgLogo);
         }else{
             int resourceId = R.drawable.camaradefecto;
             Glide.with(context)
                     .load(resourceId)
                     .apply(opcionesGlide)
-                    .into(holder.iconImageView);
+                    .into(holder.imgLogo);
         }
 
-        holder.setListener((view, po) -> {
-            if(m.getImagen() != null && !TextUtils.isEmpty(m.getImagen())){
-                listadoImagenesActivity.abrirModalImagenes(m.getImagen());
-            }
-        });*/
+        holder.txtNivel.setText(String.valueOf(m.getNivelVoy()));
+        holder.txtTitulo.setText(m.getTitulo());
 
-        holder.txtTitulo.setText("dfdsfd");
+
+
+
+        holder.setListener((view, po) -> {
+            listadoInsigniasActivity.verInformacionInsignia(m.getIdTipoInsignia());
+        });
+
     }
 
     @Override

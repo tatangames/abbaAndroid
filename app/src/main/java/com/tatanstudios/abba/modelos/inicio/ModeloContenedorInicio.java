@@ -5,6 +5,7 @@ import com.tatanstudios.abba.modelos.inicio.bloques.imagenes.ModeloInicioImagene
 import com.tatanstudios.abba.modelos.inicio.bloques.insignias.ModeloInicioInsignias;
 import com.tatanstudios.abba.modelos.inicio.bloques.videos.ModeloInicioVideos;
 import com.tatanstudios.abba.modelos.misplanes.ModeloMisPlanesBloqueDetalle;
+import com.tatanstudios.abba.modelos.rachas.ModeloRachas;
 
 import java.util.List;
 
@@ -15,6 +16,13 @@ public class ModeloContenedorInicio {
     public int success;
 
 
+    // *******************
+
+    // RACHA DEL USUARIO
+
+
+    @SerializedName("arrayracha")
+    public List<ModeloRachas> modeloRachas;
 
     //*******************
 
@@ -110,10 +118,9 @@ public class ModeloContenedorInicio {
     private int insigniasmayor5;
 
 
-
-
-
-
+    public List<ModeloRachas> getModeloRachas() {
+        return modeloRachas;
+    }
 
     public int getVideomayor5() {
         return videomayor5;

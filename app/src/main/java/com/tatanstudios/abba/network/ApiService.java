@@ -12,6 +12,7 @@ import com.tatanstudios.abba.modelos.planes.completados.ModeloPlanesCompletosPag
 import com.tatanstudios.abba.modelos.planes.completados.ModeloPlanesCompletadoContenedor;
 import com.tatanstudios.abba.modelos.planes.completados.ModeloPlanesCompletosPaginateRequest;
 import com.tatanstudios.abba.modelos.planes.cuestionario.ModeloCuestionario;
+import com.tatanstudios.abba.modelos.rachas.ModeloRachas;
 import com.tatanstudios.abba.modelos.usuario.ModeloUsuario;
 
 import java.util.Map;
@@ -238,6 +239,7 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<ModeloContenedorInicio> obtenerTodosLasInsignias(@Field("iduser") String iduser,
                                                                 @Field("idiomaplan") int idiomaplan);
+
 
 
 

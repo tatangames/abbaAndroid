@@ -155,9 +155,6 @@ public class FragmentMas extends Fragment {
         );
     }
 
-
-
-
     private void llenarLista(){
 
         elementos = new ArrayList<>();

@@ -66,11 +66,13 @@ import com.tatanstudios.abba.activitys.inicio.ListadoVideosActivity;
 import com.tatanstudios.abba.activitys.videos.VideoServidorActivity;
 import com.tatanstudios.abba.adaptadores.inicio.AdaptadorInicio;
 import com.tatanstudios.abba.extras.ImageUtils;
+import com.tatanstudios.abba.extras.OnDataUpdateListener;
 import com.tatanstudios.abba.modelos.inicio.ModeloContenedorInicio;
 import com.tatanstudios.abba.modelos.inicio.ModeloVistasInicio;
 import com.tatanstudios.abba.modelos.inicio.bloques.comparteapp.ModeloInicioComparteApp;
 import com.tatanstudios.abba.modelos.inicio.bloques.separador.ModeloInicioSeparador;
 import com.tatanstudios.abba.modelos.inicio.bloques.versiculos.ModeloInicioDevocional;
+import com.tatanstudios.abba.modelos.rachas.ModeloRachas;
 import com.tatanstudios.abba.network.ApiService;
 import com.tatanstudios.abba.network.RetrofitBuilder;
 import com.tatanstudios.abba.network.TokenManager;
@@ -133,6 +135,16 @@ public class FragmentTabInicio extends Fragment implements EasyPermissions.Permi
             .override(Target.SIZE_ORIGINAL); // Cargar la imagen con su resolución original
 
 
+    private OnDataUpdateListener onDataUpdateListener;
+
+    // Método de fábrica para crear una nueva instancia de Fragment1
+    public static FragmentTabInicio newInstance(OnDataUpdateListener listener) {
+        FragmentTabInicio fragment = new FragmentTabInicio();
+        fragment.onDataUpdateListener = listener;
+        return fragment;
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_tab_inicio, container, false);
@@ -157,7 +169,6 @@ public class FragmentTabInicio extends Fragment implements EasyPermissions.Permi
         progressBar.getIndeterminateDrawable().setColorFilter(colorProgress, PorterDuff.Mode.SRC_IN);
 
 
-
         colorBlanco = ContextCompat.getColor(requireContext(), R.color.white);
         colorBlack = ContextCompat.getColor(requireContext(), R.color.black);
         int colorGris = ContextCompat.getColor(requireContext(), R.color.colorGrisBtnDisable);
@@ -165,8 +176,6 @@ public class FragmentTabInicio extends Fragment implements EasyPermissions.Permi
         colorStateTintGrey = ColorStateList.valueOf(colorGris);
         colorStateTintWhite = ColorStateList.valueOf(colorBlanco);
         colorStateTintBlack = ColorStateList.valueOf(colorBlack);
-
-
 
         apiBuscarDatos();
 
@@ -211,6 +220,22 @@ public class FragmentTabInicio extends Fragment implements EasyPermissions.Permi
     }
 
     private void llenarBloques(ModeloContenedorInicio apiRespuesta){
+
+        // llenar un modelo de rachas
+
+        ModeloRachas modeloRachas = null;
+
+        for (ModeloRachas mRa : apiRespuesta.getModeloRachas()){
+            modeloRachas = new ModeloRachas(mRa.getDiasesteanio(),
+                    mRa.getDiasconcecutivos(), mRa.getNivelrachaalta(),
+                    mRa.getDomingo(), mRa.getLunes(), mRa.getMartes(),
+                    mRa.getMiercoles(), mRa.getJueves(), mRa.getViernes(),
+                    mRa.getSabado());
+        }
+
+        if (onDataUpdateListener != null) {
+            onDataUpdateListener.updateData(modeloRachas);
+        }
 
         modeloInicioSeparador = new ModeloInicioSeparador(
                 apiRespuesta.getVideomayor5(),

@@ -146,9 +146,16 @@
     <string name="guardado">Saved</string>
     <string name="error_al_guardar">Error when saving</string>
     <string name="hitos">Milestones</string>
-
-
-
+    <string name="racha_mas_alta">Highest streak</string>
+    <string name="dias_seguidos">Consecutive days</string>
+    <string name="letra_lunes">M</string>
+    <string name="letra_martes">T</string>
+    <string name="letra_miercoles">W</string>
+    <string name="letra_jueves">T</string>
+    <string name="letra_viernes">F</string>
+    <string name="letra_sabado">S</string>
+    <string name="letra_domingo">S</string>
+    <string name="dias_app_este_anio">days in the app this year</string>
 
 
 

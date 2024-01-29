@@ -7,21 +7,26 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.tatanstudios.abba.R;
+import com.tatanstudios.abba.fragmentos.menu.FragmentInicio;
 
 public class TabPagerAdapter extends FragmentPagerAdapter {
 
+
+    private FragmentInicio fragmentInicio;
+
     private Context context;
 
-    public TabPagerAdapter(Context context, FragmentManager fm) {
+    public TabPagerAdapter(Context context, FragmentManager fm, FragmentInicio fragmentInicio) {
         super(fm);
         this.context = context;
+        this.fragmentInicio = fragmentInicio;
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new FragmentTabInicio();
+                return FragmentTabInicio.newInstance(fragmentInicio);
             case 1:
                 return new FragmentTabComunidad();
             // Agrega más fragmentos según sea necesario

@@ -146,9 +146,16 @@
     <string name="guardado">Guardado</string>
     <string name="error_al_guardar">Error al guardar</string>
     <string name="hitos">Hitos</string>
-
-
-
+    <string name="racha_mas_alta">Racha más alta</string>
+    <string name="dias_seguidos">Días seguidos</string>
+    <string name="letra_lunes">L</string>
+    <string name="letra_martes">M</string>
+    <string name="letra_miercoles">M</string>
+    <string name="letra_jueves">J</string>
+    <string name="letra_viernes">V</string>
+    <string name="letra_sabado">S</string>
+    <string name="letra_domingo">D</string>
+    <string name="dias_app_este_anio">días en la app este año</string>
 
 
 

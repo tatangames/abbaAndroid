@@ -180,6 +180,13 @@ public class ListadoInsigniasActivity extends AppCompatActivity {
     }
 
 
+    public void verInformacionInsignia(int idtipoinsign){
+        Intent intent = new Intent(this, InformacionInsigniaActivity.class);
+        intent.putExtra("IDINSIGNIA", idtipoinsign);
+        startActivity(intent);
+    }
+
+
     private void volverAtras(){
         finish();
     }
