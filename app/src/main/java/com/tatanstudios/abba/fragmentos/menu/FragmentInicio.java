@@ -171,7 +171,9 @@ public class FragmentInicio extends Fragment implements OnDataUpdateListener {
 
             txtRachaAlta.setText(String.valueOf(modeloRachas.getNivelrachaalta()));
             txtDiasSeguidos.setText(String.valueOf(modeloRachas.getDiasconcecutivos()));
-            txtDiasEsteAnio.setText(String.valueOf(modeloRachas.getDiasesteanio()));
+
+            String texto = modeloRachas.getDiasesteanio() + " " + getString(R.string.dias_app_este_anio);
+            txtDiasEsteAnio.setText(texto);
 
             if(modeloRachas.getLunes() == 1){
                 imgLunes.setImageResource(R.drawable.circuloblancocronometro);

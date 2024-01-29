@@ -1,5 +1,6 @@
 package com.tatanstudios.abba.network;
 
+import com.tatanstudios.abba.modelos.comunidad.ModeloComunidadContenedor;
 import com.tatanstudios.abba.modelos.inicio.ModeloContenedorInicio;
 import com.tatanstudios.abba.modelos.inicio.bloques.videos.ModeloInicioVideos;
 import com.tatanstudios.abba.modelos.insignias.ModeloContenedorInsignias;
@@ -241,6 +242,11 @@ public interface ApiService {
                                                                 @Field("idiomaplan") int idiomaplan);
 
 
+    // listado de solicitudes aprobadas en una comunidad
+    @POST("app/comunidad/listado/solicitud/aceptadas")
+    @FormUrlEncoded
+    Observable<ModeloComunidadContenedor> listadoComunidadAceptado(@Field("iduser") String iduser,
+                                                                   @Field("idiomaplan") int idiomaplan);
 
 
 
