@@ -2,11 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="275dp"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-    <!-- Aquí va tu ImageView con la imagen -->
 
     <ImageView
         android:id="@+id/imgLogo"
@@ -25,12 +23,14 @@
         android:layout_gravity="bottom|end"
         android:layout_marginStart="5dp"
         android:layout_marginTop="112dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/caja_redondeado_gris"
         android:padding="8dp"
         android:paddingLeft="3dp"
         android:paddingRight="3dp"
         android:textColor="#FFFFFF"
         android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgLogo"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,7 +42,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="15dp"
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
         android:textColor="@color/colorTextoLightDark"
@@ -53,3 +53,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -2,6 +2,7 @@ package com.tatanstudios.abba.network;
 
 import com.tatanstudios.abba.modelos.inicio.ModeloContenedorInicio;
 import com.tatanstudios.abba.modelos.inicio.bloques.videos.ModeloInicioVideos;
+import com.tatanstudios.abba.modelos.insignias.ModeloContenedorInsignias;
 import com.tatanstudios.abba.modelos.misplanes.ModeloMisPlanesContenedor;
 import com.tatanstudios.abba.modelos.misplanes.preguntas.ModeloPreguntasContenedor;
 import com.tatanstudios.abba.modelos.perfil.ModeloAjustes;
@@ -224,6 +225,20 @@ public interface ApiService {
     @POST("app/inicio/todos/lasimagenes")
     @FormUrlEncoded
     Observable<ModeloContenedorInicio> obtenerTodosLasImagenes(@Field("iduser") String iduser);
+
+    // informacion de la insignia seleccionada
+    @POST("app/insignia/individual/informacion")
+    @FormUrlEncoded
+    Observable<ModeloContenedorInsignias> informacionInsigniaSeleccionada(@Field("iduser") String iduser,
+                                                                          @Field("idiomaplan") int idiomaplan,
+                                                                          @Field("idinsignia") int idinsignia);
+
+    // obtener listado de todas las insignias
+    @POST("app/inicio/todos/lasinsignias")
+    @FormUrlEncoded
+    Observable<ModeloContenedorInicio> obtenerTodosLasInsignias(@Field("iduser") String iduser,
+                                                                @Field("idiomaplan") int idiomaplan);
+
 
 
 

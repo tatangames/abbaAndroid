@@ -1,4 +1,4 @@
-package com.tatanstudios.abba.adaptadores.inicio;
+package com.tatanstudios.abba.adaptadores.inicio.insignias;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -16,20 +16,20 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.tatanstudios.abba.R;
+import com.tatanstudios.abba.activitys.inicio.ListadoImagenesActivity;
+import com.tatanstudios.abba.activitys.inicio.ListadoInsigniasActivity;
 import com.tatanstudios.abba.extras.IOnRecyclerViewClickListener;
-import com.tatanstudios.abba.fragmentos.inicio.tabs.FragmentTabInicio;
 import com.tatanstudios.abba.modelos.inicio.bloques.imagenes.ModeloInicioImagenes;
 import com.tatanstudios.abba.modelos.inicio.bloques.insignias.ModeloInicioInsignias;
 import com.tatanstudios.abba.network.RetrofitBuilder;
 
 import java.util.List;
 
-public class AdaptadorInicioRecyclerInsignias extends RecyclerView.Adapter<AdaptadorInicioRecyclerInsignias.ViewHolder> {
+public class AdaptadorTodasInsignias extends RecyclerView.Adapter<AdaptadorTodasInsignias.ViewHolder> {
 
     private List<ModeloInicioInsignias> modeloInicioInsignias;
     private Context context;
-
-    private FragmentTabInicio fragmentTabInicio;
+    private ListadoInsigniasActivity listadoInsigniasActivity;
 
     RequestOptions opcionesGlide = new RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -37,57 +37,48 @@ public class AdaptadorInicioRecyclerInsignias extends RecyclerView.Adapter<Adapt
             .placeholder(R.drawable.camaradefecto)
             .priority(Priority.NORMAL);
 
-
-    public AdaptadorInicioRecyclerInsignias(Context context, List<ModeloInicioInsignias> modeloInicioInsignias, FragmentTabInicio fragmentTabInicio) {
+    public AdaptadorTodasInsignias(Context context, List<ModeloInicioInsignias> modeloInicioInsignias, ListadoInsigniasActivity listadoInsigniasActivity) {
         this.context = context;
         this.modeloInicioInsignias = modeloInicioInsignias;
-        this.fragmentTabInicio = fragmentTabInicio;
+        this.listadoInsigniasActivity = listadoInsigniasActivity;
     }
 
     @NonNull
     @Override
-    public AdaptadorInicioRecyclerInsignias.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AdaptadorTodasInsignias.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View itemView = inflater.inflate(R.layout.cardview_inicio_insignias, parent, false);
-        return new AdaptadorInicioRecyclerInsignias.ViewHolder(itemView);
+        View itemView = inflater.inflate(R.layout.cardview_listado_todas_insignias, parent, false);
+        return new AdaptadorTodasInsignias.ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdaptadorInicioRecyclerInsignias.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdaptadorTodasInsignias.ViewHolder holder, int position) {
         ModeloInicioInsignias m = modeloInicioInsignias.get(position);
 
-        if(m.getImageninsignia() != null && !TextUtils.isEmpty(m.getImageninsignia())){
+       /* if(m.getImagen() != null && !TextUtils.isEmpty(m.getImagen())){
             Glide.with(context)
-                    .load(RetrofitBuilder.urlImagenes + m.getImageninsignia())
+                    .load(RetrofitBuilder.urlImagenes + m.getImagen())
                     .apply(opcionesGlide)
-                    .into(holder.imgLogo);
+                    .into(holder.iconImageView);
         }else{
             int resourceId = R.drawable.camaradefecto;
             Glide.with(context)
                     .load(resourceId)
                     .apply(opcionesGlide)
-                    .into(holder.imgLogo);
+                    .into(holder.iconImageView);
         }
-
-        if(m.getTitulo() != null && !TextUtils.isEmpty(m.getTitulo())){
-            holder.txtTitulo.setText(m.getTitulo());
-            holder.txtTitulo.setVisibility(View.VISIBLE);
-        }else{
-            holder.txtTitulo.setVisibility(View.GONE);
-        }
-
-        holder.txtNivel.setText(String.valueOf(m.getNivelVoy()));
 
         holder.setListener((view, po) -> {
-            fragmentTabInicio.vistaInformacionInsignia(m.getIdTipoInsignia());
-        });
+            if(m.getImagen() != null && !TextUtils.isEmpty(m.getImagen())){
+                listadoImagenesActivity.abrirModalImagenes(m.getImagen());
+            }
+        });*/
 
-
+        holder.txtTitulo.setText("dfdsfd");
     }
 
     @Override
     public int getItemCount() {
-
 
         return modeloInicioInsignias.size();
     }
@@ -95,10 +86,8 @@ public class AdaptadorInicioRecyclerInsignias extends RecyclerView.Adapter<Adapt
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private ImageView imgLogo;
         private TextView txtNivel;
-
         private TextView txtTitulo;
-
-        IOnRecyclerViewClickListener listener;
+        private IOnRecyclerViewClickListener listener;
 
         public void setListener(IOnRecyclerViewClickListener listener) {
             this.listener = listener;
@@ -109,6 +98,7 @@ public class AdaptadorInicioRecyclerInsignias extends RecyclerView.Adapter<Adapt
             imgLogo = itemView.findViewById(R.id.imgLogo);
             txtNivel = itemView.findViewById(R.id.txtNivel);
             txtTitulo = itemView.findViewById(R.id.txtTitulo);
+
             itemView.setOnClickListener(this);
         }
 

@@ -18,20 +18,22 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="com.mydomain.fileprovider"
+        <activity
+            android:name=".activitys.inicio.InformacionInsigniaActivity"
+            android:configChanges="uiMode"
             android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activitys.inicio.ListadoInsigniasActivity"
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".activitys.inicio.ListadoImagenesActivity"
-            android:exported="false" />
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activitys.inicio.ListadoVideosActivity"
             android:configChanges="uiMode"

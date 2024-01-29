@@ -110,12 +110,12 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ModeloVistasInicio modeloVistasInicio = modeloVistasInicios.get(position);
+        ModeloVistasInicio mVista = modeloVistasInicios.get(position);
 
-        switch (modeloVistasInicio.getTipoVista()) {
+        switch (mVista.getTipoVista()) {
             case ModeloVistasInicio.TIPO_DEVOCIONAL:
 
-                ModeloInicioDevocional m = modeloVistasInicio.getModeloInicioDevocional();
+                ModeloInicioDevocional m = mVista.getModeloInicioDevocional();
 
                 AdaptadorInicio.DevocionalViewHolder viewHolderDevocional = (AdaptadorInicio.DevocionalViewHolder) holder;
 
@@ -196,7 +196,7 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     }
                 });
 
-                configurarRecyclerVideos(viewHolderVideo.recyclerViewVideos, modeloVistasInicio.getModeloInicioVideos());
+                configurarRecyclerVideos(viewHolderVideo.recyclerViewVideos, mVista.getModeloInicioVideos());
                 break;
 
             case ModeloVistasInicio.TIPO_IMAGENES:
@@ -217,12 +217,12 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 });
 
 
-                configurarRecyclerImagenes(viewHolderImagenes.recyclerViewImagenes, modeloVistasInicio.getModeloInicioImagenes());
+                configurarRecyclerImagenes(viewHolderImagenes.recyclerViewImagenes, mVista.getModeloInicioImagenes());
                 break;
             case ModeloVistasInicio.TIPO_COMPARTEAPP:
                 AdaptadorInicio.ComparteAppViewHolder viewHolderComparteApp = (AdaptadorInicio.ComparteAppViewHolder) holder;
 
-                ModeloInicioComparteApp mComparte = modeloVistasInicio.getModeloInicioComparteApp();
+                ModeloInicioComparteApp mComparte = mVista.getModeloInicioComparteApp();
 
                 if(mComparte.getTitulo() != null && !TextUtils.isEmpty(mComparte.getTitulo())){
                     viewHolderComparteApp.txtTitulo.setText(mComparte.getTitulo());
@@ -270,7 +270,14 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     viewHolderInsignias.imgFlechaDerecha.setVisibility(View.GONE);
                 }
 
-                configurarRecyclerInsignias(viewHolderInsignias.recyclerViewInsignias, modeloVistasInicio.getModeloInicioInsignias());
+                viewHolderInsignias.imgFlechaDerecha.setOnClickListener(v -> {
+                    if(modeloInicioSeparador.getHayMasDe5Insignias() == 1){
+                        fragmentTabInicio.vistaTodosLasInsignias();
+                    }
+                });
+
+
+                configurarRecyclerInsignias(viewHolderInsignias.recyclerViewInsignias, mVista.getModeloInicioInsignias());
                 break;
         }
     }
@@ -306,7 +313,7 @@ public class AdaptadorInicio extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private void configurarRecyclerInsignias(RecyclerView recyclerView, List<ModeloInicioInsignias> modeloInicioInsignias) {
 
-        RecyclerView.Adapter adaptadorInterno = new AdaptadorInicioRecyclerInsignias(context, modeloInicioInsignias);
+        RecyclerView.Adapter adaptadorInterno = new AdaptadorInicioRecyclerInsignias(context, modeloInicioInsignias, fragmentTabInicio);
         recyclerView.setAdapter(adaptadorInterno);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false));
     }

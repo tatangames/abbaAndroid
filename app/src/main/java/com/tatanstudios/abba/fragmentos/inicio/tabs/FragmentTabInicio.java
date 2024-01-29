@@ -58,8 +58,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.tatanstudios.abba.R;
 import com.tatanstudios.abba.activitys.inicio.CuestionarioInicioActivity;
+import com.tatanstudios.abba.activitys.inicio.InformacionInsigniaActivity;
 import com.tatanstudios.abba.activitys.inicio.InformacionPlanVistaActivity;
 import com.tatanstudios.abba.activitys.inicio.ListadoImagenesActivity;
+import com.tatanstudios.abba.activitys.inicio.ListadoInsigniasActivity;
 import com.tatanstudios.abba.activitys.inicio.ListadoVideosActivity;
 import com.tatanstudios.abba.activitys.videos.VideoServidorActivity;
 import com.tatanstudios.abba.adaptadores.inicio.AdaptadorInicio;
@@ -508,6 +510,11 @@ public class FragmentTabInicio extends Fragment implements EasyPermissions.Permi
         startActivity(intent);
     }
 
+    public void vistaInformacionInsignia(int tipoinsignia){
+        Intent intent = new Intent(getContext(), InformacionInsigniaActivity.class);
+        intent.putExtra("IDINSIGNIA", tipoinsignia);
+        startActivity(intent);
+    }
 
     public void compartirAplicacion(){
 
@@ -547,6 +554,11 @@ public class FragmentTabInicio extends Fragment implements EasyPermissions.Permi
 
     public void vistaTodosLasImagenes(){
         Intent intent = new Intent(getContext(), ListadoImagenesActivity.class);
+        startActivity(intent);
+    }
+
+    public void vistaTodosLasInsignias(){
+        Intent intent = new Intent(getContext(), ListadoInsigniasActivity.class);
         startActivity(intent);
     }
 
